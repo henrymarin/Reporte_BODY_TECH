@@ -27,6 +27,10 @@ repositories {
 
 
 dependencies {
+ 	// JPA Data (We are going to use Repositories, Entities, Hibernate, etc...)
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // Use MySQL Connector-J
+    compile 'mysql:mysql-connector-java'
 	// https://mvnrepository.com/artifact/com.mypurecloud/platform-client-v2
 	compile group: 'com.mypurecloud', name: 'platform-client-v2', version: '3.1.0'
 	compile('org.springframework.boot:spring-boot-starter-web','org.apache.tomcat.embed:tomcat-embed-jasper','javax.servlet:jstl')
