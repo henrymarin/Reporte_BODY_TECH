@@ -13,7 +13,7 @@ if(window.location.hash) {
             console.log(data);
         }
     });
-    //--llamado interno a restController
+    //--llamado interno a restController 0001
     $.ajax({
         url: "http://localhost:8080/probarSDK",
         type: "POST",
@@ -28,6 +28,23 @@ if(window.location.hash) {
             console.log(data);
         }
     });
+    //--llamado interno a restController 0002
+    $.ajax({
+        url: "http://localhost:8080/iniciarProcesoDePrecarga",
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json",       
+        data: JSON.stringify(
+        	{        
+            "entradaUno": token            
+        	}
+        ),
+        success: function(data) {			
+            console.log(data);
+        }
+    });
+
+    
     //--
     location.hash=''
 }
