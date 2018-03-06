@@ -1,0 +1,38 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.3.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+jar {
+	baseName = 'boot-gradle'
+	version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	// https://mvnrepository.com/artifact/com.mypurecloud/platform-client-v2
+	compile group: 'com.mypurecloud', name: 'platform-client-v2', version: '3.1.0'
+	compile('org.springframework.boot:spring-boot-starter-web','org.apache.tomcat.embed:tomcat-embed-jasper','javax.servlet:jstl')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+bootRepackage {
+    mainClass = 'com.javainuse.BootGradleApplication'
+}
