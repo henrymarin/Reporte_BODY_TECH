@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bodytech.reporte.repositorios.UserRepository;
+import com.bodytech.reporte.entidades.User;
 import com.mypurecloud.sdk.v2.ApiClient;
 import com.mypurecloud.sdk.v2.ApiException;
 import com.mypurecloud.sdk.v2.Configuration;
@@ -47,8 +46,7 @@ import net.minidev.json.JSONObject;
 @Controller
 public class TestController {
 	
-	@Autowired private UserRepository userRepository;
-
+	
 	@RequestMapping("/welcome.html")
 	public ModelAndView firstPage() {
 		return new ModelAndView("welcome");
@@ -207,7 +205,6 @@ public class TestController {
 						n = new User();
 						n.setName(conversacion.getConversationId());
 						n.setEmail(conversacion.getConversationEnd().toGMTString());
-						userRepository.save(n);
 					}
 			    } catch (ApiException e) {
 			        System.err.println("Exception when calling ConversationsApi#postAnalyticsConversationsDetailsQuery");
@@ -224,7 +221,6 @@ public class TestController {
 			User n = new User();
 			n.setName(name);
 			n.setEmail(email);
-			userRepository.save(n);
 			return "Saved";
 		}
 		
@@ -394,7 +390,6 @@ public class TestController {
 							n = new User();
 							n.setName(conversacion.getConversationId());
 							n.setEmail(conversacion.getConversationEnd().toGMTString());
-							userRepository.save(n);
 						}
 				    } catch (ApiException e) {
 				        System.err.println("Exception when calling ConversationsApi#postAnalyticsConversationsDetailsQuery");

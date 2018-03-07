@@ -1,4 +1,4 @@
-package com.javainuse;
+package com.bodytech.reporte.entidades;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

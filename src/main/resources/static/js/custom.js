@@ -30,7 +30,7 @@ if(window.location.hash) {
     });
     //--llamado interno a restController 0002
     $.ajax({
-        url: "http://localhost:8080/iniciarProcesoDePrecarga",
+        url: "http://localhost:8080/guardarDatos",
         type: "POST",
         dataType: "json",
         contentType: "application/json",       
