@@ -58,6 +58,12 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 		taskExecutor.execute(new Runnable() {
 	            @Override
 	            public void run() {
+	            	//--I N I C I O		Proceso de eliminacion de registros existente
+	            	conversacionRepository.deleteAll();
+	            	conversacionesPorTipoRepository.deleteAll();
+	            	estadosPorAgenteRepository.deleteAll();	            	
+	            	//-- F I N   		Proceso de eliminacion de registros existente
+	            	
 	            	System.out.println("INICIA LA CARGA!!!");
 	            	// Start the clock
 	            	long start = System.currentTimeMillis();
@@ -68,20 +74,29 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 					// Instantiate APIs ConversationsApi
 					ConversationsApi apiInstance = new ConversationsApi();
 					//--
-					ConversationQuery body = new ConversationQuery(); // ConversationQuery | query
-					guardarDatosCrearFiltroConversationQuery(body, dto);
-					    try {
-					    	//						<<<<--- R E S P O N S E 	ConversationsDetailsQuery---->>>>>	    	
-							AnalyticsConversationQueryResponse result = apiInstance.postAnalyticsConversationsDetailsQuery(body);
-							if(Objects.nonNull(result) && Objects.nonNull(result.getConversations()) && !result.getConversations().isEmpty()){
-								List<AnalyticsConversation> conversations = result.getConversations();
-								for (AnalyticsConversation conversacionPC : conversations) {
-									guardarDatosProcesoPrincipal(conversacionPC, dto);
-								}	        	
-							}
-					} catch (ApiException | IOException e) {
-						logger.error(e.getMessage());
-					}
+					Integer paginaConversationQuery = 1;
+					boolean conversationQueryObtuvoResultados = true;
+			        do {   
+			            //--
+						ConversationQuery body = new ConversationQuery(); // ConversationQuery | query
+						guardarDatosCrearFiltroConversationQuery(body, dto, paginaConversationQuery);
+						    try {
+						    	//						<<<<--- R E S P O N S E 	ConversationsDetailsQuery---->>>>>	    	
+								AnalyticsConversationQueryResponse result = apiInstance.postAnalyticsConversationsDetailsQuery(body);
+								if(Objects.nonNull(result) && Objects.nonNull(result.getConversations()) && !result.getConversations().isEmpty()){
+									List<AnalyticsConversation> conversations = result.getConversations();
+									for (AnalyticsConversation conversacionPC : conversations) {
+										guardarDatosProcesoPrincipal(conversacionPC, dto);
+									}
+									paginaConversationQuery+=1;
+								}else{
+									conversationQueryObtuvoResultados = false;
+								}
+						} catch (ApiException | IOException e) {
+							logger.error(e.getMessage());
+						}
+						//--			            
+			        } while (conversationQueryObtuvoResultados);
 				    // Print results, including elapsed time
 					System.out.println("Elapsed time in minutes: " + ( (System.currentTimeMillis() - start) * (0.0000167) ) );
 					System.out.println("FIN DE LA CARGA!!!");
@@ -108,20 +123,27 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 						if(Objects.nonNull(participante) && Objects.nonNull(participante.getUserId())){
 							UsersApi userApiInstance = guardarDatosProcesoPrincipalConfigurarParticipantesNombreDelAgente(conversacion, participante);							
 							// 			E S T A D  O S 		DE LOS AGENTES, columnas [K, L, C, P, Q]
-							UserDetailsQuery userBody = guardarDatosProcesoPrincipalConfigurarParticipantesCrearFiltroUserDetail(participante, dto);													
-							try {
-						    	//						<<<<--- R E S P O N S E 	postAnalyticsUsersDetailsQuery---->>>>>						
-							    AnalyticsUserDetailsQueryResponse userResult = userApiInstance.postAnalyticsUsersDetailsQuery(userBody);
-							    if(Objects.nonNull(userResult) && Objects.nonNull(userResult.getUserDetails()) && !userResult.getUserDetails().isEmpty()){
-								    List<AnalyticsUserDetail> userDetails = userResult.getUserDetails();					    
-								    for (AnalyticsUserDetail userDetail : userDetails) {
-								    	guardarDatosProcesoPrincipalConfigurarParticipantesEstadosPorAgenteProcesoPrincipal(conversacionPC, participante, userDetail);
-									}													    	
-							    }													    
-							} catch (ApiException e) {
-								logger.error(e.getMessage());
-							}
-							//fin estado de los agentes							
+							Integer paginaUserDetailsQuery = 1;
+							boolean userDetailsQueryObtuvoResultados = true;
+					        do { 
+								UserDetailsQuery userBody = guardarDatosProcesoPrincipalConfigurarParticipantesCrearFiltroUserDetail(participante, dto, paginaUserDetailsQuery);													
+								try {
+							    	//						<<<<--- R E S P O N S E 	postAnalyticsUsersDetailsQuery---->>>>>						
+								    AnalyticsUserDetailsQueryResponse userResult = userApiInstance.postAnalyticsUsersDetailsQuery(userBody);
+								    if(Objects.nonNull(userResult) && Objects.nonNull(userResult.getUserDetails()) && !userResult.getUserDetails().isEmpty()){
+									    List<AnalyticsUserDetail> userDetails = userResult.getUserDetails();					    
+									    for (AnalyticsUserDetail userDetail : userDetails) {
+									    	guardarDatosProcesoPrincipalConfigurarParticipantesEstadosPorAgenteProcesoPrincipal(conversacionPC, participante, userDetail);
+										}
+									    paginaUserDetailsQuery += 1;
+								    }else{
+								    	userDetailsQueryObtuvoResultados = false;
+								    }
+								} catch (ApiException e) {
+									logger.error(e.getMessage());
+								}
+								//fin estado de los agentes						        	
+					        } while (userDetailsQueryObtuvoResultados);						
 							//			N U M E R O 		de interacciones de {voz, chat, email}, columnas [D, E y F]	
 							guardarDatosProcesoPrincipalConfigurarParticipantesNumeroDeIteraciones(conversacionPC,participante);
 						}												
@@ -179,13 +201,14 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 					}
 				}
 
-				private UserDetailsQuery guardarDatosProcesoPrincipalConfigurarParticipantesCrearFiltroUserDetail(AnalyticsParticipant participante,DtoEntrada dto) {
+				private UserDetailsQuery guardarDatosProcesoPrincipalConfigurarParticipantesCrearFiltroUserDetail(AnalyticsParticipant participante,DtoEntrada dto, Integer paginaUserDetailsQuery) {
 					UserDetailsQuery userBody = new UserDetailsQuery(); // UserDetailsQuery | query
 					userBody.setInterval(dto.getFechaUno()+"/"+dto.getFechaDos());
-					userBody.setInterval("2018-03-06T05:00:00.000Z/2018-03-07T05:00:00.000Z");
+					//userBody.setInterval("2018-03-06T05:00:00.000Z/2018-03-07T05:00:00.000Z");
+					userBody.setInterval("2018-03-08T05:00:00.000Z/2018-03-08T13:00:00.000Z");
 					//--
 					PagingSpec userPaging = new PagingSpec();
-					userPaging.setPageNumber(Integer.valueOf("1"));
+					userPaging.setPageNumber(paginaUserDetailsQuery);
 					userPaging.setPageSize(Integer.valueOf("100"));
 					userBody.setPaging(userPaging);
 					List<AnalyticsQueryFilter> userFilters = new ArrayList<>();
@@ -218,12 +241,13 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 					return userApiInstance;
 				}
 
-				private void guardarDatosCrearFiltroConversationQuery(ConversationQuery body,DtoEntrada dto) {
+				private void guardarDatosCrearFiltroConversationQuery(ConversationQuery body,DtoEntrada dto, Integer paginaConversationQuery) {
 					body.setInterval(dto.getFechaUno()+"/"+dto.getFechaDos());
-					body.setInterval("2018-03-06T05:00:00.000Z/2018-03-07T05:00:00.000Z");
+					//body.setInterval("2018-03-06T05:00:00.000Z/2018-03-07T05:00:00.000Z");
+					body.setInterval("2018-03-08T05:00:00.000Z/2018-03-08T13:00:00.000Z");					
 					//--
 					PagingSpec paging = new PagingSpec();
-					paging.setPageNumber(Integer.valueOf("1"));
+					paging.setPageNumber(paginaConversationQuery);
 					paging.setPageSize(Integer.valueOf("100"));
 					body.setPaging(paging);
 					//--
