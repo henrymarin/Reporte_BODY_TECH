@@ -11,6 +11,39 @@
  		<script src="js/custom.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script> 
 		<script type="text/javascript" src="js/tech.js"></script> 
+		
+		<link href="css/jquery-ui-1.7.2.custom.css" rel="stylesheet">
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
+		
+	 	<script type="text/javascript">
+			jQuery(function($){
+				$.datepicker.regional['es'] = {
+					closeText: 'Cerrar',
+					prevText: '&#x3c;Ant',
+					nextText: 'Sig&#x3e;',
+					currentText: 'Hoy',
+					monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+					'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+					monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+					'Jul','Ago','Sep','Oct','Nov','Dic'],
+					dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
+					dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b'],
+					dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
+					weekHeader: 'Sm',
+					dateFormat: 'dd/mm/yy',
+					firstDay: 1,
+					isRTL: false,
+					showMonthAfterYear: false,
+					yearSuffix: ''};
+				$.datepicker.setDefaults($.datepicker.regional['es']);
+			});    
+			//--
+	        $(document).ready(function() {
+	           $("#datepicker").datepicker();
+	           $("#datepicker2").datepicker();
+	        });
+	    </script>		
 	</head>
 	<body>
 		<div class="wrapper">
@@ -40,8 +73,7 @@
 						<div>
 							<div class="row">
 								<div class="col-md-12">
-									sadsadsakjdh as dasjkdhsak as ashdsakjd hska askjdhs adkasj dhkash dkasj hdkjash dkjsah dkjas h
-									sadsadsakjdh as dasjkdhsak as ashdsakjd hska askjdhs adkasj dhkash dkasj hdkjash dkjsah dkjas h
+									El proceso de precarga se ha iniciado satisfactoriamente, una vez termine, podrá ejecutar el proceso de generación del reporte.									
 								</div>								
 							</div>
 						</div>
@@ -54,10 +86,10 @@
 						<div id="precarga">
 							<div class="row">
 								<div class="col-md-3">
-									<input type="" name="" placeholder="Fecha Inicio">
+									 <input placeholder="Fecha Inicial" title="Fecha Inicial" type="text" name="datepicker" id="datepicker" readonly="readonly" size="12" />
 								</div>
 								<div class="col-md-3">
-									<input type="" name="" placeholder="Fecha Final">
+									 <input placeholder="Fecha Final" title="Fecha Final" type="text" name="datepicker2" id="datepicker2" readonly="readonly" size="12" />
 								</div>
 								<div class="col-md-3">
 									<button class="precarga" onclick="main();">REALIZAR PRECARGA</button>

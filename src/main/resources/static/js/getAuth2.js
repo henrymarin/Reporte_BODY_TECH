@@ -1,6 +1,6 @@
 
 
- function main(){
+ function main(funcionalidad){
     var queryStringData = {
         response_type : "token",
         client_id : "6a059687-32c9-4f87-af90-89b6adf7e282",
