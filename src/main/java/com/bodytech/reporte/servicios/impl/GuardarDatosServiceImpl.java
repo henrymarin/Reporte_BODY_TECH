@@ -205,7 +205,7 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 					UserDetailsQuery userBody = new UserDetailsQuery(); // UserDetailsQuery | query
 					userBody.setInterval(dto.getFechaUno()+"/"+dto.getFechaDos());
 					//userBody.setInterval("2018-03-06T05:00:00.000Z/2018-03-07T05:00:00.000Z");
-					userBody.setInterval("2018-03-08T05:00:00.000Z/2018-03-08T13:00:00.000Z");
+					//userBody.setInterval("2018-03-08T05:00:00.000Z/2018-03-08T13:00:00.000Z");
 					//--
 					PagingSpec userPaging = new PagingSpec();
 					userPaging.setPageNumber(paginaUserDetailsQuery);
@@ -244,7 +244,7 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 				private void guardarDatosCrearFiltroConversationQuery(ConversationQuery body,DtoEntrada dto, Integer paginaConversationQuery) {
 					body.setInterval(dto.getFechaUno()+"/"+dto.getFechaDos());
 					//body.setInterval("2018-03-06T05:00:00.000Z/2018-03-07T05:00:00.000Z");
-					body.setInterval("2018-03-08T05:00:00.000Z/2018-03-08T13:00:00.000Z");					
+					//body.setInterval("2018-03-08T05:00:00.000Z/2018-03-08T13:00:00.000Z");					
 					//--
 					PagingSpec paging = new PagingSpec();
 					paging.setPageNumber(paginaConversationQuery);
