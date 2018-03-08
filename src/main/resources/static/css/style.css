@@ -1,0 +1,156 @@
+@font-face {
+    font-family: 'titillium_webblack';
+    src: url('../fonts/titilliumweb-black-webfont.woff2') format('woff2'),
+         url('fonts/titilliumweb-black-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'titillium_webbold';
+    src: url('../fonts/titilliumweb-bold-webfont.woff2') format('woff2'),
+         url('../fonts/titilliumweb-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'titillium_weblight';
+    src: url('../fonts/titilliumweb-light-webfont.woff2') format('woff2'),
+         url('../fonts/titilliumweb-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'titillium_webregular';
+    src: url('../fonts/titilliumweb-regular-webfont.woff2') format('woff2'),
+         url('../fonts/titilliumweb-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+body{
+    font-family: 'titillium_webregular', sans-serif;
+    border-top: 4px solid #ff9801;
+    background: #f3f4f4;
+    position: relative;
+}
+
+
+.container-fluid{
+    padding-left: 0px;
+    padding-right: 0px;
+    height: 100vh;
+}
+
+
+.container-fluid section:nth-child(1){
+    background:#ff9801;
+}
+
+.container-fluid section:nth-child(2){
+    background:#3f3f3f;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+
+.container-fluid section:nth-child(3){
+    padding: 30px 0px 20px 0px; 
+}
+
+
+
+header{
+    padding-top: 40px;
+    padding-bottom: 60px;
+}
+
+
+
+h2{
+    font-size: 35px;
+    line-height: 35px;
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+    color: #e6e4e4;
+    text-transform: uppercase;
+}
+
+h3{
+    margin-bottom: 20px;
+}
+
+
+input{
+    width: 100%;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid;
+    padding: 10px;
+}
+
+input:focus, button:focus{
+    outline: 0px;
+}
+
+
+button{
+    border:1px solid;
+    text-transform: uppercase;
+    background:transparent;
+    width: 100%;
+    padding: 10px;
+}
+
+
+button:focus, button:hover{
+    background: #ff9701;
+    color: #fff;
+}
+
+
+button.btn-action-primary{
+    background: #ff9701;
+    color: #fff;
+}
+
+
+button.btn-action-primary:hover, button.btn-action-primary:focus{
+    background:#dc8302;
+}
+
+
+.box-table{
+    margin-top: 20px;
+}
+
+
+.box-table table th{
+    border-right: 0px !important;
+    border-left: 0px !important;
+    background: #ff9701;
+}
+
+
+
+.labels-block label{
+    display: block;
+}
+

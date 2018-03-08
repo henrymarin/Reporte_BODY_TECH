@@ -98,7 +98,7 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 						//--			            
 			        } while (conversationQueryObtuvoResultados);
 				    // Print results, including elapsed time
-					System.out.println("Elapsed time in minutes: " + ( (System.currentTimeMillis() - start) * (0.0000167) ) );
+					System.out.println("   °°°°°°Elapsed time in minutes: " + ( (System.currentTimeMillis() - start) * (0.0000167) ) );
 					System.out.println("FIN DE LA CARGA!!!");
 	            }
 
