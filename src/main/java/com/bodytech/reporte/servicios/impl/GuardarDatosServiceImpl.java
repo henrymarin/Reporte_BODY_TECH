@@ -44,6 +44,7 @@ import com.mypurecloud.sdk.v2.model.UserDetailsQuery;
 @Service
 public class GuardarDatosServiceImpl implements GuardarDatosService{
 
+	private static final String URL_MYPURECLOUD = "https://api.mypurecloud.com";
 	@Autowired private ConversacionRepository conversacionRepository;
 	@Autowired private TaskExecutor taskExecutor;
 	@Autowired private EstadosPorAgenteRepository estadosPorAgenteRepository;
@@ -62,20 +63,20 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 	            	long start = System.currentTimeMillis();
 					// Configure SDK settings
 					String accessToken = dto.getEntradaUno();
-					Configuration.setDefaultApiClient(ApiClient.Builder.standard().withAccessToken(accessToken).withBasePath("https://api.mypurecloud.com").build());
+					Configuration.setDefaultApiClient(ApiClient.Builder.standard().withAccessToken(accessToken).withBasePath(URL_MYPURECLOUD).build());
 					
 					// Instantiate APIs ConversationsApi
 					ConversationsApi apiInstance = new ConversationsApi();
 					//--
 					ConversationQuery body = new ConversationQuery(); // ConversationQuery | query
-					guardarDatosCrearFiltroConversationQuery(body);
+					guardarDatosCrearFiltroConversationQuery(body, dto);
 					    try {
 					    	//						<<<<--- R E S P O N S E 	ConversationsDetailsQuery---->>>>>	    	
 							AnalyticsConversationQueryResponse result = apiInstance.postAnalyticsConversationsDetailsQuery(body);
 							if(Objects.nonNull(result) && Objects.nonNull(result.getConversations()) && !result.getConversations().isEmpty()){
 								List<AnalyticsConversation> conversations = result.getConversations();
 								for (AnalyticsConversation conversacionPC : conversations) {
-									guardarDatosProcesoPrincipal(conversacionPC);
+									guardarDatosProcesoPrincipal(conversacionPC, dto);
 								}	        	
 							}
 					} catch (ApiException | IOException e) {
@@ -86,7 +87,7 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 					System.out.println("FIN DE LA CARGA!!!");
 	            }
 
-				private void guardarDatosProcesoPrincipal(AnalyticsConversation conversacionPC) throws IOException {
+				private void guardarDatosProcesoPrincipal(AnalyticsConversation conversacionPC, DtoEntrada dto) throws IOException {
 					Conversacion conversacion = new Conversacion();
 					conversacion.setIdConversacion(conversacionPC.getConversationId());
 					conversacion.setFechaInicioConversacion(conversacionPC.getConversationStart());
@@ -95,20 +96,19 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 					if(Objects.nonNull(conversacionPC.getParticipants()) && !conversacionPC.getParticipants().isEmpty()){
 						List<AnalyticsParticipant> participants = conversacionPC.getParticipants();
 						for (AnalyticsParticipant participante : participants) {
-							guardarDatosProcesoPrincipalConfigurarParticipantes(conversacionPC, conversacion,participante);
+							guardarDatosProcesoPrincipalConfigurarParticipantes(conversacionPC, conversacion,participante, dto);
 						}
 					}
 					conversacionRepository.save(conversacion);
 				}
 
-				private void guardarDatosProcesoPrincipalConfigurarParticipantes(AnalyticsConversation conversacionPC,
-						Conversacion conversacion, AnalyticsParticipant participante) throws IOException {
+				private void guardarDatosProcesoPrincipalConfigurarParticipantes(AnalyticsConversation conversacionPC,Conversacion conversacion, AnalyticsParticipant participante, DtoEntrada dto) throws IOException {
 					if (participante.getPurpose().toString().equalsIgnoreCase(com.mypurecloud.sdk.v2.model.AnalyticsParticipant.PurposeEnum.AGENT.toString()) ){
 						//-- 			I D     D E L     A G E N T E
 						if(Objects.nonNull(participante) && Objects.nonNull(participante.getUserId())){
 							UsersApi userApiInstance = guardarDatosProcesoPrincipalConfigurarParticipantesNombreDelAgente(conversacion, participante);							
 							// 			E S T A D  O S 		DE LOS AGENTES, columnas [K, L, C, P, Q]
-							UserDetailsQuery userBody = guardarDatosProcesoPrincipalConfigurarParticipantesCrearFiltroUserDetail(participante);													
+							UserDetailsQuery userBody = guardarDatosProcesoPrincipalConfigurarParticipantesCrearFiltroUserDetail(participante, dto);													
 							try {
 						    	//						<<<<--- R E S P O N S E 	postAnalyticsUsersDetailsQuery---->>>>>						
 							    AnalyticsUserDetailsQueryResponse userResult = userApiInstance.postAnalyticsUsersDetailsQuery(userBody);
@@ -128,8 +128,7 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 					}
 				}
 
-				private void guardarDatosProcesoPrincipalConfigurarParticipantesNumeroDeIteraciones(
-						AnalyticsConversation conversacionPC, AnalyticsParticipant participante) {
+				private void guardarDatosProcesoPrincipalConfigurarParticipantesNumeroDeIteraciones(AnalyticsConversation conversacionPC, AnalyticsParticipant participante) {
 					if(Objects.nonNull(participante) && Objects.nonNull(participante.getSessions()) && !participante.getSessions().isEmpty()){
 						List<AnalyticsSession> sessions = participante.getSessions();
 						for (AnalyticsSession sesion : sessions) {
@@ -152,9 +151,7 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 					}
 				}
 
-				private void guardarDatosProcesoPrincipalConfigurarParticipantesEstadosPorAgenteProcesoPrincipal(
-						AnalyticsConversation conversacionPC, AnalyticsParticipant participante,
-						AnalyticsUserDetail userDetail) {
+				private void guardarDatosProcesoPrincipalConfigurarParticipantesEstadosPorAgenteProcesoPrincipal(AnalyticsConversation conversacionPC, AnalyticsParticipant participante,AnalyticsUserDetail userDetail) {
 					EstadosPorAgente estadosPorAgente = new EstadosPorAgente(); 
 					//--routingStatus -->>
 					if(Objects.nonNull(userDetail.getRoutingStatus()) && !userDetail.getRoutingStatus().isEmpty()){
@@ -182,16 +179,15 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 					}
 				}
 
-				private UserDetailsQuery guardarDatosProcesoPrincipalConfigurarParticipantesCrearFiltroUserDetail(
-						AnalyticsParticipant participante) {
+				private UserDetailsQuery guardarDatosProcesoPrincipalConfigurarParticipantesCrearFiltroUserDetail(AnalyticsParticipant participante,DtoEntrada dto) {
 					UserDetailsQuery userBody = new UserDetailsQuery(); // UserDetailsQuery | query
-					userBody.setInterval("2018-03-06T05:00:00.000Z/2018-03-07T05:00:00.000Z");					
+					userBody.setInterval(dto.getFechaUno()+"/"+dto.getFechaDos());
 					userBody.setInterval("2018-03-06T05:00:00.000Z/2018-03-07T05:00:00.000Z");
 					//--
-					PagingSpec UserPaging = new PagingSpec();
-					UserPaging.setPageNumber(Integer.valueOf("1"));
-					UserPaging.setPageSize(Integer.valueOf("100"));
-					userBody.setPaging(UserPaging);
+					PagingSpec userPaging = new PagingSpec();
+					userPaging.setPageNumber(Integer.valueOf("1"));
+					userPaging.setPageSize(Integer.valueOf("100"));
+					userBody.setPaging(userPaging);
 					List<AnalyticsQueryFilter> userFilters = new ArrayList<>();
 					AnalyticsQueryFilter userFilter = new AnalyticsQueryFilter();
 					userFilter.setType(com.mypurecloud.sdk.v2.model.AnalyticsQueryFilter.TypeEnum.OR);
@@ -208,8 +204,7 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 					return userBody;
 				}
 
-				private UsersApi guardarDatosProcesoPrincipalConfigurarParticipantesNombreDelAgente(
-						Conversacion conversacion, AnalyticsParticipant participante) throws IOException {
+				private UsersApi guardarDatosProcesoPrincipalConfigurarParticipantesNombreDelAgente(Conversacion conversacion, AnalyticsParticipant participante) throws IOException {
 					conversacion.setIdAgente(participante.getUserId());
 					UsersApi userApiInstance = new UsersApi();
 					//			N O M B R E 		DEL AGENTE, columna [B] 
@@ -223,7 +218,8 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 					return userApiInstance;
 				}
 
-				private void guardarDatosCrearFiltroConversationQuery(ConversationQuery body) {
+				private void guardarDatosCrearFiltroConversationQuery(ConversationQuery body,DtoEntrada dto) {
+					body.setInterval(dto.getFechaUno()+"/"+dto.getFechaDos());
 					body.setInterval("2018-03-06T05:00:00.000Z/2018-03-07T05:00:00.000Z");
 					//--
 					PagingSpec paging = new PagingSpec();
