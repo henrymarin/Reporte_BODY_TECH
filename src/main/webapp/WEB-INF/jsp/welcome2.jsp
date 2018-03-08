@@ -92,10 +92,10 @@
 									 <input placeholder="Fecha Final" title="Fecha Final" type="text" name="datepicker2" id="datepicker2" readonly="readonly" size="12" />
 								</div>
 								<div class="col-md-3">
-									<button class="precarga" onclick="main();">REALIZAR PRECARGA</button>
+									<button class="precarga" onclick="guardarDatos();">REALIZAR PRECARGA</button>
 								</div>
 								<div class="col-md-3">
-									<button class="btn-action-primary generate">GENERAR REPORTE</button>
+									<button class="btn-action-primary generate" onclick="generarReporte();">GENERAR REPORTE</button>
 								</div>
 							</div>
 						</div>
