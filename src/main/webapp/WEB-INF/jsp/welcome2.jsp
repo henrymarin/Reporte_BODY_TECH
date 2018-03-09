@@ -7,6 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/style.css" rel="stylesheet">
+		<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
  		<script src="js/custom.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script> 
@@ -159,85 +160,85 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="table-responsive">
-											<table class="table table-bordered">
+											<table id=table class="table table-bordered">
 											  <thead>
 											    <tr>
-											      <th scope="col">First</th>
-											      <th scope="col">Last</th>
-											      <th scope="col">Handle</th>
-											      <th scope="col">Handle</th>
-											      <th scope="col">Handle</th>
-											      <th scope="col">Handle</th>
-											      <th scope="col">Handle</th>
-											      <th scope="col">Handle</th>
-											      <th scope="col">Handle</th>
-											      <th scope="col">Handle</th>
-											      <th scope="col">Handle</th>
-											      <th scope="col">Handle</th>
-											      <th scope="col">Handle</th>
-											      <th scope="col">Handle</th>
-											      <th scope="col">Handle</th>
-											      <th scope="col">Handle</th>
-											      <th scope="col">Handle</th>
+											      <th scope="col">Item</th>
+											      <th scope="col">Nombre agente</th>
+											      <th scope="col">Hora ingreso cola</th>
+											      <th scope="col">Número interacciones voz</th>
+											      <th scope="col">Número interacciones chat</th>
+											      <th scope="col">Número interacciones email</th>
+											      <th scope="col">Tiempo intervalo voz</th>
+											      <th scope="col">Tiempo intervalo chat</th>
+											      <th scope="col">Tiempo intervalo email</th>
+											      <th scope="col">Tiempo pausa</th>
+											      <th scope="col">Tiempo almuerzo</th>
+											      <th scope="col">Tiempo break</th>
+											      <th scope="col">Tiempo promedio voz</th>
+											      <th scope="col">Tiempo promedio chat</th>
+											      <th scope="col">Tiempo promedio email</th>
+											      <th scope="col">Hora cierre sesión</th>
+											      <th scope="col">Tiempo productivo agente</th>
 											    </tr>
 											  </thead>
 											  <tbody>
 											    <tr>
-											      <td>Otoo</td>
-											      <td>Otto</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
+											      <td>Voice</td>
+											      <td>Alejandra Velasquez</td>
+											      <td>2018-03-01 08:25:16</td>
+											      <td>50</td>
+											      <td>35</td>
+											      <td>24</td>
+											      <td>01: 36: 12</td>
+											      <td>00: 48: 15</td>
+											      <td>00: 00: 56</td>
+											      <td>00: 45: 00</td>
+											      <td>01: 15: 13</td>
+											      <td>00: 43: 00</td>
+											      <td>04: 25: 12</td>
+											      <td>05: 10: 45</td>
+											      <td>03: 30: 12</td>
+											      <td>19:20:15</td>
+											      <td>06: 30: 00</td>
 											  	</tr>
 											  	<tr>
-											      <td>Mark</td>
-											      <td>Otto</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
+											      <td>Voice</td>
+											      <td>Alejandra Velasquez</td>
+											      <td>2018-03-02 08:10:06</td>
+											      <td>75</td>
+											      <td>20</td>
+											      <td>31</td>
+											      <td>01: 36: 12</td>
+											      <td>00: 48: 15</td>
+											      <td>00: 00: 56</td>
+											      <td>00: 45: 00</td>
+											      <td>01: 15: 13</td>
+											      <td>00: 43: 00</td>
+											      <td>04: 25: 12</td>
+											      <td>05: 10: 45</td>
+											      <td>03: 30: 12</td>
+											      <td>18:45:15</td>
+											      <td>06: 45: 00</td>
 											  	</tr>
 											  	<tr>
-											      <td>Mark</td>
-											      <td>Otto</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
-											      <td>@mdo</td>
+											       <td>Chat</td>
+											      <td>Mesa de ayuda 2</td>
+											      <td>2018-03-02 08:10:06</td>
+											      <td>65</td>
+											      <td>45</td>
+											      <td>38</td>
+											      <td>01: 36: 12</td>
+											      <td>00: 48: 15</td>
+											      <td>00: 00: 56</td>
+											      <td>00: 45: 00</td>
+											      <td>01: 15: 13</td>
+											      <td>00: 43: 00</td>
+											      <td>04: 25: 12</td>
+											      <td>05: 10: 45</td>
+											      <td>03: 30: 12</td>
+											      <td>18:55:27</td>
+											      <td>06: 52: 00</td>
 											  	</tr>
 											  	<tr>
 											      <td>Mark</td>

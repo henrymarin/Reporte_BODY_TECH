@@ -8,7 +8,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link href="css/style.css" rel="stylesheet">		
+		<link href="css/style.css" rel="stylesheet">
+		<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />			
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
  		<script src="js/getAuth2.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script> 
