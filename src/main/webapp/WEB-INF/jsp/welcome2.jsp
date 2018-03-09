@@ -43,7 +43,15 @@
 	           $("#datepicker").datepicker();
 	           $("#datepicker2").datepicker();
 	        });
-	    </script>		
+	    </script>
+	    
+	    <style type="text/css">
+		    .dgcAlert {top: 0;position: absolute;width: 100%;display: block;height: 1000px; background: url(http://www.dgcmedia.es/recursosExternos/fondoAlert.png) repeat; text-align:center; opacity:0; display:none; z-index:999999999999999;}
+			.dgcAlert .dgcVentana{width: 500px; background: white;min-height: 150px;position: relative;margin: 0 auto;color: black;padding: 10px;border-radius: 10px;}
+			.dgcAlert .dgcVentana .dgcCerrar {height: 25px;width: 25px;float: right; cursor:pointer; background: url(http://www.dgcmedia.es/recursosExternos/cerrarAlert.jpg) no-repeat center center;}
+			.dgcAlert .dgcVentana .dgcMensaje { margin: 0 auto; padding-top: 45px; text-align: center; width: 400px;font-size: 20px;}
+			.dgcAlert .dgcVentana .dgcAceptar{background:#dc8302; bottom:20px; display: inline-block; font-size: 12px; font-weight: bold; height: 24px; line-height: 24px; padding-left: 5px; padding-right: 5px;text-align: center; text-transform: uppercase; width: 75px;cursor: pointer; color:#FFF; margin-top:50px;}
+	    </style>		
 	</head>
 	<body>
 		<div class="wrapper">
@@ -63,14 +71,14 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-md-12">
-								<h2>Reporte de Productividad</h2>
+								<h2>Reporte de Productividad</h2>								
 							</div>
 						</div>
 					</div>
 				</section>
 				<section>
 					<div class="container">
-						<div>
+						<div id="mensajePrecarga">
 							<div class="row">
 								<div class="col-md-12">
 									El proceso de precarga se ha iniciado satisfactoriamente, una vez termine, podrá ejecutar el proceso de generación del reporte.									
@@ -78,9 +86,29 @@
 							</div>
 						</div>
 					</div>
-				</section>				
-				
-				
+				</section>	
+
+				<section>
+					<div class="container">
+						<div id="">
+							<div class="row">
+								<div class="col-md-3">
+									<b>Proceso de Precarga Existente:</b>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4" align="center">
+									Fecha Inicial: ${msg1}
+								</div>									
+							</div>
+							<div class="row">
+								<div class="col-md-4" align="center">
+									Fecha Final: ${msg2}
+								</div>						
+							</div>						
+						</div>
+					</div>
+				</section><br><br>
 				<section>
 					<div class="container">
 						<div id="precarga">

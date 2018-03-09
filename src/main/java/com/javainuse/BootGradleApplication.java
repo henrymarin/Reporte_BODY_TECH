@@ -20,10 +20,10 @@ public class BootGradleApplication {
 	@Bean
     public TaskExecutor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(5);
-        executor.setMaxPoolSize(10);
-        executor.setQueueCapacity(25);
-        executor.setThreadNamePrefix("body-techExecutor");
+        executor.setCorePoolSize(15);
+        executor.setMaxPoolSize(20);
+        executor.setQueueCapacity(355);
+        executor.setThreadNamePrefix("body-tech_Task-Executor");
         executor.initialize();
         return executor;
     }

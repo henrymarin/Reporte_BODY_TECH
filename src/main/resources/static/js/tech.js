@@ -3,6 +3,7 @@ $(document).ready(function() {
 	
 	$("#generar-reporte").hide();
 	$("#report").hide();
+	$("#mensajePrecarga").hide();
 
 
 

@@ -46,16 +46,6 @@ import net.minidev.json.JSONObject;
 @Controller
 public class TestController {
 	
-	
-	@RequestMapping("/welcome.html")
-	public ModelAndView firstPage() {
-		return new ModelAndView("welcome");
-	}
-	
-	@RequestMapping("/welcome2.html")
-	public ModelAndView firstPage2() {
-		return new ModelAndView("welcome2");
-	}
 
 	@RequestMapping(
 			value = "/probarSDK", 

@@ -63,16 +63,16 @@
 							</div>
 						</header>
 					</div>
-				</section>
+				</section>				
 				<section>
 					<div class="container">
-						<div class="row">
-							<div class="col-md-12">
-								<h2 style="text-align:center;"><a onclick="main();">Reporte de Productividad</a></h2>
-							</div>
+						<div class="row">							
+								<div class="col-md-12">
+									<a onclick="main();"><h2 style="text-align:center;">Reporte de Productividad</h2></a>
+								</div>							
 						</div>
 					</div>
-				</section>
+				</section>				
 			</div>
 		</div>
 	</body>
