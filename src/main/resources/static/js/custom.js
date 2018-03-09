@@ -37,15 +37,7 @@
 		        		"fechaDos":		convertirFecha($('#datepicker2').val())
 		        	}
 		        ),
-		        success: function(data) {
-		        	 var $table = $('#table');
-		        	 
-		        	 $(function () {
-		        		    $('#table').bootstrapTable({
-		        		        data: mydata
-		        		    });
-		        	 });
-		        	 
+		        success: function(data) {		        			        	 
 		            console.log(data);
 		        }
 		    });
@@ -98,6 +90,15 @@
 		        ),
 		        success: function(json) {		        	
 		        	alert('success');
+		        	
+		        	var $table = $('#table');
+		        	 
+		        	 $(function () {
+		        		    $('#table').bootstrapTable({
+		        		        data: mydata
+		        		    });
+		        	 });
+		        	
 		            console.log(data);
 		        },
 		        error : function(XMLHttpRequest, textStatus, errorThrown) {
