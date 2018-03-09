@@ -37,7 +37,15 @@
 		        		"fechaDos":		convertirFecha($('#datepicker2').val())
 		        	}
 		        ),
-		        success: function(data) {			
+		        success: function(data) {
+		        	 var $table = $('#table');
+		        	 
+		        	 $(function () {
+		        		    $('#table').bootstrapTable({
+		        		        data: mydata
+		        		    });
+		        	 });
+		        	 
 		            console.log(data);
 		        }
 		    });
@@ -50,13 +58,52 @@
 	   return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 	}
 
-	function generarReporte(){
-		if(window.location.hash) {
-		    console.log(location.hash);
+	function generarReporte() {
+		if (window.location.hash) {
+			
+			//--Validacion de fechas
+			if( laFechaDesdeSupereLaFechaDeHoy($('#datepicker').val()) ){
+				//la fecha desde debe ser menor a la actual
+				alert("La Fecha Inicial debe ser menor a la Fecha de Hoy");
+				return false;
+			}
+			//--
+			if( $('#datepicker').val().trim().length <= 0 ){
+				alert("Debe diligenciar un valor para la Fecha Inicial.");
+				return false;
+			}	
+			if( $('#datepicker2').val().trim().length <= 0 ){
+				alert("Debe diligenciar un valor para la Fecha Final.");
+				return false;
+			}
+			//--
+			if(validarFechaHastaSupereLaFechaDesde($('#datepicker').val(),$('#datepicker2').val()) == 0){
+				alert("La Fecha Inicial debe ser menor a la Fecha Final.");
+				return false;
+			}	
+			//--
 		    var token = obtenerElToken('access_token'); 
-		    //--llamado interno a restController 0003
-		    	//--	.	.	.
-		    //--
+	
+		    $.ajax({
+		        url: "http://localhost:8080/generarReporte",
+		        type: "POST",
+		        dataType: "json",
+		        contentType: "application/json",       
+		        data: JSON.stringify(
+		        	{        
+		        		"entradaUno": 	token,
+		        		"fechaUno": 	convertirFecha($('#datepicker').val()),
+		        		"fechaDos":		convertirFecha($('#datepicker2').val())
+		        	}
+		        ),
+		        success: function(json) {		        	
+		        	alert('success');
+		            console.log(data);
+		        },
+		        error : function(XMLHttpRequest, textStatus, errorThrown) {
+					console.log('token: ' + token + ' Error: ' + errorThrown);					
+				}
+		    });
 		}
 	}
 
