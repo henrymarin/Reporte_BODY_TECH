@@ -11,6 +11,7 @@
 	
 	
 	function generarReporte(){
+		
 		$.ajax({
             url: '/generarReportePaginado',
             type: 'POST',

@@ -4,44 +4,19 @@
 		<title>Bodytech</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />		
-		<link href="css/style.css" rel="stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script> 
- 		<script src="js/custom.js"></script>
- 		<link href="css/bootstrap.min.css" rel="stylesheet">
+		
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link rel="stylesheet" href="css/bootstrap-table.css">		
+		
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/bootstrap-table.js"></script> 
+ 		<script src="js/custom.js"></script> 		
 		<script type="text/javascript" src="js/tech.js"></script>
-		<link href="css/jquery-ui-1.7.2.custom.css" rel="stylesheet">		
-		
-		
-	 	<script type="text/javascript">
-			jQuery(function($){
-				$.datepicker.regional['es'] = {
-					closeText: 'Cerrar',	
-					prevText: '&#x3c;Ant',
-					nextText: 'Sig&#x3e;',
-					currentText: 'Hoy',
-					monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
-					'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
-					monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
-					'Jul','Ago','Sep','Oct','Nov','Dic'],
-					dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
-					dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b'],
-					dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
-					weekHeader: 'Sm',
-					dateFormat: 'dd/mm/yy',
-					firstDay: 1,
-					isRTL: false,
-					showMonthAfterYear: false,
-					yearSuffix: ''};
-				$.datepicker.setDefaults($.datepicker.regional['es']);
-			});    
-			//--
-	        $(document).ready(function() {
-	           $("#datepicker").datepicker();
-	           $("#datepicker2").datepicker();
-	        });
-	    </script>
+		<link href="css/jquery-ui-1.7.2.custom.css" rel="stylesheet">
 	    
 	    <style type="text/css">
 		    .dgcAlert {top: 0;position: absolute;width: 100%;display: block;height: 1000px; background: url(http://www.dgcmedia.es/recursosExternos/fondoAlert.png) repeat; text-align:center; opacity:0; display:none; z-index:999999999999999;}
@@ -157,47 +132,36 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="table-responsive">
-
-<table 
-	id="TBSReporte" 
-	class="table-responsive table table-hover table-actions" 
-	data-unique-id="id" 
-	data-pagination="true" 
-	data-method="post" 
-	data-side-pagination="server" 
-	data-page-list="[5, 10, 20, 50, 100, 200]" 
-	data-buttons-class="btn btn-info btn-block" 
-	data-locale="es-MX" 
-	data-sort-name="fecha" 
-	data-sort-order="asc" 
-	data-query-params="queryParams">
-	<thead>
-	    <tr>
-	        <th data-visible="false" 										data-field="idCobertura"></th>
-			<th data-rowspan="2" data-halign="center" data-valign="middle"  data-field="nombreAgente" data-align="left"></th>	       	
-			<th data-rowspan="2" data-halign="center" data-valign="middle"  data-field="horaIngresoCola" data-align="left"></th>
-			<th data-rowspan="2" data-halign="center" data-valign="middle"  data-field="horaIngresoCola" data-align="left"></th>
-			<th data-rowspan="2" data-halign="center" data-valign="middle"  data-field="numeroInteraccionesVoz" data-align="left"></th>
-			<th data-rowspan="2" data-halign="center" data-valign="middle"  data-field="numeroInteraccionesChat" data-align="left"></th>			
-	   </tr>
-	</thead>
-	<tbody> 
-	    
-	</tbody>
-</table>			
-
-
-<table id="table">
-            <thead>
-            <tr>
-                <th data-field="id">ID</th>
-                <th data-field="name">Item Name</th>
-                <th data-field="price">Item Price</th>
-            </tr>
-            </thead>
-</table>						
-										
-
+											<table class="table table-bordered"
+												id="TBSReporte" 
+												data-search="true"
+												data-show-refresh="false"
+												data-show-toggle="true"
+												data-show-columns="false"
+												data-detail-formatter="detailFormatter"
+												data-minimum-count-columns="2"
+												data-show-pagination-switch="false"
+												data-pagination="true"
+												data-id-field="id"
+												data-page-list="[10, 25, 50, 100, ALL]"
+												data-show-footer="false"
+												data-side-pagination="server"
+												data-url="/generarReportePaginado"
+												data-method="post">
+												<thead>
+												    <tr>
+														<th data-visible="false" 										data-field="id"></th>
+														<th data-halign="center" data-valign="middle"  data-field="nombreAgente" data-align="left">nombreAgente</th>	       	
+														<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloVoz" data-align="left">tiempoIntervaloVoz</th>
+														<th data-halign="center" data-valign="middle"  data-field="nombreAgente" data-align="left">nombreAgente</th>
+														<th data-halign="center" data-valign="middle"  data-field="nombreAgente" data-align="left">nombreAgente</th>
+														<th data-halign="center" data-valign="middle"  data-field="nombreAgente" data-align="left">nombreAgente</th>		
+												   </tr>
+												</thead>
+												<tbody> 
+												    
+												</tbody>
+											</table>
 										</div>
 									</div>
 								</div>
