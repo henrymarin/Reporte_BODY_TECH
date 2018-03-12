@@ -37,19 +37,16 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 
 	@Override
 	public BSTReporteResponse generarReportePaginado(GenericBootStrapTableRequest request) {
-		return new BSTReporteResponse(obtenerLosRegistrosDelReporte(request), obtenerElTotalDeRegistrosDelReporte(request.getIdSearcheable()));
+		return new BSTReporteResponse(obtenerLosRegistrosDelReporte(request), obtenerElTotalDeRegistrosDelReporte(request.getSearch()));
 	}
 	
 	
 	@SuppressWarnings("unchecked")
 	private List<BTSReporteMapping> obtenerLosRegistrosDelReporte(GenericBootStrapTableRequest request) {
-		query = configurarElSQL(false, request.getOrder(), request.getSort(), request.getIdSearcheable());
+		query = configurarElSQL(false, request.getOrder(), request.getSort(), request.getSearch());
 		query.setFirstResult(getPageRequest(request.getLimit(), request.getOffset()).getOffset());
 		query.setMaxResults(getPageRequest(request.getLimit(), request.getOffset()).getPageSize());
-		//--
-		List<BTSReporteMapping> lista  = query.getResultList();
-		//--
-		return lista;
+		return  query.getResultList();
 	}
 	
 	
@@ -80,6 +77,11 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 				"id_conversacion as tiempoProductivoAgente " ;
 		}
 		sentenciaSQL += " FROM CONVERSACION " ;
+		//--
+		if (Objects.nonNull(idSearcheable) && !idSearcheable.isEmpty()) {
+			sentenciaSQL += " WHERE ( upper(nombre_agente) like upper('%"+idSearcheable+"%') )  ";
+		}
+		
 		//--
 		if (Objects.nonNull(sort)  && !sort.isEmpty()) {
 			sentenciaSQL += " ORDER BY " + configurarElOrdenamientoDelSQL(sort);

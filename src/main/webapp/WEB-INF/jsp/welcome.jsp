@@ -15,8 +15,8 @@
 		
 		<script src="js/jquery-3.3.1.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
+		<script src="js/getAuth2.js"></script>
 		<script src="js/bootstrap-table.js"></script>
-		<script src="js/getAuth2.js"></script>		
 		<script type="text/javascript" src="js/tech.js"></script>  
 		
 	</head>
@@ -38,12 +38,12 @@
 					<div class="container">
 						<div class="row">
 								<div class="col-md-12">
-									<a onclick="main();"><h2 style="text-align:center;">Reporte de Productividad</h2></a>									
+									<a onclick="main();"><h2 style="text-align:center;">Reporte de Productividad</h2></a>
 								</div>							
 						</div>
 					</div>
-				</section>
-			</div>
+				</section>				
+			</div>			
 		</div>
 	</body>	
 </html>

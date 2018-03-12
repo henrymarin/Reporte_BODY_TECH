@@ -12,6 +12,10 @@ public class GenericBootStrapTableRequest {
 	private String idSearcheable;
 	private String usuarioEncargado;
 	private String userId;
+	private String fechaInicial;
+	private String fechaFinal;
+	private String search;
+	
 
 	public Integer getOffset() {
 		return offset;
@@ -76,8 +80,33 @@ public class GenericBootStrapTableRequest {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
+	public String getFechaInicial() {
+		return fechaInicial;
+	}
+
+	public void setFechaInicial(String fechaInicial) {
+		this.fechaInicial = fechaInicial;
+	}
+
+	public String getFechaFinal() {
+		return fechaFinal;
+	}
+
+	public void setFechaFinal(String fechaFinal) {
+		this.fechaFinal = fechaFinal;
+	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
 	
 
+	
 	
 
 }

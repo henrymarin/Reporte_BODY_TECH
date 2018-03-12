@@ -13,18 +13,50 @@
 		
 		<script src="js/jquery-3.3.1.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
-		<script src="js/bootstrap-table.js"></script> 
  		<script src="js/custom.js"></script> 		
 		<script type="text/javascript" src="js/tech.js"></script>
-		<link href="css/jquery-ui-1.7.2.custom.css" rel="stylesheet">
 	    
-	    <style type="text/css">
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	    
+		<script>
+		 $.datepicker.regional['es'] = {
+					closeText: 'Cerrar',
+					prevText: '&#x3c;Ant',
+					nextText: 'Sig&#x3e;',
+					currentText: 'Hoy',
+					monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+					'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+					monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+					'Jul','Ago','Sep','Oct','Nov','Dic'],
+					dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
+					dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b'],
+					dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
+					weekHeader: 'Sm',
+					dateFormat: 'dd/mm/yy',
+					firstDay: 1,
+					isRTL: false,
+					showMonthAfterYear: false,
+					yearSuffix: ''};
+				$.datepicker.setDefaults($.datepicker.regional['es']);
+				
+		 $( function() {
+		   $("#datepicker").datepicker();
+		   $("#datepicker2").datepicker();
+		 } );	    
+		 </script>
+		 
+		<script src="js/bootstrap-table.js"></script> 
+		 
+		<style type="text/css">
 		    .dgcAlert {top: 0;position: absolute;width: 100%;display: block;height: 1000px; background: url(http://www.dgcmedia.es/recursosExternos/fondoAlert.png) repeat; text-align:center; opacity:0; display:none; z-index:999999999999999;}
 			.dgcAlert .dgcVentana{width: 500px; background: white;min-height: 150px;position: relative;margin: 0 auto;color: black;padding: 10px;border-radius: 10px;}
 			.dgcAlert .dgcVentana .dgcCerrar {height: 25px;width: 25px;float: right; cursor:pointer; background: url(http://www.dgcmedia.es/recursosExternos/cerrarAlert.jpg) no-repeat center center;}
 			.dgcAlert .dgcVentana .dgcMensaje { margin: 0 auto; padding-top: 45px; text-align: center; width: 400px;font-size: 20px;}
 			.dgcAlert .dgcVentana .dgcAceptar{background:#dc8302; bottom:20px; display: inline-block; font-size: 12px; font-weight: bold; height: 24px; line-height: 24px; padding-left: 5px; padding-right: 5px;text-align: center; text-transform: uppercase; width: 75px;cursor: pointer; color:#FFF; margin-top:50px;}
-	    </style>		
+	    </style>
+ 
+ 	    		
 	</head>
 	<body>
 		<div class="wrapper">
@@ -180,8 +212,6 @@
 			</div>
 		</div>
 	</body>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap-table.js"></script>
 </html>
 
  	

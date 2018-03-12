@@ -164,7 +164,8 @@
 	    });
 	}
 	
-	function generarReporte(){		
+	function generarReporte(){
+		
 		$.ajax({
             url: '/generarReportePaginado',
             type: 'POST',
@@ -175,7 +176,9 @@
         			"limit":	"10",
         			"offset":	"0",
         			"order":	"desc",
-        			"sort":		"fecha"
+        			"sort":		"fecha",
+        			"fechaInicial": $('#datepicker').val(),
+        			"fechaFinal": $('#datepicker2').val()
         		}
             ),
             success: function (data) {                
