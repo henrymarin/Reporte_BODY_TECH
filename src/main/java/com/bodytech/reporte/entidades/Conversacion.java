@@ -2,12 +2,41 @@ package com.bodytech.reporte.entidades;
 
 import java.util.Date;
 
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SqlResultSetMapping;
+
+import com.bodytech.reporte.dtos.BTSReporteMapping;
 
 @Entity // This tells Hibernate to make a table out of this class
+@SqlResultSetMapping(name = "BTSReporteMapping", 
+classes = {
+	@ConstructorResult(targetClass = BTSReporteMapping.class, columns = {
+			@ColumnResult(name = "id", 							type = Long.class), 
+			@ColumnResult(name = "item", 						type = String.class),
+			@ColumnResult(name = "nombreAgente", 				type = String.class),
+			@ColumnResult(name = "horaIngresoCola", 			type = String.class),
+			@ColumnResult(name = "numeroInteraccionesVoz", 		type = String.class),
+			@ColumnResult(name = "numeroInteraccionesChat",		type = String.class),
+			@ColumnResult(name = "numeroInteraccionesEmail", 	type = String.class),
+			@ColumnResult(name = "tiempoIntervaloVoz", 			type = String.class),
+			@ColumnResult(name = "tiempoIntervaloChat", 		type = String.class),
+			@ColumnResult(name = "tiempoIntervaloEmail", 		type = String.class),
+			@ColumnResult(name = "tiempoPausa", 				type = String.class),
+			@ColumnResult(name = "tiempoAlmuerzo", 				type = String.class),
+			@ColumnResult(name = "tiempoBreak", 				type = String.class),
+			@ColumnResult(name = "tiempoPromedioVoz", 			type = String.class),
+			@ColumnResult(name = "tiempoPromedioChat", 			type = String.class),
+			@ColumnResult(name = "tiempoPromedioEmail", 		type = String.class),
+			@ColumnResult(name = "horaCierreSesion", 			type = String.class),
+			@ColumnResult(name = "tiempoProductivoAgente", 		type = String.class)
+		})
+	
+})
 public class Conversacion {
 
 	@Id

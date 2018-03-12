@@ -7,48 +7,15 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
 		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/bootstrap-table.css" rel="stylesheet">
+		
 		<link href="css/style.css" rel="stylesheet">
-		<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />			
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+		<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
  		<script src="js/getAuth2.js"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js"></script> 
-		
-		<link href="css/jquery-ui-1.7.2.custom.css" rel="stylesheet">
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
-		
+ 		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>		
 		<script type="text/javascript" src="js/tech.js"></script> 
-		
- 	<script type="text/javascript">
-		jQuery(function($){
-			$.datepicker.regional['es'] = {
-				closeText: 'Cerrar',
-				prevText: '&#x3c;Ant',
-				nextText: 'Sig&#x3e;',
-				currentText: 'Hoy',
-				monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
-				'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
-				monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
-				'Jul','Ago','Sep','Oct','Nov','Dic'],
-				dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
-				dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b'],
-				dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
-				weekHeader: 'Sm',
-				dateFormat: 'dd/mm/yy',
-				firstDay: 1,
-				isRTL: false,
-				showMonthAfterYear: false,
-				yearSuffix: ''};
-			$.datepicker.setDefaults($.datepicker.regional['es']);
-		});    
-		//--
-        $(document).ready(function() {
-           $("#datepicker").datepicker();
-           $("#datepicker2").datepicker();
-        });
-    </script>		
-		
 		
 	</head>
 	<body>
@@ -70,13 +37,60 @@
 						<div class="row">							
 								<div class="col-md-12">
 									<a onclick="main();"><h2 style="text-align:center;">Reporte de Productividad</h2></a>
+									<a onclick="generarReporte();"><h2 style="text-align:center;">Ir al reporte paginado!!!!</h2></a>
 								</div>							
 						</div>
 					</div>
-				</section>				
+				</section>
 			</div>
+
+
+
+
+
+<table 
+	id="TBSReporte" 
+
+           data-search="true"
+           data-show-refresh="true"
+           data-show-toggle="true"
+           data-show-columns="true"
+           data-show-export="true"
+           data-detail-view="true"
+           data-detail-formatter="detailFormatter"
+           data-minimum-count-columns="2"
+           data-show-pagination-switch="true"
+           data-pagination="true"
+           data-id-field="id"
+           data-page-list="[10, 25, 50, 100, ALL]"
+           data-show-footer="false"
+           data-side-pagination="server"
+           data-response-handler="responseHandler">	
+	
+	>
+	
+	<thead>
+	    <tr>
+			 <th data-visible="false" 										data-field="id"></th>
+			<th data-halign="center" data-valign="middle"  data-field="nombreAgente" data-align="left">nombreAgente</th>	       	
+			<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloVoz" data-align="left">tiempoIntervaloVoz</th>
+			<th data-halign="center" data-valign="middle"  data-field="nombreAgente" data-align="left">nombreAgente</th>
+			<th data-halign="center" data-valign="middle"  data-field="nombreAgente" data-align="left">nombreAgente</th>
+			<th data-halign="center" data-valign="middle"  data-field="nombreAgente" data-align="left">nombreAgente</th>		
+	   </tr>
+	</thead>
+	<tbody> 
+	    
+	</tbody>
+</table>
+
+			
+			
+			
 		</div>
 	</body>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-table.js"></script>	
 </html>
 
  
