@@ -8,27 +8,3 @@
 	    }
 	    window.location.replace("https://login.mypurecloud.com/oauth/authorize?" + jQuery.param(queryStringData));
 	 }
-	
-	
-	function generarReporte(){
-		
-		$.ajax({
-            url: '/generarReportePaginado',
-            type: 'POST',
-            contentType: "application/json",
-            dataType: 'json',
-            data: JSON.stringify(
-        		{
-        			"limit":	"10",
-        			"offset":	"0",
-        			"order":	"desc",
-        			"sort":		"fecha"
-        		}
-            ),
-            success: function (data) {                
-                $('#TBSReporte').bootstrapTable({data: data.rows});
-                $('#TBSReporte').bootstrapTable('load', data.rows);  
-           }
-        });
-		
-	}
