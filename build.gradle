@@ -39,6 +39,12 @@ dependencies {
 	compile group: 'org.jxls', name: 'jxls', version: '2.2.9'
 	compile group: 'org.jxls', name: 'jxls-poi', version: '1.0.9'
 	compile group: 'org.jxls', name: 'jxls-reader', version: '2.0.2'
+	//jasper
+	compile( group: 'net.sf.jasperreports', name: 'jasperreports', version: '6.3.0')
+	compile( group: 'net.sf.jasperreports', name: 'jasperreports-fonts', version: '6.0.0')
+	compile( group: 'org.olap4j', name: 'olap4j', version: '1.2.0')
+	compile( group: 'com.lowagie', name: 'itext', version: '2.1.7')
+	compile( group: 'commons-io', name: 'commons-io', version: '2.4')
 }
 
 bootRepackage {

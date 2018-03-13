@@ -1,9 +1,12 @@
 package com.bodytech.reporte.controladoras;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
@@ -11,6 +14,8 @@ import org.jxls.template.SimpleExporter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,6 +30,9 @@ import com.bodytech.reporte.dtos.BTSReporteMapping;
 import com.bodytech.reporte.dtos.GenericBootStrapTableRequest;
 import com.bodytech.reporte.servicios.impl.GenerarReporteServiceImpl;
 import com.javainuse.DtoEntrada;
+
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JasperRunManager;
 
 @Controller
 public class GenerarReporteController {
@@ -99,6 +107,64 @@ public class GenerarReporteController {
 			logger.error("erro exportXLS.", e);
 		}
 	}
+	
+	
+	@RequestMapping(
+			value = "/generarReportePDF", 
+			method = RequestMethod.POST, 
+			consumes ="application/json",
+			produces ="application/pdf")
+	@CrossOrigin(origins = "*")
+	public void crearPDF(@RequestBody(required = true) DtoEntrada dto,HttpServletResponse response) {	
+
+		//--
+		try {
+			ServletOutputStream servletOutputStream = response.getOutputStream();
+	        servletOutputStream.flush();
+	        //--
+			Resource plantillaCompilada = new ClassPathResource("/reportes/jasper/reporte000001.jasper");
+			//--
+			Map<String, Object> parametrosZ = new HashMap<>();		
+			parametrosZ.put("DEVELOPER", "Valor a remplazar en el PARAM: DEVELOPER");
+			//--
+			JasperRunManager.runReportToPdfStream(plantillaCompilada.getInputStream(), servletOutputStream, parametrosZ, new JREmptyDataSource());
+			//--
+	        servletOutputStream.flush();
+	        servletOutputStream.close();	
+			response.flushBuffer();
+		} catch (Exception e) {
+			logger.error("erro exportPDF.", e);
+		} 
+	}
+
+	@RequestMapping(
+			value = "/generarReportePDFGet/{fechaInicial}/{fechaFinal}", 
+			method = RequestMethod.GET)
+	@CrossOrigin(origins = "*")
+	public void generarReportePDFGet(
+			@PathVariable("fechaInicial") String fechaInicial, 
+			@PathVariable("fechaFinal") String fechaFinal, 
+			HttpServletResponse response) {
+		
+		//--
+		try {
+			ServletOutputStream servletOutputStream = response.getOutputStream();
+	        servletOutputStream.flush();
+	        //--
+			Resource plantillaCompilada = new ClassPathResource("/reportes/jasper/reporte000001.jasper");
+			//--
+			Map<String, Object> parametrosZ = new HashMap<>();		
+			parametrosZ.put("DEVELOPER", "Valor a remplazar en el PARAM: DEVELOPER");
+			//--
+			JasperRunManager.runReportToPdfStream(plantillaCompilada.getInputStream(), servletOutputStream, parametrosZ, new JREmptyDataSource());
+			//--
+	        servletOutputStream.flush();
+	        servletOutputStream.close();	
+			response.flushBuffer();
+		} catch (Exception e) {
+			logger.error("erro exportPDF.", e);
+		} 
+	}	
 	
 	
 }

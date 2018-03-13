@@ -211,7 +211,7 @@
 								</div>
 								<div class="row">
 									<div class="col-md-2 pull-right">
-										<button>PDF</button>
+										<button onclick="generarReportePdf();">PDF</button>
 									</div>
 									<div class="col-md-2 pull-right">
 										<button onclick="generarReporteExcel();">EXCEL</button>
