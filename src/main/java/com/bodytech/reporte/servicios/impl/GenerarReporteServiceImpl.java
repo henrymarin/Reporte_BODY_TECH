@@ -37,20 +37,20 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 
 	@Override
 	public BSTReporteResponse generarReportePaginado(GenericBootStrapTableRequest request) {
-		return new BSTReporteResponse(obtenerLosRegistrosDelReporte(request), obtenerElTotalDeRegistrosDelReporte(request.getSearch()));
+		return new BSTReporteResponse(obtenerLosRegistrosDelReporte(request), obtenerElTotalDeRegistrosDelReporte(request.getSearch(), request.getFechaInicial(), request.getFechaFinal()));
 	}
 	
 	
 	@SuppressWarnings("unchecked")
 	private List<BTSReporteMapping> obtenerLosRegistrosDelReporte(GenericBootStrapTableRequest request) {
-		query = configurarElSQL(false, request.getOrder(), request.getSort(), request.getSearch());
+		query = configurarElSQL(false, request.getOrder(), request.getSort(), request.getSearch(), request.getFechaInicial(), request.getFechaFinal());
 		query.setFirstResult(getPageRequest(request.getLimit(), request.getOffset()).getOffset());
 		query.setMaxResults(getPageRequest(request.getLimit(), request.getOffset()).getPageSize());
 		return  query.getResultList();
 	}
 	
 	
-	private Query configurarElSQL(boolean conteo, String order,String sort, String idSearcheable) {
+	private Query configurarElSQL(boolean conteo, String order,String sort, String idSearcheable, String fechaInicial, String fechaFinal) {
 		String sentenciaSQL = "";
 		if (conteo) {
 			sentenciaSQL += "SELECT COUNT(*) ";
@@ -129,8 +129,8 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 		return new PageRequest(page, limit);		
 	}
 	
-	private Integer obtenerElTotalDeRegistrosDelReporte(String idSearcheable) {
-		query = configurarElSQL(true, null, null, idSearcheable);
+	private Integer obtenerElTotalDeRegistrosDelReporte(String idSearcheable, String fechaInicial, String fechaFinal) {
+		query = configurarElSQL(true, null, null, idSearcheable, fechaInicial, fechaFinal);
 		return ((Number)query.getSingleResult()).intValue();
 	}
 	
@@ -141,7 +141,7 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 	
 	@SuppressWarnings("unchecked")
 	private List<BTSReporteMapping> obtenerLosRegistrosDelReporteSinPaginacion(GenericBootStrapTableRequest request) {
-		query = configurarElSQL(false, request.getOrder(), request.getSort(), request.getSearch());		
+		query = configurarElSQL(false, request.getOrder(), request.getSort(), request.getSearch(), request.getFechaInicial(), request.getFechaFinal());		
 		return  query.getResultList();
 	}
 	
