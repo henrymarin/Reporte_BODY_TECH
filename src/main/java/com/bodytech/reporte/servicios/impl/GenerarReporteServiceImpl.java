@@ -112,7 +112,7 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 				query = entityManager.createNativeQuery(sentenciaSQL, "BTSReporteMapping");
 			}
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error("erro ejecucionDelSQL.", e);
 		}
 	}
 	
@@ -134,6 +134,16 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 		return ((Number)query.getSingleResult()).intValue();
 	}
 	
+	@Override
+	public List<BTSReporteMapping> generarReporteSinPaginado(GenericBootStrapTableRequest request) {
+		return obtenerLosRegistrosDelReporteSinPaginacion(request);
+	}
+	
+	@SuppressWarnings("unchecked")
+	private List<BTSReporteMapping> obtenerLosRegistrosDelReporteSinPaginacion(GenericBootStrapTableRequest request) {
+		query = configurarElSQL(false, request.getOrder(), request.getSort(), request.getSearch());		
+		return  query.getResultList();
+	}
 	
 	
 }

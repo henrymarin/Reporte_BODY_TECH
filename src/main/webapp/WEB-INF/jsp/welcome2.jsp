@@ -202,7 +202,7 @@
 										<button>PDF</button>
 									</div>
 									<div class="col-md-2 pull-right">
-										<button>EXCEL</button>
+										<button onclick="generarReporteExcel();">EXCEL</button>
 									</div>
 								</div>
 							</div>

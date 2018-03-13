@@ -1,8 +1,11 @@
 package com.bodytech.reporte.servicios;
 
+import java.util.List;
+
 import org.json.JSONObject;
 
 import com.bodytech.reporte.dtos.BSTReporteResponse;
+import com.bodytech.reporte.dtos.BTSReporteMapping;
 import com.bodytech.reporte.dtos.GenericBootStrapTableRequest;
 import com.javainuse.DtoEntrada;
 
@@ -26,4 +29,14 @@ public interface GenerarReporteService {
 	 * @return
 	 */
 	BSTReporteResponse generarReportePaginado(GenericBootStrapTableRequest request);
+
+	/**
+	 * generar Reporte  Sin  Paginado
+	 * @param request
+	 * @return
+	 */
+	List<BTSReporteMapping> generarReporteSinPaginado(GenericBootStrapTableRequest request);
+	
+	
+	
 }

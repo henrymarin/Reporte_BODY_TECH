@@ -97,7 +97,7 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 									conversationQueryObtuvoResultados = false;
 								}
 						} catch (ApiException | IOException e) {
-							logger.error(e.getMessage());
+							logger.error("erro.", e);
 						}
 						//--			            
 			        } while (conversationQueryObtuvoResultados);
@@ -144,7 +144,7 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 								    	userDetailsQueryObtuvoResultados = false;
 								    }
 								} catch (ApiException e) {
-									logger.error(e.getMessage());
+									logger.error("erro.", e);
 								}								        	
 					        } while (userDetailsQueryObtuvoResultados);
 					        //fin estado de los agentes						
@@ -240,7 +240,7 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 						com.mypurecloud.sdk.v2.model.User userPureCloud = userApiInstance.getUser(participante.getUserId(), expand);
 						conversacion.setNombreAgente(userPureCloud.getName());
 					} catch (ApiException e) {
-						logger.error("Exception when calling UsersApi#getUser:  " + e.getMessage());
+						logger.error("Exception when calling UsersApi#getUser:  " + e.getMessage(), e);
 					}
 					return userApiInstance;
 				}
@@ -325,7 +325,7 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 									conversationQueryObtuvoResultados = false;
 								}
 						} catch (ApiException | IOException e) {
-							logger.error(e.getMessage());
+							logger.error("erro.", e);
 						}
 						//--			            
 			        } while (conversationQueryObtuvoResultados);
@@ -360,7 +360,7 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 										    	userDetailsQueryObtuvoResultados = false;
 										    }
 										} catch (ApiException | IOException e) {
-											logger.error("E S T A D  O S 		DE LOS AGENTES, columnas [K, L, C, P, Q]" + e.getMessage());
+											logger.error("E S T A D  O S 		DE LOS AGENTES, columnas [K, L, C, P, Q]" + e.getMessage(), e);
 										}								        	
 							        } while (userDetailsQueryObtuvoResultados);
 							        //fin estado de los agentes
@@ -406,7 +406,7 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 							conversacion.setNombreAgente(userPureCloud.getName());
 						}						
 					} catch (ApiException e) {
-						logger.error("Exception when calling UsersApi#getUser:  " + e.getMessage());
+						logger.error("Exception when calling UsersApi#getUser:  " + e.getMessage(), e);
 					}
 					return userApiInstance;
 				}

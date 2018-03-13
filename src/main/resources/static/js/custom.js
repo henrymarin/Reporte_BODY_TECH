@@ -189,4 +189,41 @@
 		
 	}
 	
+	function generarReporteExcel(){
+		if(window.location.hash) {
+			
+			//--Validando las fechas:
+				//--deben ser diligenciadas
+			if( $('#datepicker').val().trim().length <= 0 ){
+				alert("Debe diligenciar un valor para la Fecha Inicial.");
+				return false;
+			}	
+			if( $('#datepicker2').val().trim().length <= 0 ){
+				alert("Debe diligenciar un valor para la Fecha Final.");
+				return false;
+			}			
+				//--la fecha inicial debe ser menor a la fecha final
+			if(validarFechaHastaSuperOIgualeALaFechaDesde($('#datepicker').val(),$('#datepicker2').val()) == 0){
+				alert("La Fecha Inicial debe ser menor a la Fecha Final.");
+				return false;
+			}
+				//la fecha inicial NO puede ser mayor q hoy
+			if( laFechaDesdeSupereLaFechaDeHoy($('#datepicker').val()) ){
+				//la fecha desde debe ser menor a la actual
+				alert("La Fecha Inicial NO puede ser mayor a Hoy.");
+				return false;
+			}
+
+		    //--llamado interno a restController 0002
+			window.open("http://localhost:8080/generarReporteExcelGet/" + convertirFechaExportarExcel($('#datepicker').val()) + "/" + convertirFechaExportarExcel($('#datepicker2').val()),'_blank' );		    
+		}
+	}
+	
+	function convertirFechaExportarExcel(fechaZ) {
+		
+		//"2018-03-08";
+	    var valueFechaZ	=	fechaZ.split("/");	    
+		return valueFechaZ[2] + "-" + valueFechaZ[1] + "-" + valueFechaZ[0] ;
+		
+	}
 	
