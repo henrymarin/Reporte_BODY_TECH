@@ -137,6 +137,11 @@ public class GenerarReporteController {
 		} 
 	}
 
+	/**
+	 * @param fechaInicial: yyyy-MM-dd
+	 * @param fechaFinal: yyyy-MM-dd
+	 * @param response
+	 */
 	@RequestMapping(
 			value = "/generarReportePDFGet/{fechaInicial}/{fechaFinal}", 
 			method = RequestMethod.GET)

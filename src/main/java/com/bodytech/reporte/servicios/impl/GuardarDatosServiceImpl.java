@@ -71,6 +71,7 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 	            	System.out.println("INICIA LA CARGA!!!");
 	            	// Start the clock
 	            	long start = System.currentTimeMillis();
+	            	
 					// Configure SDK settings
 					String accessToken = dto.getEntradaUno();
 					Configuration.setDefaultApiClient(ApiClient.Builder.standard().withAccessToken(accessToken).withBasePath(URL_MYPURECLOUD).build());
@@ -335,9 +336,9 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 					//--
 					taskExecutor.execute(new Runnable() {
 			            @Override
-			            public void run() {/*
+			            public void run() {
 			            	estadosPorAgenteRepository.deleteAll();	 
-			            	System.out.println("<<<<----guardarDatosDepurado--->>>> INICIA LA SEGUNDA CARGA!!!");
+			            	System.out.println("<<<<----guardarDatosDepurado--->>>> INICIA LA SEGUNDA CARGA  <<<----ESTADOS DEL AGENTE--->>>>!!!");
 			            	List<Conversacion> listadoDeConversaciones =  (List<Conversacion>) conversacionRepository.findAll();
 			            	if(Objects.nonNull(listadoDeConversaciones) && !listadoDeConversaciones.isEmpty()){
 				            	for (Conversacion conversacion : listadoDeConversaciones) {
@@ -345,13 +346,17 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 									Integer paginaUserDetailsQuery = 1;
 									boolean userDetailsQueryObtuvoResultados = true;
 							        do {
+//--
+if(conversacion.getIdAgente().equalsIgnoreCase("0d5fc836-390d-4976-b06e-89b8d2f90191")){
+	System.out.println("XXXXXXXXXXXXXXXXXXXXXXX");
+}							        	
 										UserDetailsQuery userBody = guardarDatosProcesoPrincipalConfigurarParticipantesCrearFiltroUserDetail(conversacion.getIdAgente(), dto, paginaUserDetailsQuery);
 										try {
 											UsersApi userApiInstance = new UsersApi();
 									    	//						<<<<--- R E S P O N S E 	postAnalyticsUsersDetailsQuery---->>>>>						
 										    AnalyticsUserDetailsQueryResponse userResult = userApiInstance.postAnalyticsUsersDetailsQuery(userBody);
 										    if(Objects.nonNull(userResult) && Objects.nonNull(userResult.getUserDetails()) && !userResult.getUserDetails().isEmpty()){
-											    List<AnalyticsUserDetail> userDetails = userResult.getUserDetails();					    
+											    List<AnalyticsUserDetail> userDetails = userResult.getUserDetails();
 											    for (AnalyticsUserDetail userDetail : userDetails) {
 											    	guardarDatosProcesoPrincipalConfigurarParticipantesEstadosPorAgenteProcesoPrincipal(conversacion.getIdConversacion(), conversacion.getIdAgente(), userDetail);
 												}
@@ -369,7 +374,7 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 								System.out.println("   °°°°°°Elapsed time in minutes: " + ( (System.currentTimeMillis() - start) * (0.0000167) ) );
 								System.out.println("FIN DE LA 2da CARGA!!!");
 			            	}			            	
-			            */}
+			            }
 			        });	
 	            }
 
@@ -481,7 +486,7 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 					return userBody;
 				}
 				
-				private void guardarDatosProcesoPrincipalConfigurarParticipantesEstadosPorAgenteProcesoPrincipal(String conversacionId, String agenteId,AnalyticsUserDetail userDetail) {
+				private void guardarDatosProcesoPrincipalConfigurarParticipantesEstadosPorAgenteProcesoPrincipal(String conversacionId, String agenteId,AnalyticsUserDetail userDetail) {					
 					EstadosPorAgente estadosPorAgente = new EstadosPorAgente(); 
 					//--routingStatus -->>
 					if(Objects.nonNull(userDetail.getRoutingStatus()) && !userDetail.getRoutingStatus().isEmpty()){
