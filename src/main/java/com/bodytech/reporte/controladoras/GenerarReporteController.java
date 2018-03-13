@@ -1,7 +1,6 @@
 package com.bodytech.reporte.controladoras;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,7 +11,6 @@ import org.jxls.template.SimpleExporter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bodytech.reporte.dtos.BSTReporteResponse;
@@ -81,58 +78,22 @@ public class GenerarReporteController {
 		request.setFechaFinal(fechaFinal);
 		List<BTSReporteMapping> lista = servicio.generarReporteSinPaginado(request);		
 		//--
-		List<String> headers = Arrays.asList("ID de la Conversa", "Nombre del Agente");
+		List<String> headers = Arrays.asList(
+				"Item", "Nombre del Agente", "Hora de ingreso a la Cola", "Número de Interacciones por Voz", "Número de Interacciones por Chat", 
+				"Número de Interacciones por Email", "Tiempo de Intervalo por Voz", "Tiempo de Intervalo por Chat", "Tiempo de Intervalo por Email", 
+				"Tiempo de Pausa", "Tiempo de Almuerzo", "Tiempo de Break", "Tiempo Promedio por Voz", "Tiempo Promedio por Chat",
+				"Tiempo Promedio por Email", "Hora de Cierre de Sesion", "Tiempo de Productivo del Agente");
 		try {
 			response.addHeader("Content-disposition", "attachment; filename=reporteExcel.xls");
 			response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
 			//--
-			new SimpleExporter().gridExport(headers, lista, "nombreAgente, horaIngresoCola, ", response.getOutputStream());
-			response.flushBuffer();
-		} catch (Exception e) {
-			logger.error("erro exportXLS.", e);
-		}
-	}
-	
-	@RequestMapping(
-			value = "/generarReporteExcelGetDateTimeFormat", 
-			method = RequestMethod.GET)
-	public void generarReporteExcelGetDateTimeFormat(
-				@RequestParam("fechaInicial") @DateTimeFormat(pattern="yyyy-MM-dd") Date fechaInicial, 
-				@RequestParam("fechaFinal") @DateTimeFormat(pattern="yyyy-MM-dd") Date fechaFinal,
-				HttpServletResponse response) {
-		
-		GenericBootStrapTableRequest request =  new GenericBootStrapTableRequest();
-		request.setFechaInicial(fechaInicial.toString());
-		request.setFechaFinal(fechaFinal.toString());
-		List<BTSReporteMapping> lista = servicio.generarReporteSinPaginado(request);		
-		//--
-		List<String> headers = Arrays.asList("ID de la Conversa", "Nombre del Agente");
-		try {
-			response.addHeader("Content-disposition", "attachment; filename=reporteExcel.xls");
-			response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
-			//--
-			new SimpleExporter().gridExport(headers, lista, "nombreAgente, horaIngresoCola, ", response.getOutputStream());
-			response.flushBuffer();
-		} catch (Exception e) {
-			logger.error("erro exportXLS.", e);
-		}
-	}
-	
-	@CrossOrigin
-	@RequestMapping(
-			value = "/generarReporteExcel", 
-			method = RequestMethod.POST, 
-			consumes = APPLICATION_JSON, 
-			produces = APPLICATION_JSON)
-	public void generarReporteExcel(@RequestBody GenericBootStrapTableRequest request, HttpServletResponse response) {
-		List<BTSReporteMapping> lista = servicio.generarReporteSinPaginado(request);		
-		//--
-		List<String> headers = Arrays.asList("ID de la Conversa", "Nombre del Agente");
-		try {
-			response.addHeader("Content-disposition", "attachment; filename=reporteExcel.xls");
-			response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
-			//--
-			new SimpleExporter().gridExport(headers, lista, "nombreAgente, horaIngresoCola, ", response.getOutputStream());
+			new SimpleExporter().gridExport(
+					headers, lista, 
+					"item, nombreAgente, horaIngresoCola, numeroInteraccionesVoz, numeroInteraccionesChat,"+ 
+							"numeroInteraccionesEmail, tiempoIntervaloVoz, tiempoIntervaloChat, tiempoIntervaloEmail,"+ 
+							"tiempoPausa, tiempoAlmuerzo, tiempoBreak, tiempoPromedioVoz, tiempoPromedioChat,"+
+							"tiempoPromedioEmail, horaCierreSesion, tiempoProductivoAgente,",
+					response.getOutputStream());
 			response.flushBuffer();
 		} catch (Exception e) {
 			logger.error("erro exportXLS.", e);

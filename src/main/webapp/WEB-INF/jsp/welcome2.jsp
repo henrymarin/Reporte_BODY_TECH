@@ -183,11 +183,23 @@
 												<thead>
 												    <tr>
 														<th data-visible="false" 										data-field="id"></th>
-														<th data-halign="center" data-valign="middle"  data-field="nombreAgente" data-align="left">nombreAgente</th>	       	
-														<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloVoz" data-align="left">tiempoIntervaloVoz</th>
-														<th data-halign="center" data-valign="middle"  data-field="nombreAgente" data-align="left">nombreAgente</th>
-														<th data-halign="center" data-valign="middle"  data-field="nombreAgente" data-align="left">nombreAgente</th>
-														<th data-halign="center" data-valign="middle"  data-field="nombreAgente" data-align="left">nombreAgente</th>		
+														<th data-halign="center" data-valign="middle"  data-field="item" data-align="left">Item</th>	       	
+														<th data-halign="center" data-valign="middle"  data-field="nombreAgente" data-align="left">Nombre del Agente</th>
+														<th data-halign="center" data-valign="middle"  data-field="horaIngresoCola" data-align="left">Hora de ingreso a la Cola</th>
+														<th data-halign="center" data-valign="middle"  data-field="numeroInteraccionesVoz" data-align="left">Número de Interacciones por Voz</th>
+														<th data-halign="center" data-valign="middle"  data-field="numeroInteraccionesChat" data-align="left">Número de Interacciones por Chat</th>
+														<th data-halign="center" data-valign="middle"  data-field="numeroInteraccionesEmail" data-align="left">Número de Interacciones por Email</th>
+														<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloVoz" data-align="left">Tiempo de Intervalo por Voz</th>
+														<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloChat" data-align="left">Tiempo de Intervalo por Chat</th>
+														<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloEmail" data-align="left">Tiempo de Intervalo por Email</th>
+														<th data-halign="center" data-valign="middle"  data-field="tiempoPausa" data-align="left">Tiempo de Pausa</th>
+														<th data-halign="center" data-valign="middle"  data-field="tiempoAlmuerzo" data-align="left">Tiempo de Almuerzo</th>
+														<th data-halign="center" data-valign="middle"  data-field="tiempoBreak" data-align="left">Tiempo de Break</th>
+														<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioVoz" data-align="left">Tiempo Promedio por Voz</th>
+														<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioChat" data-align="left">Tiempo Promedio por Chat</th>
+														<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioEmail" data-align="left">Tiempo Promedio por Email</th>
+														<th data-halign="center" data-valign="middle"  data-field="horaCierreSesion" data-align="left">Hora de Cierre de Sesion</th>
+														<th data-halign="center" data-valign="middle"  data-field="tiempoProductivoAgente" data-align="left">Tiempo Productivo del Agente</th>		
 												   </tr>
 												</thead>
 												<tbody> 
