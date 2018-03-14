@@ -11,5 +11,7 @@ public interface GuardarDatosService {
 	JSONObject guardarDatosDepurado(DtoEntrada dto);
 
 	PrecargaResponse obtenerInformacionDeLaPrecarga();
+
+	JSONObject guardarDatosDepuradoConCargaDeAgentes(DtoEntrada dto);
 	
 }

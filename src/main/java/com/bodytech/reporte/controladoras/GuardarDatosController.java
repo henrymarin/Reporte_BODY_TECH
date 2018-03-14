@@ -26,7 +26,7 @@ public class GuardarDatosController {
 			consumes ="application/json")
 	@CrossOrigin(origins = "*")
 	public JSONObject guardarDatos(@RequestBody(required = true) DtoEntrada dto) {		
-		return servicio.guardarDatosDepurado(dto);
+		return servicio.guardarDatosDepuradoConCargaDeAgentes(dto);
 	}	
 	
 	@RequestMapping(
