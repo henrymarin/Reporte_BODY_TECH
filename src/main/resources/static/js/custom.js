@@ -121,7 +121,7 @@
 		
 		//"2018-03-08T05:00:00.000Z";
 	    var valueFechaZ	=	fechaZ.split("/");	    
-		return valueFechaZ[2] + "-" + valueFechaZ[1] + "-" + valueFechaZ[0] + "T00:00:00.000z";
+		return valueFechaZ[2] + "-" + valueFechaZ[1] + "-" + valueFechaZ[0] + "T05:00:00.000Z";
 		
 	}
 	
@@ -130,9 +130,9 @@
 		var valueFechaA	=	fechaA.split("/");
 		var valueFechaB	=	fechaB.split("/");
 		if(fechaA == fechaB){
-			return valueFechaA[2] + "-" + valueFechaA[1] + "-" + valueFechaA[0] + "T17:05:00.000z";
+			return valueFechaA[2] + "-" + valueFechaA[1] + "-" + valueFechaA[0] + "T17:05:00.000Z";
 		}else{
-			return valueFechaA[2] + "-" + valueFechaA[1] + "-" + valueFechaA[0] + "T05:00:00.000z";
+			return valueFechaA[2] + "-" + valueFechaA[1] + "-" + valueFechaA[0] + "T05:00:00.000Z";
 		}
 	}
 	
@@ -140,9 +140,9 @@
 		var valueFechaA	=	fechaA.split("/");
 		var valueFechaB	=	fechaB.split("/");
 		if(fechaA == fechaB){
-			return valueFechaB[2] + "-" + valueFechaB[1] + "-" + valueFechaB[0] + "T17:00:00.000z";
+			return valueFechaB[2] + "-" + valueFechaB[1] + "-" + valueFechaB[0] + "T17:00:00.000Z";
 		}else{
-			return valueFechaB[2] + "-" + valueFechaB[1] + "-" + valueFechaB[0] + "T05:00:00.000z";
+			return valueFechaB[2] + "-" + valueFechaB[1] + "-" + valueFechaB[0] + "T05:00:00.000Z";
 		}
 	}
 	
