@@ -554,6 +554,8 @@ if(conversacion.getIdAgente().equalsIgnoreCase("0d5fc836-390d-4976-b06e-89b8d2f9
 		taskExecutor.execute(new Runnable() {
 	            @Override
 	            public void run() {
+	            	long startTotal = System.currentTimeMillis();
+	            	System.out.println("        <<<<----INICIO DEL PROCESO DE LA CARGA--->>>>");
 	            	//--I N I C I O		Proceso de eliminacion de registros existente
 	            	conversacionRepository.deleteAll();
 	            	conversacionesPorTipoRepository.deleteAll();
@@ -566,7 +568,7 @@ if(conversacion.getIdAgente().equalsIgnoreCase("0d5fc836-390d-4976-b06e-89b8d2f9
 					precarga.setEstado("Completa");
 					precargaRepository.save(precarga);
 	            	//--
-	            	System.out.println("<<<<----guardarDatosDepurado--->>>> INICIA LA PRIMERA CARGA!!!");
+					System.out.println("        		<<<<----PROCESO DE LA CARGA DE CONVERSACIONES--->>>>");
 	            	System.out.println("Intervalo de Fechas---->>  " + dto.getFechaUno()+"/"+dto.getFechaDos());
 	            	// Start the clock
 	            	long start = System.currentTimeMillis();
@@ -602,14 +604,14 @@ if(conversacion.getIdAgente().equalsIgnoreCase("0d5fc836-390d-4976-b06e-89b8d2f9
 			        } while (conversationQueryObtuvoResultados);
 				    // Print results, including elapsed time
 					System.out.println("   같같같Elapsed time in minutes: " + ( (System.currentTimeMillis() - start) * (0.0000167) ) );
-					System.out.println("FIN DE LA 1era CARGA!!!");					
+					System.out.println("같같같같같FIN DE LA CARGA DE CONVERSACIONES");					
 					//--
 					taskExecutor.execute(new Runnable() {
 			            @Override
 			            public void run() {
 			            	long startAgentes = System.currentTimeMillis();
 			            	agenteRepository.deleteAll();	 
-			            	System.out.println("<<<<----guardarDatosDepurado--->>>> INICIA LA CARGA  de AGENTES<<<----XXXXXXX--->>>>!!!");
+			            	System.out.println("        		<<<<----PROCESO DE LA CARGA DE AGENTES--->>>>");
 							//			INFORMACION DE TODOS LOS AGENTES
 							UsersApi apiInstance = new UsersApi();
 							Integer pageSize = 100; // Integer | Page size
@@ -643,7 +645,7 @@ if(conversacion.getIdAgente().equalsIgnoreCase("0d5fc836-390d-4976-b06e-89b8d2f9
 						        }while (getUsersQueryObtuvoResultados);
 							    // Print results, including elapsed time
 								System.out.println("   같같같Elapsed time in minutes: " + ( (System.currentTimeMillis() - startAgentes) * (0.0000167) ) );
-								System.out.println("FIN DE CARGA  de AGENTES!!");						        
+								System.out.println("같같같같같FIN DE LA CARGA DE LA CARGA DE AGENTES");
 							} catch (ApiException | IOException e) {
 								logger.error("Exception when calling UsersApi#getUsers", e);
 							}
@@ -652,7 +654,7 @@ if(conversacion.getIdAgente().equalsIgnoreCase("0d5fc836-390d-4976-b06e-89b8d2f9
 							//inicio E S T A D  O S 		DE LOS AGENTES, columnas [K, L, C, P, Q]
 			            	long startEstadosAgentes = System.currentTimeMillis();
 			            	estadosPorAgenteRepository.deleteAll();	 
-			            	System.out.println("<<<<----guardarDatosDepurado--->>>> INICIA LA CARGA  DE <<<----ESTADOS DE LOS AGENTES--->>>>!!!");
+			            	System.out.println("        		<<<<----PROCESO DE LA CARGA DE ESTADOS DE LOS AGENTES--->>>>");
 			            	List<Agente> listadoDeAgentes =  (List<Agente>) agenteRepository.findAll();
 			            	if(Objects.nonNull(listadoDeAgentes) && !listadoDeAgentes.isEmpty()){
 				            	for (Agente agente : listadoDeAgentes) {
@@ -682,12 +684,12 @@ if(conversacion.getIdAgente().equalsIgnoreCase("0d5fc836-390d-4976-b06e-89b8d2f9
 				            	}
 							    // Print results, including elapsed time
 								System.out.println("   같같같Elapsed time in minutes: " + ( (System.currentTimeMillis() - startEstadosAgentes) * (0.0000167) ) );
-								System.out.println("FIN DE LA CARGA DE ESTADOS POR AGENTE!!!");
-			            	}			            	
-			            							
+								System.out.println("같같같같같FIN DE LA CARGA DE ESTADOS POR AGENTE");
+			            	}						
 			            }
 			        });
-					
+					System.out.println("   같같같Elapsed time in minutes: " + ( (System.currentTimeMillis() - startTotal) * (0.0000167) ) );
+					System.out.println("같같같같같FIN DE LAX CARGAX");
 	            }
 
 				private void guardarDatosProcesoPrincipalConfigurarParticipantesEstadosPorAgenteProcesoPrincipal(String conversacionId, String agenteId,AnalyticsUserDetail userDetail) {					
@@ -754,13 +756,15 @@ if(conversacion.getIdAgente().equalsIgnoreCase("0d5fc836-390d-4976-b06e-89b8d2f9
 					if(Objects.nonNull(conversacionPC.getParticipants()) && !conversacionPC.getParticipants().isEmpty()){
 						List<AnalyticsParticipant> participants = conversacionPC.getParticipants();
 						for (AnalyticsParticipant participante : participants) {
-							if (participante.getPurpose().toString().equalsIgnoreCase(com.mypurecloud.sdk.v2.model.AnalyticsParticipant.PurposeEnum.AGENT.toString()) ){
-								//-- 			I D     D E L     A G E N T E
-								if(Objects.nonNull(participante) && Objects.nonNull(participante.getUserId())){
-									guardarDatosProcesoPrincipalConfigurarParticipantesNombreDelAgente(conversacion, participante);									
-								}
-								//			N U M E R O 		de interacciones de {voz, chat, email}, columnas [D, E y F]
-								guardarDatosProcesoPrincipalConfigurarParticipantesNumeroDeIteraciones(conversacionPC,participante);
+							//-- 			I D     D E L     A G E N T E
+							if(Objects.nonNull(participante) && Objects.nonNull(participante.getUserId())){
+								guardarDatosProcesoPrincipalConfigurarParticipantesNombreDelAgente(conversacion, participante);									
+							}
+							//			N U M E R O 		de interacciones de {voz, chat, email}, columnas [D, E y F]
+							guardarDatosProcesoPrincipalConfigurarParticipantesNumeroDeIteraciones(conversacionPC,participante);
+							if ( participante.getPurpose().toString().equalsIgnoreCase(com.mypurecloud.sdk.v2.model.AnalyticsParticipant.PurposeEnum.AGENT.toString()) ||
+								participante.getPurpose().toString().equalsIgnoreCase(com.mypurecloud.sdk.v2.model.AnalyticsParticipant.PurposeEnum.ACD.toString()) ){
+								
 							}
 						}
 					}
@@ -810,12 +814,12 @@ if(conversacion.getIdAgente().equalsIgnoreCase("0d5fc836-390d-4976-b06e-89b8d2f9
 				private void guardarDatosProcesoPrincipalConfigurarParticipantesNumeroDeIteraciones(AnalyticsConversation conversacionPC, AnalyticsParticipant participante) {
 					if(Objects.nonNull(participante) && Objects.nonNull(participante.getSessions()) && !participante.getSessions().isEmpty()){
 						List<AnalyticsSession> sessions = participante.getSessions();
-						for (AnalyticsSession sesion : sessions) {
-							ConversacionesPorTipo conversacionesPorTipo = new ConversacionesPorTipo(); 
-							if(Objects.nonNull(sesion) && Objects.nonNull(sesion.getSegments()) && !sesion.getSegments().isEmpty()){
-								conversacionesPorTipo.setTipo(sesion.getMediaType().toString());																
+						for (AnalyticsSession sesion : sessions) {							 
+							if(Objects.nonNull(sesion) && Objects.nonNull(sesion.getSegments()) && !sesion.getSegments().isEmpty()){																								
 								List<AnalyticsConversationSegment> segments = sesion.getSegments();
 								for (AnalyticsConversationSegment segmento : segments) {
+									ConversacionesPorTipo conversacionesPorTipo = new ConversacionesPorTipo();
+									conversacionesPorTipo.setTipo(sesion.getMediaType().toString());
 									//		T I E M P O 		en pausa  columna [J]
 									conversacionesPorTipo.setFechaFinSegmento(segmento.getSegmentEnd());
 									conversacionesPorTipo.setFechaInicioSegmento(segmento.getSegmentStart());
