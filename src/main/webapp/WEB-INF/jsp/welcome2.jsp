@@ -292,11 +292,11 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-md-2 pull-right">
-										<button onclick="generarReportePdf();">PDF</button>
+									<div class="col-md-2">
+										<button style=" border:1px solid; text-transform: uppercase;  width: 100%;  padding: 10px;" onclick="generarReportePdf();">Exportar a PDF</button>
 									</div>
-									<div class="col-md-2 pull-right">
-										<button onclick="generarReporteExcel();">EXCEL</button>
+									<div class="col-md-2">
+										<button style=" border:1px solid; text-transform: uppercase;  width: 100%;  padding: 10px;" onclick="generarReporteExcel();">Exportar a EXCEL</button>
 									</div>
 								</div>
 							</div>

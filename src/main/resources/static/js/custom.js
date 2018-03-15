@@ -33,22 +33,22 @@
 			//--
 		    var token = obtenerElToken('access_token'); 
 		    //--llamado interno a restController 0002
-//		    $.ajax({
-//		        url: "http://localhost:8080/guardarDatos",
-//		        type: "POST",
-//		        dataType: "json",
-//		        contentType: "application/json",       
-//		        data: JSON.stringify(
-//		        	{        
-//		        		"entradaUno": 	token,
-//		        		"fechaUno": 	convertirFecha($('#datepicker').val()),
-//		        		"fechaDos":		convertirFechaDos($('#datepicker').val(),$('#datepicker2').val())
-//		        	}
-//		        ),
-//		        success: function(data) {			
-//		            console.log(data);
-//		        }
-//		    });
+		    $.ajax({
+		        url: "http://localhost:8080/guardarDatos",
+		        type: "POST",
+		        dataType: "json",
+		        contentType: "application/json",       
+		        data: JSON.stringify(
+		        	{        
+		        		"entradaUno": 	token,
+		        		"fechaUno": 	convertirFecha($('#datepicker').val()),
+		        		"fechaDos":		convertirFechaDos($('#datepicker').val(),$('#datepicker2').val())
+		        	}
+		        ),
+		        success: function(data) {			
+		            console.log(data);
+		        }
+		    });
 		    
 		}
 	}
@@ -217,28 +217,28 @@
 			
 			//--Validando las fechas:
 				//--deben ser diligenciadas
-			if( $('#datepicker').val().trim().length <= 0 ){
+			if( $('#datepicker3').val().trim().length <= 0 ){
 				alert("Debe diligenciar un valor para la Fecha Inicial.");
 				return false;
 			}	
-			if( $('#datepicker2').val().trim().length <= 0 ){
+			if( $('#datepicker4').val().trim().length <= 0 ){
 				alert("Debe diligenciar un valor para la Fecha Final.");
 				return false;
 			}			
 				//--la fecha inicial debe ser menor a la fecha final
-			if(validarFechaHastaSuperOIgualeALaFechaDesde($('#datepicker').val(),$('#datepicker2').val()) == 0){
+			if(validarFechaHastaSuperOIgualeALaFechaDesde($('#datepicker3').val(),$('#datepicker4').val()) == 0){
 				alert("La Fecha Inicial debe ser menor a la Fecha Final.");
 				return false;
 			}
 				//la fecha inicial NO puede ser mayor q hoy
-			if( laFechaDesdeSupereLaFechaDeHoy($('#datepicker').val()) ){
+			if( laFechaDesdeSupereLaFechaDeHoy($('#datepicker3').val()) ){
 				//la fecha desde debe ser menor a la actual
 				alert("La Fecha Inicial NO puede ser mayor a Hoy.");
 				return false;
 			}
 
 		    //--llamado interno a restController 0002
-			window.open("http://localhost:8080/generarReporteExcelGet/" + convertirFechaExportarExcel($('#datepicker').val()) + "/" + convertirFechaExportarExcel($('#datepicker2').val()),'_blank' );		    
+			window.open("http://localhost:8080/generarReporteExcelGet/" + convertirFechaExportarExcel($('#datepicker3').val()) + "/" + convertirFechaExportarExcel($('#datepicker4').val()),'_blank' );		    
 		}
 	}
 	
@@ -255,27 +255,27 @@
 			
 			//--Validando las fechas:
 				//--deben ser diligenciadas
-			if( $('#datepicker').val().trim().length <= 0 ){
+			if( $('#datepicker3').val().trim().length <= 0 ){
 				alert("Debe diligenciar un valor para la Fecha Inicial.");
 				return false;
 			}	
-			if( $('#datepicker2').val().trim().length <= 0 ){
+			if( $('#datepicker4').val().trim().length <= 0 ){
 				alert("Debe diligenciar un valor para la Fecha Final.");
 				return false;
 			}			
 				//--la fecha inicial debe ser menor a la fecha final
-			if(validarFechaHastaSuperOIgualeALaFechaDesde($('#datepicker').val(),$('#datepicker2').val()) == 0){
+			if(validarFechaHastaSuperOIgualeALaFechaDesde($('#datepicker3').val(),$('#datepicker4').val()) == 0){
 				alert("La Fecha Inicial debe ser menor a la Fecha Final.");
 				return false;
 			}
 				//la fecha inicial NO puede ser mayor q hoy
-			if( laFechaDesdeSupereLaFechaDeHoy($('#datepicker').val()) ){
+			if( laFechaDesdeSupereLaFechaDeHoy($('#datepicker3').val()) ){
 				//la fecha desde debe ser menor a la actual
 				alert("La Fecha Inicial NO puede ser mayor a Hoy.");
 				return false;
 			}
 			//--
-			window.open("http://localhost:8080/generarReportePDFGet/" + convertirFechaExportarExcel($('#datepicker').val()) + "/" + convertirFechaExportarExcel($('#datepicker2').val()),'_blank' );
+			window.open("http://localhost:8080/generarReportePDFGet/" + convertirFechaExportarExcel($('#datepicker3').val()) + "/" + convertirFechaExportarExcel($('#datepicker4').val()),'_blank' );
 		    
 		}
 	}
