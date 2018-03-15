@@ -111,14 +111,6 @@ input:focus, button:focus{
 }
 
 
-button{
-    border:1px solid;
-    text-transform: uppercase;
-    background:transparent;
-    width: 100%;
-    padding: 10px;
-}
-
 
 button:focus, button:hover{
     background: #ff9701;

@@ -1,49 +1,6 @@
 <!DOCTYPE html>
-<html>
-<head>
-
-	<style>
-		body {font-family: Arial;}
-		
-		/* Style the tab */
-		.tab {
-		    overflow: hidden;
-		    border: 1px solid #ccc;
-		    background-color: #f1f1f1;
-		}
-		
-		/* Style the buttons inside the tab */
-		.tab button {
-		    background-color: inherit;
-		    float: left;
-		    border: none;
-		    outline: none;
-		    cursor: pointer;
-		    padding: 14px 16px;
-		    transition: 0.3s;
-		    font-size: 17px;
-		}
-		
-		/* Change background color of buttons on hover */
-		.tab button:hover {
-		    background-color: #ddd;
-		}
-		
-		/* Create an active/current tablink class */
-		.tab button.active {
-		    background-color: #ccc;
-		}
-		
-		/* Style the tab content */
-		.tabcontent {
-		    display: none;
-		    padding: 6px 12px;
-		    border: 1px solid #ccc;
-		    border-top: none;
-		}
-	</style>
-	
-	
+<html lang="es">
+	<head>
 		<title>Bodytech</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -86,9 +43,6 @@
 		 $( function() {
 		   $("#datepicker").datepicker();
 		   $("#datepicker2").datepicker();
-		   
-		   $("#datepicker3").datepicker();
-		   $("#datepicker4").datepicker();
 		 } );	    
 		 </script>
 		 
@@ -100,11 +54,12 @@
 			.dgcAlert .dgcVentana .dgcCerrar {height: 25px;width: 25px;float: right; cursor:pointer; background: url(http://www.dgcmedia.es/recursosExternos/cerrarAlert.jpg) no-repeat center center;}
 			.dgcAlert .dgcVentana .dgcMensaje { margin: 0 auto; padding-top: 45px; text-align: center; width: 400px;font-size: 20px;}
 			.dgcAlert .dgcVentana .dgcAceptar{background:#dc8302; bottom:20px; display: inline-block; font-size: 12px; font-weight: bold; height: 24px; line-height: 24px; padding-left: 5px; padding-right: 5px;text-align: center; text-transform: uppercase; width: 75px;cursor: pointer; color:#FFF; margin-top:50px;}
-	    </style>	
-</head>
-<body>	
-
-<div class="wrapper">
+	    </style>
+ 
+ 	    		
+	</head>
+	<body>
+		<div class="wrapper">
 			<div class="container-fluid">
 				<section>
 					<div class="container">
@@ -126,6 +81,18 @@
 						</div>
 					</div>
 				</section>
+				<section id="mensajeLuegoDePrecargar">
+					<div class="container">
+						<div id="mensajePrecarga">
+							<div class="row">
+								<div class="col-md-12">
+									El proceso de precarga se ha iniciado satisfactoriamente, una vez termine, podrá ejecutar el proceso de generación del reporte.									
+								</div>								
+							</div>
+						</div>
+					</div>
+				</section>	
+
 				<section id="panelConInformacionDeLaPrecargaExistente">
 					<div class="container">
 						<div id="">
@@ -149,92 +116,31 @@
 				</section><br><br>
 				<section id="formularioDePrecarga">
 					<div class="container">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="tab">
-								  <button class="tablinks" onclick="openCity(event, 'London')">Precarga de Información</button>
-								  <button class="tablinks" onclick="openCity(event, 'Paris')">Generación del Reporte</button>
-								</div>
-								
-								<div id="London" class="tabcontent">
-								  	<h3>Proceso para Precargar la Información</h3>
-									<section id="mensajeLuegoDePrecargar" style="background: whitesmoke;">
-										<div class="container">
-											<div id="mensajePrecarga">
-												<div class="row">
-													<div class="col-md-12">
-														El proceso de precarga se ha iniciado satisfactoriamente, una vez termine, podrá ejecutar el proceso de generación del reporte.									
-													</div>								
-												</div>
-											</div>
-										</div>
-									</section>								  	
-									<section id="formularioPrecarga">
-										<div class="container">
-											<div id="precarga">
-												<div class="row">
-													<div class="col-md-3">
-										 				<input placeholder="Fecha Inicial" title="Fecha Inicial" type="text" name="datepicker" id="datepicker" readonly="readonly" size="12" />
-													</div>
-													<div class="col-md-3">
-										 				<input placeholder="Fecha Final" title="Fecha Final" type="text" name="datepicker2" id="datepicker2" readonly="readonly" size="12" />
-													</div>
-													<div class="col-md-3">
-														<button style=" border:1px solid; text-transform: uppercase;  width: 100%;  padding: 10px;"  onclick="guardarDatos();">REALIZAR PRECARGA</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</section>
-									<section style="background: whitesmoke;">
-										<div class="container"><div><div class="row"><div class="col-md-12"></div></div></div></div>
-									</section>	
-									<p></p><p></p><p></p>
-								</div>
-								
-								<div id="Paris" class="tabcontent">
-								  <h3>Proceso para Generar el Reporte</h3>
-								  
-								  
-
-
-
-
-				<section id="formularioDeGeneracionDelReporte" style="background: whitesmoke;">
-					<div class="container">
 						<div id="precarga">
 							<div class="row">
 								<div class="col-md-3">
-									 <input placeholder="Fecha Inicial" title="Fecha Inicial" type="text" name="datepicker3" id="datepicker3" readonly="readonly" size="12" />
+									 <input placeholder="Fecha Inicial" title="Fecha Inicial" type="text" name="datepicker" id="datepicker" readonly="readonly" size="12" />
 								</div>
 								<div class="col-md-3">
-									 <input placeholder="Fecha Final" title="Fecha Final" type="text" name="datepicker4" id="datepicker4" readonly="readonly" size="12" />
+									 <input placeholder="Fecha Final" title="Fecha Final" type="text" name="datepicker2" id="datepicker2" readonly="readonly" size="12" />
 								</div>
-
-								<div class="col-md-3" style="width: 10%;">
-									Servicio:
-									<select id="tiposDeServicios" onchange="obtenerAgentes();">
-										<option value="0">Seleccione</option>
-										<option value="SAC">Servicio al Cliente</option>
-										<option value="MDA">Mesa de Ayuda</option>
-									</select>	
-								</div>								
-								<div class="col-md-3" style="width: 4%;"></div>								
+								<div class="col-md-3">
+									<button class="precarga" onclick="guardarDatos();">REALIZAR PRECARGA</button>
+								</div>
+								<div class="col-md-3">
+									<button class="btn-action-primary generate" onclick="generarReporte();">GENERAR REPORTE</button>
+								</div>
 								
-								<div class="col-md-3">
-									Agentes:
-									<select id="showSubCats" multiple onclick="seleccionaTodosLosAgentes(this);" style="width:  240px;height:  200px;">
-										<option value="0">Todos</option>
-									</select>	
-								</div>
-							</div>						
-							
-							<div align="center">
-								<div>
-									<button style=" border:1px solid; text-transform: uppercase;  width: 25%;  padding: 10px;" onclick="obtenerAgentes();generarReporte();">GENERAR REPORTE</button>
-								</div>
-							</div>
+<div class="col-md-3">
+	<button class="btn-action-primary generate" onclick="obtenerAgentes();">TIPOS DE SERVICOS (SAC)</button>
+</div>
 
+<select id="showSubCats" multiple onclick="seleccionaTodosLosAgentes(this);" style="width:  150px;height:  150px;">
+	<option value="0">Todos</option>
+</select>
+																
+							</div>
+						</div>
 
 						<div id="report">
 							<div class="box-table">
@@ -243,9 +149,9 @@
 										<h3>Reporte</h3>
 									</div>
 								</div>
-								<div class="row" >
+								<div class="row">
 									<div class="col-md-12">
-										<div class="table-responsive" style="width:  1085px;">
+										<div class="table-responsive">
 											<table class="table table-bordered"
 												id="TBSReporte" 
 												data-search="true"
@@ -292,31 +198,20 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-md-2">
-										<button style=" border:1px solid; text-transform: uppercase;  width: 100%;  padding: 10px;" onclick="generarReportePdf();">Exportar a PDF</button>
+									<div class="col-md-2 pull-right">
+										<button onclick="generarReportePdf();">PDF</button>
 									</div>
-									<div class="col-md-2">
-										<button style=" border:1px solid; text-transform: uppercase;  width: 100%;  padding: 10px;" onclick="generarReporteExcel();">Exportar a EXCEL</button>
+									<div class="col-md-2 pull-right">
+										<button onclick="generarReporteExcel();">EXCEL</button>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					</div>
-				</section>								  
-								  
-								  
-								  
-								  <p></p> 
-								</div>
-								
-
-							</div>
-						</div>
-					</div>
-				</section>				
-				
+				</section>
 			</div>
 		</div>
-</body>
-</html> 
+	</body>
+</html>
+
+ 	
