@@ -1,6 +1,5 @@
 -- Reporte
-SELECT	 DATE(c.fecha_inicio_conversacion) AS FECHA,	
-		 c.id_agente AS ID_AGENTE,
+SELECT	 DATE(c.fecha_inicio_conversacion) AS FECHA,			 
 		 c.nombre_agente AS NOMBRE_AGENTE,
          (SELECT fecha_inicio_estado FROM estados_por_agente WHERE UPPER(estado) = 'ON_QUEUE' AND DATE(fecha_inicio_estado) = FECHA AND id_agente = c.id_agente ORDER BY fecha_inicio_estado LIMIT 1) AS HORA_INGRESO_COLA,
          (SELECT COUNT(*) FROM conversaciones_por_tipo ct WHERE DATE(ct.fecha_inicio_segmento) = FECHA AND ct.id_agente = c.id_agente AND UPPER(ct.tipo) = 'VOICE') AS NUM_INTERACCIONES_VOZ,
@@ -19,7 +18,42 @@ SELECT	 DATE(c.fecha_inicio_conversacion) AS FECHA,
          (SELECT (SELECT SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento)) FROM conversaciones_por_tipo WHERE DATE(fecha_inicio_segmento) = FECHA AND id_agente = c.id_agente AND UPPER(tipo) IN ('VOICE', 'CHAT', 'MAIL')) + (SELECT IFNULL(SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_estado, fecha_fin_estado)),0) FROM estados_por_agente WHERE DATE(fecha_inicio_estado) = FECHA AND id_agente = c.id_agente AND UPPER(estado) = 'IDLE')) AS TIEMPO_PRODUCTIVO_AGENTE,         
          null AS PORCENTAJE_PRODUCTIVIDAD
 FROM     conversacion c
-WHERE	 (DATE(c.fecha_inicio_conversacion) BETWEEN '2018-02-09' AND '2018-02-12')
+WHERE	 (DATE(c.fecha_inicio_conversacion) BETWEEN '2018-03-12' AND '2018-03-12')
+AND		 id_agente IN ('e21fc9de-f3d6-4971-ae5c-d3f09d0a70ce','64ad8c51-66ab-4d88-ac48-77dcff93d87d')
+GROUP BY FECHA, NOMBRE_AGENTE;
+
+-- Reporte conteo
+SELECT COUNT(*)
+FROM (
+SELECT	 DATE(c.fecha_inicio_conversacion) AS FECHA,			 
+		 c.nombre_agente AS NOMBRE_AGENTE,
+         (SELECT fecha_inicio_estado FROM estados_por_agente WHERE UPPER(estado) = 'ON_QUEUE' AND DATE(fecha_inicio_estado) = FECHA AND id_agente = c.id_agente ORDER BY fecha_inicio_estado LIMIT 1) AS HORA_INGRESO_COLA,
+         (SELECT COUNT(*) FROM conversaciones_por_tipo ct WHERE DATE(ct.fecha_inicio_segmento) = FECHA AND ct.id_agente = c.id_agente AND UPPER(ct.tipo) = 'VOICE') AS NUM_INTERACCIONES_VOZ,
+         (SELECT COUNT(*) FROM conversaciones_por_tipo ct WHERE DATE(ct.fecha_inicio_segmento) = FECHA AND ct.id_agente = c.id_agente AND UPPER(ct.tipo) = 'CHAT') AS NUM_INTERACCIONES_CHAT,
+         (SELECT COUNT(*) FROM conversaciones_por_tipo ct WHERE DATE(ct.fecha_inicio_segmento) = FECHA AND ct.id_agente = c.id_agente AND UPPER(ct.tipo) = 'MAIL') AS NUM_INTERACCIONES_MAIL,
+		 (SELECT SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento)) FROM conversaciones_por_tipo WHERE DATE(fecha_inicio_segmento) = FECHA AND id_agente = c.id_agente AND UPPER(tipo) = 'VOICE') AS TIEMPO_INTERVALO_VOZ,
+         (SELECT SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento)) FROM conversaciones_por_tipo WHERE DATE(fecha_inicio_segmento) = FECHA AND id_agente = c.id_agente AND UPPER(tipo) = 'CHAT') AS TIEMPO_INTERVALO_CHAT,
+         (SELECT SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento)) FROM conversaciones_por_tipo WHERE DATE(fecha_inicio_segmento) = FECHA AND id_agente = c.id_agente AND UPPER(tipo) = 'MAIL') AS TIEMPO_INTERVALO_MAIL,
+         (SELECT SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento)) FROM conversaciones_por_tipo WHERE DATE(fecha_inicio_segmento) = FECHA AND id_agente = c.id_agente AND UPPER(segmento) = 'HOLD') AS SUM_HOLD,
+         (SELECT SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_estado, fecha_fin_estado)) FROM estados_por_agente WHERE DATE(fecha_inicio_estado) = FECHA AND id_agente = c.id_agente AND UPPER(estado) = 'MEAL') AS SUM_MEAL,
+         (SELECT SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_estado, fecha_fin_estado)) FROM estados_por_agente WHERE DATE(fecha_inicio_estado) = FECHA AND id_agente = c.id_agente AND UPPER(estado) = 'BREAK') AS SUM_BREAK,         
+         null AS TIEMPO_PROMEDIO_VOZ,
+         null AS TIEMPO_PROMEDIO_CHAT,
+         null AS TIEMPO_PROMEDIO_MAIL,
+         (SELECT TIME_FORMAT(fecha_inicio_estado, '%H : %m : %s') FROM estados_por_agente WHERE DATE(fecha_inicio_estado) = FECHA AND id_agente = c.id_agente AND UPPER(estado) = 'OFFLINE' ORDER BY fecha_inicio_estado desc LIMIT 1) AS HORA_LOGOUT,
+         (SELECT (SELECT SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento)) FROM conversaciones_por_tipo WHERE DATE(fecha_inicio_segmento) = FECHA AND id_agente = c.id_agente AND UPPER(tipo) IN ('VOICE', 'CHAT', 'MAIL')) + (SELECT IFNULL(SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_estado, fecha_fin_estado)),0) FROM estados_por_agente WHERE DATE(fecha_inicio_estado) = FECHA AND id_agente = c.id_agente AND UPPER(estado) = 'IDLE')) AS TIEMPO_PRODUCTIVO_AGENTE,         
+         null AS PORCENTAJE_PRODUCTIVIDAD
+FROM     conversacion c
+WHERE	 (DATE(c.fecha_inicio_conversacion) BETWEEN '2018-03-12' AND '2018-03-12')
+AND		 id_agente IN ('e21fc9de-f3d6-4971-ae5c-d3f09d0a70ce','64ad8c51-66ab-4d88-ac48-77dcff93d87d')
+GROUP BY FECHA, NOMBRE_AGENTE) AS conteo;
+
+SELECT	 DATE(c.fecha_inicio_conversacion) AS FECHA,			 
+		 c.nombre_agente AS NOMBRE_AGENTE,
+		 count(*)
+FROM     conversacion c
+WHERE	 (DATE(c.fecha_inicio_conversacion) BETWEEN '2018-03-12' AND '2018-03-12')
+AND		 id_agente IN ('e21fc9de-f3d6-4971-ae5c-d3f09d0a70ce','64ad8c51-66ab-4d88-ac48-77dcff93d87d')
 GROUP BY FECHA, NOMBRE_AGENTE;
 
 -- Numero interacciones voz | chat | mail
