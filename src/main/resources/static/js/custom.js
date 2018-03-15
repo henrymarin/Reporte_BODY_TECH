@@ -279,3 +279,30 @@
 		}
 	}
 	
+	function obtenerAgentes() {
+		var select = document.getElementById("showSubCats");
+		//--
+		$.ajax({
+            url: '/obtenerUsuariosPorTipoDeServicio/SAC',
+            type: 'GET',
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (data) {
+            	//$("#showSubCats").empty().append(data);
+            	for(var i=0;i<data.listaValores.length;i++) {
+            		select.options[select.options.length] = new Option(data.listaValores[i].nombre, data.listaValores[i].codigo);
+            	}
+           }
+        });
+	}
+	
+	function seleccionaTodosLosAgentes(obj) {
+		if(obj.selectedIndex == 0){
+			var select = document.getElementById("showSubCats");
+		    for (var i = 0; i < obj.options.length; i++) {
+		    	select.options[i].selected = true;
+		    }	
+		}
+	}
+	
+	

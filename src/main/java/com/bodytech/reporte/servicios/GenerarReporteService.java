@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import com.bodytech.reporte.dtos.BSTReporteResponse;
 import com.bodytech.reporte.dtos.BTSReporteMapping;
 import com.bodytech.reporte.dtos.GenericBootStrapTableRequest;
+import com.bodytech.reporte.dtos.ListaValores;
 import com.javainuse.DtoEntrada;
 
 /**
@@ -36,6 +37,13 @@ public interface GenerarReporteService {
 	 * @return
 	 */
 	List<BTSReporteMapping> generarReporteSinPaginado(GenericBootStrapTableRequest request);
+
+	/**
+	 * obtener Usuarios Por Tipo De Servicio
+	 * @param clave
+	 * @return
+	 */
+	List<ListaValores> obtenerUsuariosPorTipoDeServicio(String clave);
 	
 	
 	

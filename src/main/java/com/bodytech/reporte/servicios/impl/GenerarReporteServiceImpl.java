@@ -1,5 +1,6 @@
 package com.bodytech.reporte.servicios.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,6 +11,7 @@ import javax.persistence.Query;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,9 @@ import org.springframework.stereotype.Service;
 import com.bodytech.reporte.dtos.BSTReporteResponse;
 import com.bodytech.reporte.dtos.BTSReporteMapping;
 import com.bodytech.reporte.dtos.GenericBootStrapTableRequest;
+import com.bodytech.reporte.dtos.ListaValores;
+import com.bodytech.reporte.entidades.Agente;
+import com.bodytech.reporte.repositorios.AgenteRepository;
 import com.bodytech.reporte.servicios.GenerarReporteService;
 import com.javainuse.DtoEntrada;
 
@@ -26,6 +31,7 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 	private Query query;
 	@PersistenceContext	private EntityManager entityManager;
 	private static final Logger logger = LoggerFactory.getLogger(GenerarReporteServiceImpl.class);
+	@Autowired private AgenteRepository agenteRepository;
 	
 	@Override
 	public JSONObject generarReporte(DtoEntrada dto) {
@@ -116,12 +122,6 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 		}
 	}
 	
-	/**
-	 * 
-	 * @param limitRequest
-	 * @param offSetRequest
-	 * @return
-	 */
 	private Pageable getPageRequest(Integer limitRequest, Integer offSetRequest) {
 		Integer limit = (Objects.nonNull(limitRequest) && limitRequest != 0) ? limitRequest : 10;
 		Integer offset = Objects.nonNull(offSetRequest) ? offSetRequest : 1;
@@ -144,6 +144,24 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 		query = configurarElSQL(false, request.getOrder(), request.getSort(), request.getSearch(), request.getFechaInicial(), request.getFechaFinal());		
 		return  query.getResultList();
 	}
+
+	@Override
+	public List<ListaValores> obtenerUsuariosPorTipoDeServicio(String clave) {
+		List<ListaValores> listaRetorno = new ArrayList<>();
+		Iterable<Agente> listadoDeAgentes = agenteRepository.findAll();
+		for (Agente agente : listadoDeAgentes) {
+			ListaValores valor = new ListaValores(); 
+			if(agente.getTipoAgente().equalsIgnoreCase(clave)){
+				valor.setCodigo(agente.getIdAgente());
+				valor.setNombre(agente.getNombreAgente());
+				listaRetorno.add(valor);				
+			}
+		}
+		return listaRetorno;
+	}
+	
+	
+	
 	
 	
 }

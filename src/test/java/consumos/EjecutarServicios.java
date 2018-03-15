@@ -28,10 +28,36 @@ public class EjecutarServicios {
 	public static void main(String[] args) {		
 	 
 		// Configure SDK settings
-		String accessToken = "ZuA4dHmxQADtv67aonYX7cPsiLlt4geIKM9zY5WRIDCo4HitIYTMpoDsZ4hR8K6AEyfduCPKMGQG4kFNAhfo1g";
+		String accessToken = "Nno02XYWBU84J4FVNCrgTxboleqNpMCHctKH83-0cHcEXOhZQJj7mU2hSV5jE6OZ2dV-SiPIfCU-P-V0yRF16A";
 		Configuration.setDefaultApiClient(ApiClient.Builder.standard().withAccessToken(accessToken).withBasePath("https://api.mypurecloud.com").build());
 		//--
+		
+		
+		//--agentes
+		UsersApi apiInstance = new UsersApi();
+		Integer pageSize = 100; // Integer | Page size
+		Integer pageNumber = 1; // Integer | Page number
+		List<String> id = Arrays.asList("id_example"); // List<String> | id
+		String sortOrder = "ASC"; // String | Ascending or descending sort order
+		List<String> expand = Arrays.asList("expand_example"); // List<String> | Which fields, if any, to expand
+		String state = "active"; // String | Only list users of this state
+		try {
+			UserEntityListing entidadConUsuarios = apiInstance.getUsers(pageSize, pageNumber, new ArrayList<>(), sortOrder, new ArrayList<>());
+			if(Objects.nonNull(entidadConUsuarios) && Objects.nonNull(entidadConUsuarios.getEntities()) && !entidadConUsuarios.getEntities().isEmpty()){
+			    System.out.println(entidadConUsuarios);
+			    List<User> usuarios = entidadConUsuarios.getEntities();
+			    for (User user : usuarios) {
+					System.out.println(user.getName());
+				}
+			}
+		} catch (ApiException | IOException e) {
+		    System.err.println("Exception when calling UsersApi#getUsers");
+		    e.printStackTrace();
+		}
 
+		
+		
+		//--E S T A D  O S 		DE LOS AGENTES, columnas [K, L, C, P, Q]
     	long startEstadosAgentes = System.currentTimeMillis();	 
     	System.out.println("<<<<----guardarDatosDepurado--->>>> INICIA LA CARGA  DE <<<----ESTADOS DE LOS AGENTES--->>>>!!!");
     	List<Agente> listadoDeAgentes =  new ArrayList<>();
@@ -91,27 +117,7 @@ if(agente.getIdAgente().equalsIgnoreCase("27458d36-6fd1-4195-b3f4-0e0b399eebdf")
 		
 		
 		
-		//--
-		UsersApi apiInstance = new UsersApi();
-		Integer pageSize = 100; // Integer | Page size
-		Integer pageNumber = 1; // Integer | Page number
-		List<String> id = Arrays.asList("id_example"); // List<String> | id
-		String sortOrder = "ASC"; // String | Ascending or descending sort order
-		List<String> expand = Arrays.asList("expand_example"); // List<String> | Which fields, if any, to expand
-		String state = "active"; // String | Only list users of this state
-		try {
-			UserEntityListing entidadConUsuarios = apiInstance.getUsers(pageSize, pageNumber, new ArrayList<>(), sortOrder, new ArrayList<>());
-			if(Objects.nonNull(entidadConUsuarios) && Objects.nonNull(entidadConUsuarios.getEntities()) && !entidadConUsuarios.getEntities().isEmpty()){
-			    System.out.println(entidadConUsuarios);
-			    List<User> usuarios = entidadConUsuarios.getEntities();
-			    for (User user : usuarios) {
-					System.out.println(user.getName());
-				}
-			}
-		} catch (ApiException | IOException e) {
-		    System.err.println("Exception when calling UsersApi#getUsers");
-		    e.printStackTrace();
-		}
+
 		
 		
 		

@@ -59,6 +59,9 @@
  	    		
 	</head>
 	<body>
+	
+
+	
 		<div class="wrapper">
 			<div class="container-fluid">
 				<section>
@@ -129,29 +132,7 @@
 								</div>
 								<div class="col-md-3">
 									<button class="btn-action-primary generate" onclick="generarReporte();">GENERAR REPORTE</button>
-								</div>
-							</div>
-						</div>
-						<div id="generar-reporte">
-							<div class="row labels-block">
-								<div class="col-md-2">
-									<label>Fecha Inicio</label>
-									<label><b>12 Dic 2018</b></label>
-								</div>
-								<div class="col-md-2">
-									<label>Fecha Fin</label>
-									<label><b>12 Dic 2019</b></label>
-								</div>
-								<div class="col-md-4">
-									<label>Correo Eléctronico</label>
-									<label><b>Vladimiyr.kiev@correo.com</b></label>
-								</div>
-								<div class="col-md-2">
-									<button class="volver">NUEVA PRECARGA</button>
-								</div>
-								<div class="col-md-2">
-									<button class="btn-action-primary generate">GENERAR REPORTE</button>
-								</div>
+								</div>						
 							</div>
 						</div>
 						<div id="report">
