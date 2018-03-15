@@ -33,22 +33,22 @@
 			//--
 		    var token = obtenerElToken('access_token'); 
 		    //--llamado interno a restController 0002
-		    $.ajax({
-		        url: "http://localhost:8080/guardarDatos",
-		        type: "POST",
-		        dataType: "json",
-		        contentType: "application/json",       
-		        data: JSON.stringify(
-		        	{        
-		        		"entradaUno": 	token,
-		        		"fechaUno": 	convertirFecha($('#datepicker').val()),
-		        		"fechaDos":		convertirFechaDos($('#datepicker').val(),$('#datepicker2').val())
-		        	}
-		        ),
-		        success: function(data) {			
-		            console.log(data);
-		        }
-		    });
+//		    $.ajax({
+//		        url: "http://localhost:8080/guardarDatos",
+//		        type: "POST",
+//		        dataType: "json",
+//		        contentType: "application/json",       
+//		        data: JSON.stringify(
+//		        	{        
+//		        		"entradaUno": 	token,
+//		        		"fechaUno": 	convertirFecha($('#datepicker').val()),
+//		        		"fechaDos":		convertirFechaDos($('#datepicker').val(),$('#datepicker2').val())
+//		        	}
+//		        ),
+//		        success: function(data) {			
+//		            console.log(data);
+//		        }
+//		    });
 		    
 		}
 	}
@@ -168,21 +168,21 @@
 		
 		//--Validando las fechas:
 		//--deben ser diligenciadas
-		if( $('#datepicker').val().trim().length <= 0 ){
+		if( $('#datepicker3').val().trim().length <= 0 ){
 			alert("Debe diligenciar un valor para la Fecha Inicial.");
 			return false;
 		}	
-		if( $('#datepicker2').val().trim().length <= 0 ){
+		if( $('#datepicker4').val().trim().length <= 0 ){
 			alert("Debe diligenciar un valor para la Fecha Final.");
 			return false;
 		}			
 			//--la fecha inicial debe ser menor a la fecha final
-		if(validarFechaHastaSuperOIgualeALaFechaDesde($('#datepicker').val(),$('#datepicker2').val()) == 0){
+		if(validarFechaHastaSuperOIgualeALaFechaDesde($('#datepicker3').val(),$('#datepicker4').val()) == 0){
 			alert("La Fecha Inicial debe ser menor a la Fecha Final.");
 			return false;
 		}
 			//la fecha inicial NO puede ser mayor q hoy
-		if( laFechaDesdeSupereLaFechaDeHoy($('#datepicker').val()) ){
+		if( laFechaDesdeSupereLaFechaDeHoy($('#datepicker3').val()) ){
 			//la fecha desde debe ser menor a la actual
 			alert("La Fecha Inicial NO puede ser mayor a Hoy.");
 			return false;
@@ -199,13 +199,14 @@
         			"offset":	"0",
         			"order":	"desc",
         			"sort":		"fecha",
-        			"fechaInicial": $('#datepicker').val(),
-        			"fechaFinal": $('#datepicker2').val()
+        			"fechaInicial": $('#datepicker3').val(),
+        			"fechaFinal": $('#datepicker4').val()
         		}
             ),
             success: function (data) {                
                 $('#TBSReporte').bootstrapTable({data: data.rows});
-                $('#TBSReporte').bootstrapTable('load', data.rows);  
+                $('#TBSReporte').bootstrapTable('load', data.rows);
+                $("#report").show(); 
            }
         });
 		
@@ -280,20 +281,25 @@
 	}
 	
 	function obtenerAgentes() {
-		var select = document.getElementById("showSubCats");
-		//--
-		$.ajax({
-            url: '/obtenerUsuariosPorTipoDeServicio/SAC',
-            type: 'GET',
-            contentType: "application/json",
-            dataType: 'json',
-            success: function (data) {
-            	//$("#showSubCats").empty().append(data);
-            	for(var i=0;i<data.listaValores.length;i++) {
-            		select.options[select.options.length] = new Option(data.listaValores[i].nombre, data.listaValores[i].codigo);
-            	}
-           }
-        });
+		if($("#tiposDeServicios").val() != "0"){
+			var select = document.getElementById("showSubCats");
+			select.options.length = 0;		
+			$("#tiposDeServicios").val();
+			//--
+			$.ajax({
+	            url: '/obtenerUsuariosPorTipoDeServicio/' + $("#tiposDeServicios").val(),
+	            type: 'GET',
+	            contentType: "application/json",
+	            dataType: 'json',
+	            success: function (data) {
+	            	//$("#showSubCats").empty().append(data);
+	            	select.options[select.options.length] = new Option("Todos", "0");
+	            	for(var i=0;i<data.listaValores.length;i++) {
+	            		select.options[select.options.length] = new Option(data.listaValores[i].nombre, data.listaValores[i].codigo);
+	            	}
+	           }
+	        });	
+		}
 	}
 	
 	function seleccionaTodosLosAgentes(obj) {
@@ -303,6 +309,28 @@
 		    	select.options[i].selected = true;
 		    }	
 		}
+	}
+	
+	
+	function openCity(evt, cityName) {
+	    // Declare all variables
+	    var i, tabcontent, tablinks;
+
+	    // Get all elements with class="tabcontent" and hide them
+	    tabcontent = document.getElementsByClassName("tabcontent");
+	    for (i = 0; i < tabcontent.length; i++) {
+	        tabcontent[i].style.display = "none";
+	    }
+
+	    // Get all elements with class="tablinks" and remove the class "active"
+	    tablinks = document.getElementsByClassName("tablinks");
+	    for (i = 0; i < tablinks.length; i++) {
+	        tablinks[i].className = tablinks[i].className.replace(" active", "");
+	    }
+
+	    // Show the current tab, and add an "active" class to the button that opened the tab
+	    document.getElementById(cityName).style.display = "block";
+	    evt.currentTarget.className += " active";
 	}
 	
 	
