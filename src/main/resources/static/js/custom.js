@@ -164,10 +164,11 @@
 	    });
 	}
 	
+	//BOTOn PRINCIPAL
 	function generarReporte(){
 		
 		//--Validando las fechas:
-		//--deben ser diligenciadas
+			//--deben ser diligenciadas
 		if( $('#datepicker3').val().trim().length <= 0 ){
 			alert("Debe diligenciar un valor para la Fecha Inicial.");
 			return false;
@@ -188,25 +189,43 @@
 			return false;
 		}
 		//--
+		//VALIDANDO EL SERVICIO y los AGentes
+		 var elTipoDeServicio = $("#tiposDeServicios").val();
+		 var elOLosAgentes = $("#showSubCats").val();
+		 if(elTipoDeServicio == "" || elTipoDeServicio == "0" || elTipoDeServicio.length <= 1){
+			alert("Debe seleccionar un Tipo de Servicio");
+			return false;
+		 }
+		 var listadoz = sessionStorage.getItem("listadoZ");
+		 var listadoDeAgentesTmp = sessionStorage.getItem("listadoX");
+		 if(listadoDeAgentesTmp == null || listadoDeAgentesTmp == "" || listadoDeAgentesTmp.length <= 1){
+			alert("Debe seleccionar, por lo menos, un Agente");
+			return false;
+		}
+		 var rq = {
+					limit: 				10,
+					offset: 			0,
+					order: 				'desc',
+					sort:				'fecha',
+					lista: 				listadoz.split(','),
+					fechaInicial:		convertirFechaExportarExcel($('#datepicker3').val()),
+					fechaFinal:			convertirFechaExportarExcel($('#datepicker4').val()),
+					listadoDeAgentesStr:listadoz
+			 };
+		 
+		//--
 		$.ajax({
             url: '/generarReportePaginado',
             type: 'POST',
             contentType: "application/json",
-            dataType: 'json',
-            data: JSON.stringify(
-        		{
-        			"limit":	"10",
-        			"offset":	"0",
-        			"order":	"desc",
-        			"sort":		"fecha",
-        			"fechaInicial": $('#datepicker3').val(),
-        			"fechaFinal": $('#datepicker4').val()
-        		}
-            ),
+            data: JSON.stringify(rq),
             success: function (data) {                
                 $('#TBSReporte').bootstrapTable({data: data.rows});
                 $('#TBSReporte').bootstrapTable('load', data.rows);
                 $("#report").show(); 
+                sessionStorage.removeItem("listadoX");
+                sessionStorage.removeItem("listadoZ");
+                sessionStorage.removeItem("arregloX");                
            }
         });
 		
@@ -234,6 +253,18 @@
 			if( laFechaDesdeSupereLaFechaDeHoy($('#datepicker3').val()) ){
 				//la fecha desde debe ser menor a la actual
 				alert("La Fecha Inicial NO puede ser mayor a Hoy.");
+				return false;
+			}
+			//--		//VALIDANDO EL SERVICIO y los AGentes
+			 var elTipoDeServicio = $("#tiposDeServicios").val();
+			 var elOLosAgentes = $("#showSubCats").val();
+			 if(elTipoDeServicio == "" || elTipoDeServicio == "0" || elTipoDeServicio.length <= 1){
+				alert("Debe seleccionar un Tipo de Servicio");
+				return false;
+			 }
+			 var listadoDeAgentesTmp = sessionStorage.getItem("listadoX");
+			 if(listadoDeAgentesTmp == null || listadoDeAgentesTmp == "" || listadoDeAgentesTmp.length <= 1){
+				alert("Debe seleccionar, por lo menos, un Agente");
 				return false;
 			}
 
@@ -275,6 +306,19 @@
 				return false;
 			}
 			//--
+			//VALIDANDO EL SERVICIO y los AGentes
+			 var elTipoDeServicio = $("#tiposDeServicios").val();
+			 var elOLosAgentes = $("#showSubCats").val();
+			 if(elTipoDeServicio == "" || elTipoDeServicio == "0" || elTipoDeServicio.length <= 1){
+				alert("Debe seleccionar un Tipo de Servicio");
+				return false;
+			 }
+			 var listadoDeAgentesTmp = sessionStorage.getItem("listadoX");
+			 if(listadoDeAgentesTmp == null || listadoDeAgentesTmp == "" || listadoDeAgentesTmp.length <= 1){
+				alert("Debe seleccionar, por lo menos, un Agente");
+				return false;
+			}			
+			//--
 			window.open("http://localhost:8080/generarReportePDFGet/" + convertirFechaExportarExcel($('#datepicker3').val()) + "/" + convertirFechaExportarExcel($('#datepicker4').val()),'_blank' );
 		    
 		}
@@ -292,7 +336,6 @@
 	            contentType: "application/json",
 	            dataType: 'json',
 	            success: function (data) {
-	            	//$("#showSubCats").empty().append(data);
 	            	select.options[select.options.length] = new Option("Todos", "0");
 	            	for(var i=0;i<data.listaValores.length;i++) {
 	            		select.options[select.options.length] = new Option(data.listaValores[i].nombre, data.listaValores[i].codigo);
@@ -303,12 +346,34 @@
 	}
 	
 	function seleccionaTodosLosAgentes(obj) {
+		
+		var listadoDeAgentes = {};
+		var arregloDeAgentes = [];
+		var arregloX = [];
+		
 		if(obj.selectedIndex == 0){
 			var select = document.getElementById("showSubCats");
 		    for (var i = 0; i < obj.options.length; i++) {
-		    	select.options[i].selected = true;
-		    }	
+		    	select.options[i].selected = true;	    	
+		    }
 		}
+	    //--
+		for (var i = 0; i < obj.options.length; i++) {
+			var opt = obj.options[i];
+			if (opt.selected && opt.value != "0") {
+				var agente	=  {
+					id: opt.value
+			    };
+				arregloDeAgentes.push(agente);
+				arregloX.push(opt.value);
+			}			 
+		}
+	    //--		    
+	    listadoDeAgentes = arregloX.toString();
+	    sessionStorage.setItem("listadoX", JSON.stringify(listadoDeAgentes));
+	    sessionStorage.setItem("listadoZ", listadoDeAgentes);
+	    sessionStorage.setItem("arregloX", JSON.stringify(arregloX));
+		
 	}
 	
 	

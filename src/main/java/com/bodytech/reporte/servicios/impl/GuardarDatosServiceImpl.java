@@ -51,6 +51,11 @@ import com.mypurecloud.sdk.v2.model.UserEntityListing;
 @Service
 public class GuardarDatosServiceImpl implements GuardarDatosService{
 
+	private static final String DE_AYUDA = "DE AYUDA";
+	private static final String SAC = "SAC";
+	private static final String MDA = "MDA";
+	private static final String NO_TYPE = "no type";
+	private static final String NO_NAME = "no name";
 	private static final String URL_MYPURECLOUD = "https://api.mypurecloud.com";
 	@Autowired private ConversacionRepository conversacionRepository;
 	@Autowired private TaskExecutor taskExecutor;
@@ -412,7 +417,7 @@ if(conversacion.getIdAgente().equalsIgnoreCase("0d5fc836-390d-4976-b06e-89b8d2f9
 					try {
 						List<String> expand = Arrays.asList("all");
 						com.mypurecloud.sdk.v2.model.User userPureCloud = userApiInstance.getUser(participante.getUserId(), expand);
-						conversacion.setNombreAgente("no name");
+						conversacion.setNombreAgente(NO_NAME);
 						if( Objects.nonNull(userPureCloud) &&  Objects.nonNull(userPureCloud.getName()) ){
 							conversacion.setNombreAgente(userPureCloud.getName());
 						}						
@@ -626,14 +631,14 @@ if(conversacion.getIdAgente().equalsIgnoreCase("0d5fc836-390d-4976-b06e-89b8d2f9
 									    for (User user : usuarios) {
 											Agente agente = new Agente();
 											agente.setIdAgente(user.getId());
-											agente.setNombreAgente("no name");
-											agente.setTipoAgente("no type");
+											agente.setNombreAgente(NO_NAME);
+											agente.setTipoAgente(NO_TYPE);
 											if(Objects.nonNull(user.getName())){
 												agente.setNombreAgente(user.getName());
-												if(user.getName().toUpperCase().contains("MESA")){
-													agente.setTipoAgente("MDA");
+												if(user.getName().toUpperCase().contains(DE_AYUDA)){
+													agente.setTipoAgente(MDA);
 												}else{
-													agente.setTipoAgente("SAC");
+													agente.setTipoAgente(SAC);
 												}
 											}
 											agenteRepository.save(agente);
@@ -778,7 +783,7 @@ if(conversacion.getIdAgente().equalsIgnoreCase("0d5fc836-390d-4976-b06e-89b8d2f9
 					try {
 						List<String> expand = Arrays.asList("all");
 						com.mypurecloud.sdk.v2.model.User userPureCloud = userApiInstance.getUser(participante.getUserId(), expand);
-						conversacion.setNombreAgente("no name");
+						conversacion.setNombreAgente(NO_NAME);
 						if( Objects.nonNull(userPureCloud) &&  Objects.nonNull(userPureCloud.getName()) ){
 							conversacion.setNombreAgente(userPureCloud.getName());
 						}						

@@ -1,110 +1,60 @@
 <!DOCTYPE html>
 <html>
-<head>
-
-	<style>
-		body {font-family: Arial;}
+	<head>
+		<style>
+		</style>	
 		
-		/* Style the tab */
-		.tab {
-		    overflow: hidden;
-		    border: 1px solid #ccc;
-		    background-color: #f1f1f1;
-		}
+			<title>Bodytech</title>
+			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+			<meta name="viewport" content="width=device-width, initial-scale=1" />
+			<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />	
 		
-		/* Style the buttons inside the tab */
-		.tab button {
-		    background-color: inherit;
-		    float: left;
-		    border: none;
-		    outline: none;
-		    cursor: pointer;
-		    padding: 14px 16px;
-		    transition: 0.3s;
-		    font-size: 17px;
-		}
-		
-		/* Change background color of buttons on hover */
-		.tab button:hover {
-		    background-color: #ddd;
-		}
-		
-		/* Create an active/current tablink class */
-		.tab button.active {
-		    background-color: #ccc;
-		}
-		
-		/* Style the tab content */
-		.tabcontent {
-		    display: none;
-		    padding: 6px 12px;
-		    border: 1px solid #ccc;
-		    border-top: none;
-		}
-	</style>
-	
-	
-		<title>Bodytech</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />	
-	
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link href="css/style.css" rel="stylesheet">
-		<link rel="stylesheet" href="css/bootstrap-table.css">		
-		
-		<script src="js/jquery-3.3.1.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
- 		<script src="js/custom.js"></script> 		
-		<script type="text/javascript" src="js/tech.js"></script>
-	    
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	    
-		<script>
-		 $.datepicker.regional['es'] = {
-					closeText: 'Cerrar',
-					prevText: '&#x3c;Ant',
-					nextText: 'Sig&#x3e;',
-					currentText: 'Hoy',
-					monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
-					'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
-					monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
-					'Jul','Ago','Sep','Oct','Nov','Dic'],
-					dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
-					dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b'],
-					dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
-					weekHeader: 'Sm',
-					dateFormat: 'dd/mm/yy',
-					firstDay: 1,
-					isRTL: false,
-					showMonthAfterYear: false,
-					yearSuffix: ''};
-				$.datepicker.setDefaults($.datepicker.regional['es']);
-				
-		 $( function() {
-		   $("#datepicker").datepicker();
-		   $("#datepicker2").datepicker();
-		   
-		   $("#datepicker3").datepicker();
-		   $("#datepicker4").datepicker();
-		 } );	    
-		 </script>
-		 
-		<script src="js/bootstrap-table.js"></script> 
-		 
-		<style type="text/css">
-		    .dgcAlert {top: 0;position: absolute;width: 100%;display: block;height: 1000px; background: url(http://www.dgcmedia.es/recursosExternos/fondoAlert.png) repeat; text-align:center; opacity:0; display:none; z-index:999999999999999;}
-			.dgcAlert .dgcVentana{width: 500px; background: white;min-height: 150px;position: relative;margin: 0 auto;color: black;padding: 10px;border-radius: 10px;}
-			.dgcAlert .dgcVentana .dgcCerrar {height: 25px;width: 25px;float: right; cursor:pointer; background: url(http://www.dgcmedia.es/recursosExternos/cerrarAlert.jpg) no-repeat center center;}
-			.dgcAlert .dgcVentana .dgcMensaje { margin: 0 auto; padding-top: 45px; text-align: center; width: 400px;font-size: 20px;}
-			.dgcAlert .dgcVentana .dgcAceptar{background:#dc8302; bottom:20px; display: inline-block; font-size: 12px; font-weight: bold; height: 24px; line-height: 24px; padding-left: 5px; padding-right: 5px;text-align: center; text-transform: uppercase; width: 75px;cursor: pointer; color:#FFF; margin-top:50px;}
-	    </style>	
-</head>
-<body>	
-
-<div class="wrapper">
+			<link href="css/bootstrap.min.css" rel="stylesheet">
+			<link href="css/style.css" rel="stylesheet">
+			<link rel="stylesheet" href="css/bootstrap-table.css">		
+			
+			<script src="js/jquery-3.3.1.min.js"></script>
+			<script src="js/bootstrap.min.js"></script>
+	 		<script src="js/custom.js"></script> 		
+			<script type="text/javascript" src="js/tech.js"></script>
+		    
+			<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+			<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	    
+			<script>
+			 $.datepicker.regional['es'] = {
+						closeText: 'Cerrar',
+						prevText: '&#x3c;Ant',
+						nextText: 'Sig&#x3e;',
+						currentText: 'Hoy',
+						monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+						'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+						monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+						'Jul','Ago','Sep','Oct','Nov','Dic'],
+						dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
+						dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b'],
+						dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
+						weekHeader: 'Sm',
+						dateFormat: 'dd/mm/yy',
+						firstDay: 1,
+						isRTL: false,
+						showMonthAfterYear: false,
+						yearSuffix: ''};
+					$.datepicker.setDefaults($.datepicker.regional['es']);
+					
+			 $( function() {
+			   $("#datepicker").datepicker();
+			   $("#datepicker2").datepicker();
+			   
+			   $("#datepicker3").datepicker();
+			   $("#datepicker4").datepicker();
+			 } );	    
+			 </script>			 
+			<script src="js/bootstrap-table.js"></script> 
+	</head>
+	<body>
+	<div class="wrapper">
 			<div class="container-fluid">
 				<section>
 					<div class="container">
@@ -151,11 +101,14 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-md-12">
+							
+							
+																<!-- D E F N I C I O N      GLOBAL DE LOS TABS -->							
 								<div class="tab">
 								  <button class="tablinks" onclick="openCity(event, 'London')">Precarga de Información</button>
 								  <button class="tablinks" onclick="openCity(event, 'Paris')">Generación del Reporte</button>
 								</div>
-								
+<!-- T A B 		P A R A    E L    P R O C E S O    D E       L A     P R E C A R G A -->								
 								<div id="London" class="tabcontent">
 								  	<h3>Proceso para Precargar la Información</h3>
 									<section id="mensajeLuegoDePrecargar" style="background: whitesmoke;">
@@ -192,125 +145,116 @@
 									<p></p><p></p><p></p>
 								</div>
 								
+								
+<!-- T A B 		P A R A    E L    P R O C E S O    D E       L A     G E N E R A C I O N    D E L     R E P O R T E -->								
 								<div id="Paris" class="tabcontent">
 								  <h3>Proceso para Generar el Reporte</h3>
-								  
-								  
-
-
-
-
-				<section id="formularioDeGeneracionDelReporte" style="background: whitesmoke;">
-					<div class="container">
-						<div id="precarga">
-							<div class="row">
-								<div class="col-md-3">
-									 <input placeholder="Fecha Inicial" title="Fecha Inicial" type="text" name="datepicker3" id="datepicker3" readonly="readonly" size="12" />
-								</div>
-								<div class="col-md-3">
-									 <input placeholder="Fecha Final" title="Fecha Final" type="text" name="datepicker4" id="datepicker4" readonly="readonly" size="12" />
-								</div>
-
-								<div class="col-md-3" style="width: 10%;">
-									Servicio:
-									<select id="tiposDeServicios" onchange="obtenerAgentes();">
-										<option value="0">Seleccione</option>
-										<option value="SAC">Servicio al Cliente</option>
-										<option value="MDA">Mesa de Ayuda</option>
-									</select>	
-								</div>								
-								<div class="col-md-3" style="width: 4%;"></div>								
-								
-								<div class="col-md-3">
-									Agentes:
-									<select id="showSubCats" multiple onclick="seleccionaTodosLosAgentes(this);" style="width:  240px;height:  200px;">
-										<option value="0">Todos</option>
-									</select>	
-								</div>
-							</div>						
-							
-							<div align="center">
-								<div>
-									<button style=" border:1px solid; text-transform: uppercase;  width: 25%;  padding: 10px;" onclick="obtenerAgentes();generarReporte();">GENERAR REPORTE</button>
-								</div>
-							</div>
-
-
-						<div id="report">
-							<div class="box-table">
-								<div class="row">
-									<div class="col-md-12">
-										<h3>Reporte</h3>
-									</div>
-								</div>
-								<div class="row" >
-									<div class="col-md-12">
-										<div class="table-responsive" style="width:  1085px;">
-											<table class="table table-bordered"
-												id="TBSReporte" 
-												data-search="true"
-												data-show-refresh="false"
-												data-show-toggle="true"
-												data-show-columns="false"
-												data-detail-formatter="detailFormatter"
-												data-minimum-count-columns="2"
-												data-show-pagination-switch="false"
-												data-pagination="true"
-												data-id-field="id"
-												data-page-list="[10, 25, 50, 100, ALL]"
-												data-show-footer="false"
-												data-side-pagination="server"
-												data-url="/generarReportePaginado"
-												data-method="post">
-												<thead>
-												    <tr>
-														<th data-visible="false" 										data-field="id"></th>
-														<th data-halign="center" data-valign="middle"  data-field="item" data-align="left">Item</th>	       	
-														<th data-halign="center" data-valign="middle"  data-field="nombreAgente" data-align="left">Nombre del Agente</th>
-														<th data-halign="center" data-valign="middle"  data-field="horaIngresoCola" data-align="left">Hora de ingreso a la Cola</th>
-														<th data-halign="center" data-valign="middle"  data-field="numeroInteraccionesVoz" data-align="left">Número de Interacciones por Voz</th>
-														<th data-halign="center" data-valign="middle"  data-field="numeroInteraccionesChat" data-align="left">Número de Interacciones por Chat</th>
-														<th data-halign="center" data-valign="middle"  data-field="numeroInteraccionesEmail" data-align="left">Número de Interacciones por Email</th>
-														<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloVoz" data-align="left">Tiempo de Intervalo por Voz</th>
-														<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloChat" data-align="left">Tiempo de Intervalo por Chat</th>
-														<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloEmail" data-align="left">Tiempo de Intervalo por Email</th>
-														<th data-halign="center" data-valign="middle"  data-field="tiempoPausa" data-align="left">Tiempo de Pausa</th>
-														<th data-halign="center" data-valign="middle"  data-field="tiempoAlmuerzo" data-align="left">Tiempo de Almuerzo</th>
-														<th data-halign="center" data-valign="middle"  data-field="tiempoBreak" data-align="left">Tiempo de Break</th>
-														<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioVoz" data-align="left">Tiempo Promedio por Voz</th>
-														<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioChat" data-align="left">Tiempo Promedio por Chat</th>
-														<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioEmail" data-align="left">Tiempo Promedio por Email</th>
-														<th data-halign="center" data-valign="middle"  data-field="horaCierreSesion" data-align="left">Hora de Cierre de Sesion</th>
-														<th data-halign="center" data-valign="middle"  data-field="tiempoProductivoAgente" data-align="left">Tiempo Productivo del Agente</th>		
-												   </tr>
-												</thead>
-												<tbody> 
-												    
-												</tbody>
-											</table>
+									<section id="formularioDeGeneracionDelReporte" style="background: whitesmoke;">
+										<div class="container">
+											<div id="precarga">
+												<div class="row">
+													<div class="col-md-3">
+														 <input placeholder="Fecha Inicial" title="Fecha Inicial" type="text" name="datepicker3" id="datepicker3" readonly="readonly" size="12" />
+													</div>
+													<div class="col-md-3">
+														 <input placeholder="Fecha Final" title="Fecha Final" type="text" name="datepicker4" id="datepicker4" readonly="readonly" size="12" />
+													</div>
+					
+													<div class="col-md-3" style="width: 10%;">
+														Servicio:
+														<select id="tiposDeServicios" onchange="obtenerAgentes();">
+															<option value="0">Seleccione</option>
+															<option value="SAC">Servicio al Cliente</option>
+															<option value="MDA">Mesa de Ayuda</option>
+														</select>	
+													</div>								
+													<div class="col-md-3" style="width: 4%;"></div>								
+													
+													<div class="col-md-3">
+														Agentes:
+														<select id="showSubCats" multiple onclick="seleccionaTodosLosAgentes(this);" style="width:  240px;height:  200px;">
+															<option value="0">Todos</option>
+														</select>	
+													</div>
+												</div>						
+												
+												<div align="center">
+													<div>
+														<button style=" border:1px solid; text-transform: uppercase;  width: 25%;  padding: 10px;" onclick="obtenerAgentes();generarReporte();">GENERAR REPORTE</button>
+													</div>
+												</div>
+					
+					
+											<div id="report">
+												<div class="box-table">
+													<div class="row">
+														<div class="col-md-12">
+															<h3>Reporte</h3>
+														</div>
+													</div>
+													<div class="row" >
+														<div class="col-md-12">
+															<div class="table-responsive" style="width:  1085px;">
+																<table class="table table-bordered"
+																	id="TBSReporte" 
+																	data-search="true"
+																	data-show-refresh="false"
+																	data-show-toggle="true"
+																	data-show-columns="false"
+																	data-detail-formatter="detailFormatter"
+																	data-minimum-count-columns="2"
+																	data-show-pagination-switch="false"
+																	data-pagination="true"
+																	data-id-field="id"
+																	data-page-list="[10, 25, 50, 100, ALL]"
+																	data-show-footer="false"
+																	data-side-pagination="server"
+																	data-url="/generarReportePaginado"
+																	data-method="post">
+																	<thead>
+																	    <tr>
+																			<th data-visible="false" 										data-field="id"></th>
+																			<th data-halign="center" data-valign="middle"  data-field="item" data-align="left">Item</th>	       	
+																			<th data-halign="center" data-valign="middle"  data-field="nombreAgente" data-align="left">Nombre del Agente</th>
+																			<th data-halign="center" data-valign="middle"  data-field="horaIngresoCola" data-align="left">Hora de ingreso a la Cola</th>
+																			<th data-halign="center" data-valign="middle"  data-field="numeroInteraccionesVoz" data-align="left">Número de Interacciones por Voz</th>
+																			<th data-halign="center" data-valign="middle"  data-field="numeroInteraccionesChat" data-align="left">Número de Interacciones por Chat</th>
+																			<th data-halign="center" data-valign="middle"  data-field="numeroInteraccionesEmail" data-align="left">Número de Interacciones por Email</th>
+																			<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloVoz" data-align="left">Tiempo de Intervalo por Voz</th>
+																			<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloChat" data-align="left">Tiempo de Intervalo por Chat</th>
+																			<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloEmail" data-align="left">Tiempo de Intervalo por Email</th>
+																			<th data-halign="center" data-valign="middle"  data-field="tiempoPausa" data-align="left">Tiempo de Pausa</th>
+																			<th data-halign="center" data-valign="middle"  data-field="tiempoAlmuerzo" data-align="left">Tiempo de Almuerzo</th>
+																			<th data-halign="center" data-valign="middle"  data-field="tiempoBreak" data-align="left">Tiempo de Break</th>
+																			<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioVoz" data-align="left">Tiempo Promedio por Voz</th>
+																			<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioChat" data-align="left">Tiempo Promedio por Chat</th>
+																			<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioEmail" data-align="left">Tiempo Promedio por Email</th>
+																			<th data-halign="center" data-valign="middle"  data-field="horaCierreSesion" data-align="left">Hora de Cierre de Sesion</th>
+																			<th data-halign="center" data-valign="middle"  data-field="tiempoProductivoAgente" data-align="left">Tiempo Productivo del Agente</th>		
+																	   </tr>
+																	</thead>
+																	<tbody> 
+																	    
+																	</tbody>
+																</table>
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-2">
+															<button style=" border:1px solid; text-transform: uppercase;  width: 100%;  padding: 10px;" onclick="generarReportePdf();">Exportar a PDF</button>
+														</div>
+														<div class="col-md-2">
+															<button style=" border:1px solid; text-transform: uppercase;  width: 100%;  padding: 10px;" onclick="generarReporteExcel();">Exportar a EXCEL</button>
+														</div>
+													</div>
+												</div>
+											</div>
 										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-2">
-										<button style=" border:1px solid; text-transform: uppercase;  width: 100%;  padding: 10px;" onclick="generarReportePdf();">Exportar a PDF</button>
-									</div>
-									<div class="col-md-2">
-										<button style=" border:1px solid; text-transform: uppercase;  width: 100%;  padding: 10px;" onclick="generarReporteExcel();">Exportar a EXCEL</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					</div>
-				</section>								  
-								  
-								  
-								  
+										</div>
+									</section>
 								  <p></p> 
 								</div>
-								
-
 							</div>
 						</div>
 					</div>

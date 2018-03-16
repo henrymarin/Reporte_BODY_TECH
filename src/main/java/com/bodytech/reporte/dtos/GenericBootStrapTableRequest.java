@@ -1,6 +1,11 @@
 package com.bodytech.reporte.dtos;
 
-public class GenericBootStrapTableRequest {
+import java.io.Serializable;
+import java.util.List;
+
+public class GenericBootStrapTableRequest implements Serializable{
+
+	private static final long serialVersionUID = -3125999404975111403L;
 
 		//el order es el ordenamiento (desc o asc)
 	private String order;
@@ -15,7 +20,8 @@ public class GenericBootStrapTableRequest {
 	private String fechaInicial;
 	private String fechaFinal;
 	private String search;
-	
+	private List<String> lista;
+	private String listadoDeAgentesStr;
 
 	public Integer getOffset() {
 		return offset;
@@ -103,6 +109,22 @@ public class GenericBootStrapTableRequest {
 
 	public void setSearch(String search) {
 		this.search = search;
+	}
+
+	public String getListadoDeAgentesStr() {
+		return listadoDeAgentesStr;
+	}
+
+	public void setListadoDeAgentesStr(String listadoDeAgentesStr) {
+		this.listadoDeAgentesStr = listadoDeAgentesStr;
+	}
+
+	public List<String> getLista() {
+		return lista;
+	}
+
+	public void setLista(List<String> lista) {
+		this.lista = lista;
 	}
 	
 
