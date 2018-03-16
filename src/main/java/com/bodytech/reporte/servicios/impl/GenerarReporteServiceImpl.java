@@ -52,10 +52,35 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 		query = configurarElSQL(false, request.getOrder(), request.getSort(), request.getSearch(), request.getFechaInicial(), request.getFechaFinal());
 		query.setFirstResult(getPageRequest(request.getLimit(), request.getOffset()).getOffset());
 		query.setMaxResults(getPageRequest(request.getLimit(), request.getOffset()).getPageSize());
-		return  query.getResultList();
+				
+		return realizarCalculosReporte(query.getResultList());
 	}
 	
 	
+	private List<BTSReporteMapping> realizarCalculosReporte(List<BTSReporteMapping> resultList) {
+		
+		if (Objects.nonNull(resultList) && !resultList.isEmpty()) {
+			for (BTSReporteMapping btsReporteMapping : resultList) {
+				
+				// Calcular tiempo promedio voz
+				if (!Objects.isNull(btsReporteMapping.getTiempoIntervaloVoz())) {
+					double tiempoIntervaloVoz = Double.parseDouble(btsReporteMapping.getTiempoIntervaloVoz());
+					int numeroInteraccionesVoz = Integer.parseInt(btsReporteMapping.getNumeroInteraccionesVoz());
+					
+					btsReporteMapping.setTiempoPromedioVoz(String.valueOf(tiempoIntervaloVoz / numeroInteraccionesVoz));
+				}				
+				
+				// Calcular tiempo promedio chat
+				
+				// Calcular tiempo promedio mail
+				
+				// Calcular porcentaje productividad agente
+			}
+		}
+		
+		return resultList;
+	}
+
 	private Query configurarElSQL(boolean conteo, String order,String sort, String idSearcheable, String fechaInicial, String fechaFinal) {
 		String sentenciaSQL = "";
 		
@@ -63,7 +88,7 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 			"SELECT " + 
 				"DATE(c.fecha_inicio_conversacion) AS fecha," +
 				"c.nombre_agente AS nombreAgente," +
-				"(SELECT fecha_inicio_estado FROM estados_por_agente WHERE UPPER(estado) = 'ON_QUEUE' AND DATE(fecha_inicio_estado) = FECHA AND id_agente = c.id_agente ORDER BY fecha_inicio_estado LIMIT 1) AS horaIngresoCola," +
+				"(SELECT TIME_FORMAT(fecha_inicio_estado, '%H : %m : %s') FROM estados_por_agente WHERE UPPER(estado) = 'ON_QUEUE' AND DATE(fecha_inicio_estado) = FECHA AND id_agente = c.id_agente ORDER BY fecha_inicio_estado LIMIT 1) AS horaIngresoCola," +
 				"(SELECT COUNT(*) FROM conversaciones_por_tipo ct WHERE DATE(ct.fecha_inicio_segmento) = FECHA AND ct.id_agente = c.id_agente AND UPPER(ct.tipo) = 'VOICE') AS numeroInteraccionesVoz," +
 				"(SELECT COUNT(*) FROM conversaciones_por_tipo ct WHERE DATE(ct.fecha_inicio_segmento) = FECHA AND ct.id_agente = c.id_agente AND UPPER(ct.tipo) = 'CHAT') AS numeroInteraccionesChat," +
 				"(SELECT COUNT(*) FROM conversaciones_por_tipo ct WHERE DATE(ct.fecha_inicio_segmento) = FECHA AND ct.id_agente = c.id_agente AND UPPER(ct.tipo) = 'MAIL') AS numeroInteraccionesEmail," +
@@ -88,8 +113,7 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 		
 		sentenciaSQL += " FROM conversacion c " ;
 		
-//		sentenciaSQL += " WHERE (DATE(c.fecha_inicio_conversacion) BETWEEN '" + fechaInicial + "' AND '" + fechaFinal + "') ";
-		sentenciaSQL += " WHERE (DATE(c.fecha_inicio_conversacion) BETWEEN '2018-03-12' AND '2018-03-12') ";
+		sentenciaSQL += " WHERE (DATE(c.fecha_inicio_conversacion) BETWEEN '" + fechaInicial + "' AND '" + fechaFinal + "') ";
 		
 		if (Objects.nonNull(idSearcheable) && !idSearcheable.isEmpty()) {
 			sentenciaSQL += " AND ( upper(nombre_agente) like upper('%"+idSearcheable+"%') )  ";
