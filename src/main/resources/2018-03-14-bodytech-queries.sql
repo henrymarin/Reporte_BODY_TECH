@@ -20,7 +20,8 @@ SELECT	 DATE(c.fecha_inicio_conversacion) AS FECHA,
 FROM     conversacion c
 WHERE	 (DATE(c.fecha_inicio_conversacion) BETWEEN '2018-03-12' AND '2018-03-12')
 AND		 id_agente IN ('e21fc9de-f3d6-4971-ae5c-d3f09d0a70ce','64ad8c51-66ab-4d88-ac48-77dcff93d87d')
-GROUP BY FECHA, NOMBRE_AGENTE;
+GROUP BY FECHA, NOMBRE_AGENTE
+ORDER BY FECHA;
 
 -- Reporte conteo
 SELECT COUNT(*)
