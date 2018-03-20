@@ -399,3 +399,110 @@
 	}
 	
 	
+	function xxxxx(){
+		if(window.location.hash) {
+			
+						
+			var rq = {        
+				"entradaUno": 	'token',
+        		"fechaUno": 	'2001-01-01',
+        		"fechaDos":		'2001-02-02'
+        	};
+			//--			
+			var request = new XMLHttpRequest();
+			request.open('POST', 'http://localhost:8080/generarReportePDF', true);
+			request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+			request.responseType = 'blob';
+
+			request.onload = function(e) {
+				var fileName = "xxxxx.xls";
+			    if (this.status === 200) {
+			        var blob = this.response;
+			        if(window.navigator.msSaveOrOpenBlob) {
+			            window.navigator.msSaveBlob(blob, fileName);
+			        }
+			        else{
+			            var downloadLink = window.document.createElement('a');
+			            var contentTypeHeader = request.getResponseHeader("Content-Type");
+			            downloadLink.href = window.URL.createObjectURL(new Blob([blob], { type: contentTypeHeader }));
+			            downloadLink.download = fileName;
+			            document.body.appendChild(downloadLink);
+			            downloadLink.click();
+			            document.body.removeChild(downloadLink);
+			           }
+			       }
+			   };
+			   request.send(JSON.stringify(rq));
+			
+			
+			/*var settings = {
+					  "async": true,
+					  "crossDomain": true,
+					  "url": "http://localhost:8080/crearXLS",
+					  "method": "POST",
+					  "headers": {
+					    "content-type": "application/json; charset=utf-8",
+					    "cache-control": "no-cache",
+					    "postman-token": "79b4055d-fb61-bdc2-1957-80311d500f99"
+					  },
+					  "processData": false,
+					  "data":  
+						  JSON.stringify(
+						  {        
+							"entradaUno": 	'token',
+			        		"fechaUno": 	'2001-01-01',
+			        		"fechaDos":		'2001-02-02'
+			        	})
+					}
+
+			$.ajax(settings).done(function (response) {
+				console.log(response);
+				//--
+
+
+				
+
+	            
+	            
+			});*/
+			
+			
+		}
+	}
+	
+	
+function zzzzz(){
+	if(window.location.hash) {
+		var rq = {        
+			"entradaUno": 	'token',
+			"fechaUno": 	'2001-01-01',
+			"fechaDos":		'2001-02-02'
+		};
+		//--			
+		var request = new XMLHttpRequest();
+		request.open('POST', 'http://localhost:8080/crearPDF', true);
+		request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+		request.responseType = 'blob';
+		//--
+		request.onload = function(e) {
+			var fileName = "zzzzzzz.pdf";
+			if (this.status === 200) {
+				var blob = this.response;
+				if(window.navigator.msSaveOrOpenBlob) {
+					window.navigator.msSaveBlob(blob, fileName);
+				}else{
+					var downloadLink = window.document.createElement('a');
+					var contentTypeHeader = request.getResponseHeader("Content-Type");
+			        downloadLink.href = window.URL.createObjectURL(new Blob([blob], { type: contentTypeHeader }));
+			        downloadLink.download = fileName;
+			        document.body.appendChild(downloadLink);
+			        downloadLink.click();
+			        document.body.removeChild(downloadLink);
+				 }
+			  }
+		};
+		request.send(JSON.stringify(rq));
+	}
+}
+	
+	

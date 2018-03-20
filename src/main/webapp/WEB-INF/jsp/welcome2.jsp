@@ -181,6 +181,8 @@
 												<div align="center">
 													<div>
 														<button style=" border:1px solid; text-transform: uppercase;  width: 25%;  padding: 10px;" onclick="obtenerAgentes();generarReporte();">GENERAR REPORTE</button>
+														<button style=" border:1px solid; text-transform: uppercase;  width: 25%;  padding: 10px;" onclick="xxxxx();">XXXXX</button>
+														<button style=" border:1px solid; text-transform: uppercase;  width: 25%;  padding: 10px;" onclick="zzzzz();">ZZZZZ</button>
 													</div>
 												</div>
 					
@@ -214,7 +216,7 @@
 																	<thead>
 																	    <tr>
 																			<th data-visible="false" 										data-field="id"></th>
-																			<th data-halign="center" data-valign="middle"  data-field="item" data-align="left">Item</th>	       	
+																			<th data-halign="center" data-valign="middle"  data-field="fecha" data-align="left">Fecha</th>	       	
 																			<th data-halign="center" data-valign="middle"  data-field="nombreAgente" data-align="left">Nombre del Agente</th>
 																			<th data-halign="center" data-valign="middle"  data-field="horaIngresoCola" data-align="left">Hora de ingreso a la Cola</th>
 																			<th data-halign="center" data-valign="middle"  data-field="numeroInteraccionesVoz" data-align="left">Número de Interacciones por Voz</th>
@@ -231,6 +233,7 @@
 																			<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioEmail" data-align="left">Tiempo Promedio por Email</th>
 																			<th data-halign="center" data-valign="middle"  data-field="horaCierreSesion" data-align="left">Hora de Cierre de Sesion</th>
 																			<th data-halign="center" data-valign="middle"  data-field="tiempoProductivoAgente" data-align="left">Tiempo Productivo del Agente</th>		
+																			<th data-halign="center" data-valign="middle"  data-field="porcentajeProductividadAgente" data-align="left">Porcentaje de Productividad del Agente</th>
 																	   </tr>
 																	</thead>
 																	<tbody> 
