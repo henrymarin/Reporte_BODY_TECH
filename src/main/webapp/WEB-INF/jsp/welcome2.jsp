@@ -223,14 +223,14 @@
 																			<th data-halign="center" data-valign="middle"  data-field="numeroInteraccionesChat" data-align="left">Número Interacciones Chat</th>
 																			<th data-halign="center" data-valign="middle"  data-field="numeroInteraccionesEmail" data-align="left">Número Interacciones Email</th>
 																			<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloVoz" data-align="left">Tiempo Intervalo Voz (segundos)</th>
-																			<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloChat" data-align="left">Tiempo Intervalo Chat</th>
-																			<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloEmail" data-align="left">Tiempo Intervalo Email</th>
+																			<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloChat" data-align="left">Tiempo Intervalo Chat (segundos)</th>
+																			<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloEmail" data-align="left">Tiempo Intervalo Email (segundos)</th>
 																			<th data-halign="center" data-valign="middle"  data-field="tiempoPausa" data-align="left">Tiempo Pausa</th>
 																			<th data-halign="center" data-valign="middle"  data-field="tiempoAlmuerzo" data-align="left">Tiempo Almuerzo</th>
 																			<th data-halign="center" data-valign="middle"  data-field="tiempoBreak" data-align="left">Tiempo Break</th>
-																			<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioVoz" data-align="left">Tiempo Promedio Voz</th>
-																			<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioChat" data-align="left">Tiempo Promedio Chat</th>
-																			<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioEmail" data-align="left">Tiempo Promedio Email</th>
+																			<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioVoz" data-align="left">Tiempo Promedio Voz (segundos)</th>
+																			<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioChat" data-align="left">Tiempo Promedio Chat (segundos)</th>
+																			<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioEmail" data-align="left">Tiempo Promedio Email (segundos)</th>
 																			<th data-halign="center" data-valign="middle"  data-field="horaCierreSesion" data-align="left">Hora Cierre Sesion</th>
 																			<th data-halign="center" data-valign="middle"  data-field="tiempoProductivoAgente" data-align="left">Tiempo Productivo Agente</th>		
 																			<th data-halign="center" data-valign="middle"  data-field="porcentajeProductividadAgente" data-align="left">Porcentaje Productividad Agente</th>

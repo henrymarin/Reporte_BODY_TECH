@@ -87,7 +87,7 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 			"SELECT " + 
 				"DATE(c.fecha_inicio_conversacion) AS fecha," +
 				"c.nombre_agente AS nombreAgente," +
-				"(SELECT TIME_FORMAT(fecha_inicio_estado, '%H : %m : %s') FROM estados_por_agente WHERE UPPER(estado) = 'ON_QUEUE' AND DATE(fecha_inicio_estado) = FECHA AND id_agente = c.id_agente ORDER BY fecha_inicio_estado LIMIT 1) AS horaIngresoCola," +
+				"(SELECT TIME_FORMAT(fecha_inicio_estado, '%H : %i : %s') FROM estados_por_agente WHERE UPPER(estado) = 'ON_QUEUE' AND DATE(fecha_inicio_estado) = FECHA AND id_agente = c.id_agente ORDER BY fecha_inicio_estado LIMIT 1) AS horaIngresoCola," +
 				"(SELECT COUNT(*) FROM conversaciones_por_tipo ct WHERE DATE(ct.fecha_inicio_segmento) = FECHA AND ct.id_agente = c.id_agente AND UPPER(ct.tipo) = 'VOICE') AS numeroInteraccionesVoz," +
 				"(SELECT COUNT(*) FROM conversaciones_por_tipo ct WHERE DATE(ct.fecha_inicio_segmento) = FECHA AND ct.id_agente = c.id_agente AND UPPER(ct.tipo) = 'CHAT') AS numeroInteraccionesChat," +
 				"(SELECT COUNT(*) FROM conversaciones_por_tipo ct WHERE DATE(ct.fecha_inicio_segmento) = FECHA AND ct.id_agente = c.id_agente AND UPPER(ct.tipo) = 'MAIL') AS numeroInteraccionesEmail," +
@@ -100,7 +100,7 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 				"null AS tiempoPromedioVoz," +
 				"null AS tiempoPromedioChat," +
 				"null AS tiempoPromedioEmail," +
-				"(SELECT TIME_FORMAT(fecha_inicio_estado, '%H : %m : %s') FROM estados_por_agente WHERE DATE(fecha_inicio_estado) = FECHA AND id_agente = c.id_agente AND UPPER(estado) = 'OFFLINE' ORDER BY fecha_inicio_estado desc LIMIT 1) AS horaCierreSesion," +
+				"(SELECT TIME_FORMAT(fecha_inicio_estado, '%H : %i : %s') FROM estados_por_agente WHERE DATE(fecha_inicio_estado) = FECHA AND id_agente = c.id_agente AND UPPER(estado) = 'OFFLINE' ORDER BY fecha_inicio_estado desc LIMIT 1) AS horaCierreSesion," +
 				"(SELECT (SELECT SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento)) FROM conversaciones_por_tipo WHERE DATE(fecha_inicio_segmento) = FECHA AND id_agente = c.id_agente AND UPPER(tipo) IN ('VOICE', 'CHAT', 'MAIL')) + (SELECT IFNULL(SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_estado, fecha_fin_estado)),0) FROM estados_por_agente WHERE DATE(fecha_inicio_estado) = FECHA AND id_agente = c.id_agente AND UPPER(estado) = 'IDLE')) AS tiempoProductivoAgente," +
 				"null AS porcentajeProductividadAgente ";
 		
