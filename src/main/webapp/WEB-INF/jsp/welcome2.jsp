@@ -181,6 +181,8 @@
 												<div align="center">
 													<div>
 														<button style=" border:1px solid; text-transform: uppercase;  width: 25%;  padding: 10px;" onclick="obtenerAgentes();generarReporte();">GENERAR REPORTE</button>
+														<button style=" border:1px solid; text-transform: uppercase;  width: 25%;  padding: 10px;" onclick="xxxxx();">XXXXX</button>
+														<button style=" border:1px solid; text-transform: uppercase;  width: 25%;  padding: 10px;" onclick="zzzzz();">ZZZZZ</button>
 													</div>
 												</div>
 					

@@ -108,34 +108,6 @@ public class GenerarReporteController {
 		}
 	}
 	
-	
-	@RequestMapping(
-			value = "/generarReportePDF", 
-			method = RequestMethod.POST, 
-			consumes ="application/json",
-			produces ="application/pdf")
-	@CrossOrigin(origins = "*")
-	public void crearPDF(@RequestBody(required = true) DtoEntrada dto,HttpServletResponse response) {	
-
-		//--
-		try {
-			ServletOutputStream servletOutputStream = response.getOutputStream();
-	        servletOutputStream.flush();
-	        //--
-			Resource plantillaCompilada = new ClassPathResource("/reportes/jasper/reporte000001.jasper");
-			//--
-			Map<String, Object> parametrosZ = new HashMap<>();		
-			parametrosZ.put("DEVELOPER", "Valor a remplazar en el PARAM: DEVELOPER");
-			//--
-			JasperRunManager.runReportToPdfStream(plantillaCompilada.getInputStream(), servletOutputStream, parametrosZ, new JREmptyDataSource());
-			//--
-	        servletOutputStream.flush();
-	        servletOutputStream.close();	
-			response.flushBuffer();
-		} catch (Exception e) {
-			logger.error("erro exportPDF.", e);
-		} 
-	}
 
 	/**
 	 * @param fechaInicial: yyyy-MM-dd
