@@ -181,8 +181,8 @@
 												<div align="center">
 													<div>
 														<button style=" border:1px solid; text-transform: uppercase;  width: 25%;  padding: 10px;" onclick="obtenerAgentes();generarReporte();">GENERAR REPORTE</button>
-														<button style=" border:1px solid; text-transform: uppercase;  width: 25%;  padding: 10px;" onclick="xxxxx();">XXXXX</button>
-														<button style=" border:1px solid; text-transform: uppercase;  width: 25%;  padding: 10px;" onclick="zzzzz();">ZZZZZ</button>
+<!-- 														<button style=" border:1px solid; text-transform: uppercase;  width: 25%;  padding: 10px;" onclick="xxxxx();">XXXXX</button> -->
+<!-- 														<button style=" border:1px solid; text-transform: uppercase;  width: 25%;  padding: 10px;" onclick="zzzzz();">ZZZZZ</button> -->
 													</div>
 												</div>
 					
@@ -243,15 +243,20 @@
 															</div>
 														</div>
 													</div>
-													<div class="row">
-														<div class="col-md-2">
-															<button style=" border:1px solid; text-transform: uppercase;  width: 100%;  padding: 10px;" onclick="generarReportePdf();">Exportar a PDF</button>
-														</div>
-														<div class="col-md-2">
-															<button style=" border:1px solid; text-transform: uppercase;  width: 100%;  padding: 10px;" onclick="generarReporteExcel();">Exportar a EXCEL</button>
-														</div>
-													</div>
 												</div>
+												
+												
+
+
+<div align="center">
+	<div>
+		<button style=" border:1px solid; text-transform: uppercase;  width: 20%;  padding: 10px;" onclick="generarReportePdf();">Exportar a PDF</button>
+		<button style=" border:1px solid; text-transform: uppercase;  width: 20%;  padding: 10px;" onclick="generarReporteExcel();">Exportar a EXCEL</button>
+	</div>
+</div>
+												
+												
+												
 											</div>
 										</div>
 										</div>

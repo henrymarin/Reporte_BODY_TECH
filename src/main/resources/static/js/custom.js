@@ -233,43 +233,7 @@
 	
 	function generarReporteExcel(){
 		if(window.location.hash) {
-			
-			//--Validando las fechas:
-				//--deben ser diligenciadas
-			if( $('#datepicker3').val().trim().length <= 0 ){
-				alert("Debe diligenciar un valor para la Fecha Inicial.");
-				return false;
-			}	
-			if( $('#datepicker4').val().trim().length <= 0 ){
-				alert("Debe diligenciar un valor para la Fecha Final.");
-				return false;
-			}			
-				//--la fecha inicial debe ser menor a la fecha final
-			if(validarFechaHastaSuperOIgualeALaFechaDesde($('#datepicker3').val(),$('#datepicker4').val()) == 0){
-				alert("La Fecha Inicial debe ser menor a la Fecha Final.");
-				return false;
-			}
-				//la fecha inicial NO puede ser mayor q hoy
-			if( laFechaDesdeSupereLaFechaDeHoy($('#datepicker3').val()) ){
-				//la fecha desde debe ser menor a la actual
-				alert("La Fecha Inicial NO puede ser mayor a Hoy.");
-				return false;
-			}
-			//--		//VALIDANDO EL SERVICIO y los AGentes
-			 var elTipoDeServicio = $("#tiposDeServicios").val();
-			 var elOLosAgentes = $("#showSubCats").val();
-			 if(elTipoDeServicio == "" || elTipoDeServicio == "0" || elTipoDeServicio.length <= 1){
-				alert("Debe seleccionar un Tipo de Servicio");
-				return false;
-			 }
-			 var listadoDeAgentesTmp = sessionStorage.getItem("listadoX");
-			 if(listadoDeAgentesTmp == null || listadoDeAgentesTmp == "" || listadoDeAgentesTmp.length <= 1){
-				alert("Debe seleccionar, por lo menos, un Agente");
-				return false;
-			}
-
-		    //--llamado interno a restController 0002
-			window.open("http://localhost:8080/generarReporteExcelGet/" + convertirFechaExportarExcel($('#datepicker3').val()) + "/" + convertirFechaExportarExcel($('#datepicker4').val()),'_blank' );		    
+			reporteXLSPOST();
 		}
 	}
 	
@@ -282,45 +246,8 @@
 	
 	
 	function generarReportePdf(){
-		if(window.location.hash) {
-			
-			//--Validando las fechas:
-				//--deben ser diligenciadas
-			if( $('#datepicker3').val().trim().length <= 0 ){
-				alert("Debe diligenciar un valor para la Fecha Inicial.");
-				return false;
-			}	
-			if( $('#datepicker4').val().trim().length <= 0 ){
-				alert("Debe diligenciar un valor para la Fecha Final.");
-				return false;
-			}			
-				//--la fecha inicial debe ser menor a la fecha final
-			if(validarFechaHastaSuperOIgualeALaFechaDesde($('#datepicker3').val(),$('#datepicker4').val()) == 0){
-				alert("La Fecha Inicial debe ser menor a la Fecha Final.");
-				return false;
-			}
-				//la fecha inicial NO puede ser mayor q hoy
-			if( laFechaDesdeSupereLaFechaDeHoy($('#datepicker3').val()) ){
-				//la fecha desde debe ser menor a la actual
-				alert("La Fecha Inicial NO puede ser mayor a Hoy.");
-				return false;
-			}
-			//--
-			//VALIDANDO EL SERVICIO y los AGentes
-			 var elTipoDeServicio = $("#tiposDeServicios").val();
-			 var elOLosAgentes = $("#showSubCats").val();
-			 if(elTipoDeServicio == "" || elTipoDeServicio == "0" || elTipoDeServicio.length <= 1){
-				alert("Debe seleccionar un Tipo de Servicio");
-				return false;
-			 }
-			 var listadoDeAgentesTmp = sessionStorage.getItem("listadoX");
-			 if(listadoDeAgentesTmp == null || listadoDeAgentesTmp == "" || listadoDeAgentesTmp.length <= 1){
-				alert("Debe seleccionar, por lo menos, un Agente");
-				return false;
-			}			
-			//--
-			window.open("http://localhost:8080/generarReportePDFGet/" + convertirFechaExportarExcel($('#datepicker3').val()) + "/" + convertirFechaExportarExcel($('#datepicker4').val()),'_blank' );
-		    
+		if(window.location.hash) {	
+		   reportePDFPOST();
 		}
 	}
 	
@@ -399,10 +326,8 @@
 	}
 	
 	
-	function xxxxx(){
+	function reporteXLSPOST(){
 		if(window.location.hash) {
-			
-						
 			var rq = {        
 				"entradaUno": 	'token',
         		"fechaUno": 	'2001-01-01',
@@ -410,7 +335,7 @@
         	};
 			//--			
 			var request = new XMLHttpRequest();
-			request.open('POST', 'http://localhost:8080/generarReportePDF', true);
+			request.open('POST', 'http://localhost:8080/crearXLS', true);
 			request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 			request.responseType = 'blob';
 
@@ -434,44 +359,11 @@
 			   };
 			   request.send(JSON.stringify(rq));
 			
-			
-			/*var settings = {
-					  "async": true,
-					  "crossDomain": true,
-					  "url": "http://localhost:8080/crearXLS",
-					  "method": "POST",
-					  "headers": {
-					    "content-type": "application/json; charset=utf-8",
-					    "cache-control": "no-cache",
-					    "postman-token": "79b4055d-fb61-bdc2-1957-80311d500f99"
-					  },
-					  "processData": false,
-					  "data":  
-						  JSON.stringify(
-						  {        
-							"entradaUno": 	'token',
-			        		"fechaUno": 	'2001-01-01',
-			        		"fechaDos":		'2001-02-02'
-			        	})
-					}
-
-			$.ajax(settings).done(function (response) {
-				console.log(response);
-				//--
-
-
-				
-
-	            
-	            
-			});*/
-			
-			
 		}
 	}
 	
 	
-function zzzzz(){
+function reportePDFPOST(){
 	if(window.location.hash) {
 		var rq = {        
 			"entradaUno": 	'token',
