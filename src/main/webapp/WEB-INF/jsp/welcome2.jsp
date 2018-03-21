@@ -95,6 +95,9 @@
 								</div>						
 							</div>						
 						</div>
+						
+						
+						
 					</div>
 				</section><br><br>
 				<section id="formularioDePrecarga">
@@ -197,43 +200,51 @@
 													<div class="row" >
 														<div class="col-md-12">
 															<div class="table-responsive" style="width:  1085px;">
-																<table class="table table-bordered"
+
+ <table 
+     id="tableXXXXX" 
+     data-pagination="true"  
+     data-method="post"  
+     class="table table-hover cursor-pointer" 
+     data-side-pagination="server" 
+     data-page-list="[5, 10, 20, 50, 100, 200]" 
+     data-buttons-class="btn btn-info btn-block" 
+     data-locale="es-MX" 
+     data-query-params="queryParams">
+     <thead>
+         
+     </thead>
+ </table>
+																<table 
+																	class="table table-bordered"
 																	id="TBSReporte" 
 																	data-search="true"
 																	data-show-refresh="false"
 																	data-show-toggle="true"
-																	data-show-columns="false"
 																	data-detail-formatter="detailFormatter"
-																	data-minimum-count-columns="2"
-																	data-show-pagination-switch="false"
 																	data-pagination="true"
-																	data-id-field="id"
-																	data-page-list="[10, 25, 50, 100, ALL]"
-																	data-show-footer="false"
-																	data-side-pagination="server"
-																	data-url="/generarReportePaginado"
-																	data-method="post">
+																	data-page-list="[20, 30, 50, 100]"
+																	data-side-pagination="server">
 																	<thead>
-																	    <tr>
-																			<th data-visible="false" 										data-field="id"></th>
+																	    <tr>																			
 																			<th data-halign="center" data-valign="middle"  data-field="fecha" data-align="left">Fecha</th>	       	
 																			<th data-halign="center" data-valign="middle"  data-field="nombreAgente" data-align="left">Nombre Agente</th>
-																			<th data-halign="center" data-valign="middle"  data-field="horaIngresoCola" data-align="left">Hora Ingreso Cola</th>
-																			<th data-halign="center" data-valign="middle"  data-field="numeroInteraccionesVoz" data-align="left">Número Interacciones Voz</th>
-																			<th data-halign="center" data-valign="middle"  data-field="numeroInteraccionesChat" data-align="left">Número Interacciones Chat</th>
-																			<th data-halign="center" data-valign="middle"  data-field="numeroInteraccionesEmail" data-align="left">Número Interacciones Email</th>
-																			<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloVoz" data-align="left">Tiempo Intervalo Voz (segundos)</th>
-																			<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloChat" data-align="left">Tiempo Intervalo Chat (segundos)</th>
-																			<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloEmail" data-align="left">Tiempo Intervalo Email (segundos)</th>
-																			<th data-halign="center" data-valign="middle"  data-field="tiempoPausa" data-align="left">Tiempo Pausa</th>
-																			<th data-halign="center" data-valign="middle"  data-field="tiempoAlmuerzo" data-align="left">Tiempo Almuerzo</th>
-																			<th data-halign="center" data-valign="middle"  data-field="tiempoBreak" data-align="left">Tiempo Break</th>
-																			<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioVoz" data-align="left">Tiempo Promedio Voz (segundos)</th>
-																			<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioChat" data-align="left">Tiempo Promedio Chat (segundos)</th>
-																			<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioEmail" data-align="left">Tiempo Promedio Email (segundos)</th>
-																			<th data-halign="center" data-valign="middle"  data-field="horaCierreSesion" data-align="left">Hora Cierre Sesion</th>
-																			<th data-halign="center" data-valign="middle"  data-field="tiempoProductivoAgente" data-align="left">Tiempo Productivo Agente</th>		
-																			<th data-halign="center" data-valign="middle"  data-field="porcentajeProductividadAgente" data-align="left">Porcentaje Productividad Agente</th>																			
+<!-- 																			<th data-halign="center" data-valign="middle"  data-field="horaIngresoCola" data-align="left">Hora Ingreso Cola</th> -->
+<!-- 																			<th data-halign="center" data-valign="middle"  data-field="numeroInteraccionesVoz" data-align="left">Número Interacciones Voz</th> -->
+<!-- 																			<th data-halign="center" data-valign="middle"  data-field="numeroInteraccionesChat" data-align="left">Número Interacciones Chat</th> -->
+<!-- 																			<th data-halign="center" data-valign="middle"  data-field="numeroInteraccionesEmail" data-align="left">Número Interacciones Email</th> -->
+<!-- 																			<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloVoz" data-align="left">Tiempo Intervalo Voz (segundos)</th> -->
+<!-- 																			<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloChat" data-align="left">Tiempo Intervalo Chat (segundos)</th> -->
+<!-- 																			<th data-halign="center" data-valign="middle"  data-field="tiempoIntervaloEmail" data-align="left">Tiempo Intervalo Email (segundos)</th> -->
+<!-- 																			<th data-halign="center" data-valign="middle"  data-field="tiempoPausa" data-align="left">Tiempo Pausa</th> -->
+<!-- 																			<th data-halign="center" data-valign="middle"  data-field="tiempoAlmuerzo" data-align="left">Tiempo Almuerzo</th> -->
+<!-- 																			<th data-halign="center" data-valign="middle"  data-field="tiempoBreak" data-align="left">Tiempo Break</th> -->
+<!-- 																			<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioVoz" data-align="left">Tiempo Promedio Voz (segundos)</th> -->
+<!-- 																			<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioChat" data-align="left">Tiempo Promedio Chat (segundos)</th> -->
+<!-- 																			<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioEmail" data-align="left">Tiempo Promedio Email (segundos)</th> -->
+<!-- 																			<th data-halign="center" data-valign="middle"  data-field="horaCierreSesion" data-align="left">Hora Cierre Sesion</th> -->
+<!-- 																			<th data-halign="center" data-valign="middle"  data-field="tiempoProductivoAgente" data-align="left">Tiempo Productivo Agente</th>		 -->
+<!-- 																			<th data-halign="center" data-valign="middle"  data-field="porcentajeProductividadAgente" data-align="left">Porcentaje Productividad Agente</th>																			 -->
 																	   </tr>
 																	</thead>
 																	<tbody> 

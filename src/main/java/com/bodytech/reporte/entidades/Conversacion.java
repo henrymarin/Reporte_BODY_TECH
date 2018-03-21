@@ -15,8 +15,7 @@ import com.bodytech.reporte.dtos.BTSReporteMapping;
 @Entity // This tells Hibernate to make a table out of this class
 @SqlResultSetMapping(name = "BTSReporteMapping", 
 classes = {
-	@ConstructorResult(targetClass = BTSReporteMapping.class, columns = {
-			@ColumnResult(name = "id", 								type = Long.class), 
+	@ConstructorResult(targetClass = BTSReporteMapping.class, columns = {			
 			@ColumnResult(name = "fecha", 							type = String.class),
 			@ColumnResult(name = "nombreAgente", 					type = String.class),
 			@ColumnResult(name = "horaIngresoCola", 				type = String.class),

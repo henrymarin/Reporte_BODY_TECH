@@ -106,58 +106,61 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 	}
 
 	private Query configurarElSQL(boolean conteo, GenericBootStrapTableRequest request) {
-		String sentenciaSQL = "";
 		
-		String sentenciaSQLReporte = 
-			"SELECT " +
-				"id, " +
-				"DATE(c.fecha_inicio_conversacion) AS fecha," +
-				"c.nombre_agente AS nombreAgente," +
-				"(SELECT TIME_FORMAT(fecha_inicio_estado, '%H : %i : %s') FROM estados_por_agente WHERE UPPER(estado) = 'ON_QUEUE' AND FECHA = DATE(fecha_inicio_estado) AND c.id_agente = id_agente ORDER BY fecha_inicio_estado LIMIT 1) AS horaIngresoCola," +
-				"(SELECT COUNT(*) FROM conversaciones_por_tipo ct WHERE FECHA = DATE(ct.fecha_inicio_segmento) AND c.id_agente = ct.id_agente AND UPPER(ct.tipo) = 'VOICE') AS numeroInteraccionesVoz," +
-				"(SELECT COUNT(*) FROM conversaciones_por_tipo ct WHERE FECHA = DATE(ct.fecha_inicio_segmento) AND c.id_agente = ct.id_agente AND UPPER(ct.tipo) = 'CHAT') AS numeroInteraccionesChat," +
-				"(SELECT COUNT(*) FROM conversaciones_por_tipo ct WHERE FECHA = DATE(ct.fecha_inicio_segmento) AND c.id_agente = ct.id_agente AND UPPER(ct.tipo) = 'MAIL') AS numeroInteraccionesEmail," +
-				"(SELECT SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento)) FROM conversaciones_por_tipo WHERE FECHA = DATE(fecha_inicio_segmento) AND c.id_agente = id_agente AND UPPER(tipo) = 'VOICE') AS tiempoIntervaloVoz," +
-				"(SELECT SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento)) FROM conversaciones_por_tipo WHERE FECHA = DATE(fecha_inicio_segmento) AND c.id_agente = id_agente AND UPPER(tipo) = 'CHAT') AS tiempoIntervaloChat," +
-				"(SELECT SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento)) FROM conversaciones_por_tipo WHERE FECHA = DATE(fecha_inicio_segmento) AND c.id_agente = id_agente AND UPPER(tipo) = 'MAIL') AS tiempoIntervaloEmail," +
-				"(SELECT SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento)) FROM conversaciones_por_tipo WHERE FECHA = DATE(fecha_inicio_segmento) AND c.id_agente = id_agente AND UPPER(segmento) = 'HOLD') AS tiempoPausa," +
-				"(SELECT SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_estado, fecha_fin_estado)) FROM estados_por_agente WHERE FECHA = DATE(fecha_inicio_estado) AND c.id_agente = id_agente AND UPPER(estado) = 'MEAL') AS tiempoAlmuerzo," +
-				"(SELECT SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_estado, fecha_fin_estado)) FROM estados_por_agente WHERE FECHA = DATE(fecha_inicio_estado) AND c.id_agente = id_agente AND UPPER(estado) = 'BREAK') AS tiempoBreak," +
-				"null AS tiempoPromedioVoz," +
-				"null AS tiempoPromedioChat," +
-				"null AS tiempoPromedioEmail," +
-				"(SELECT TIME_FORMAT(fecha_inicio_estado, '%H : %i : %s') FROM estados_por_agente WHERE FECHA = DATE(fecha_inicio_estado) AND c.id_agente = id_agente AND UPPER(estado) = 'OFFLINE' ORDER BY fecha_inicio_estado desc LIMIT 1) AS horaCierreSesion," +
-				"(SELECT (SELECT SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento)) FROM conversaciones_por_tipo WHERE FECHA = DATE(fecha_inicio_segmento) AND c.id_agente = id_agente AND UPPER(tipo) IN ('VOICE', 'CHAT', 'MAIL')) + (SELECT IFNULL(SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_estado, fecha_fin_estado)),0) FROM estados_por_agente WHERE FECHA = DATE(fecha_inicio_estado) AND c.id_agente = id_agente AND UPPER(estado) = 'IDLE')) AS tiempoProductivoAgente," +
-				"null AS porcentajeProductividadAgente, " +
-				"(SELECT SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_estado, fecha_fin_estado)) FROM estados_por_agente WHERE FECHA = DATE(fecha_inicio_estado) AND c.id_agente = id_agente AND UPPER(estado) = 'IDLE') AS tiempoImproductivoAgente ";
-		
+		String sentenciaSQL;		
+		String sentenciaSQLReporte =
+		"SELECT "+ 
+            "    id_agente, "+
+            "    sum(case when tipo = 'voice' then 1 else 0 end) as numeroInteraccionesVoz, "+
+            "    sum(case when tipo = 'callback' then 1 else 0 end) as numeroInteraccionesChat, "+
+            "    sum(case when tipo = 'email' then 1 else 0 end) as numeroInteraccionesEmail, "+
+            "    SUM(CASE WHEN tipo = 'voice' THEN TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento) ELSE 0 END) AS tiempoIntervaloVoz, "+
+            "    SUM(CASE WHEN tipo = 'callback' THEN TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento) ELSE 0 END) AS tiempoIntervaloChat, "+
+            "    SUM(CASE WHEN tipo = 'email' THEN TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento) ELSE 0 END) AS tiempoIntervaloEmail, "+
+            "    SUM(CASE WHEN segmento = 'hold' THEN TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento) ELSE 0 END) AS tiempoPausa, "+
+            "   (SUM(CASE WHEN tipo = 'voice' THEN TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento) ELSE 0 END) + "+
+            "    SUM(CASE WHEN tipo = 'callback' THEN TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento) ELSE 0 END) + "+
+            "    SUM(CASE WHEN tipo = 'email' THEN TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento) ELSE 0 END)  ) as tiempoProductivoAgenteUno, "+
+            "    fecha," +
+            "	 nombreAgente, " +
+            "    segmento," +
+            "    null AS tiempoPromedioVoz," +
+            "    null AS tiempoPromedioChat, " +
+            "    null AS tiempoPromedioEmail, "+
+            "    null AS horaIngresoCola, null AS tiempoBreak, null AS horaCierreSesion, null AS porcentajeProductividadAgente,null AS tiempoAlmuerzo, null AS tiempoProductivoAgente  "+
+        "FROM  "+
+        	"( "+
+        	"        SELECT "+
+        	"                date(C.fecha_inicio_conversacion) as fecha, "+
+        	"                C.fecha_fin_conversacion, C.fecha_inicio_conversacion, C.id_agente, C.id_conversacion, " +
+        	"				 C.nombre_agente as nombreAgente, CPT.fecha_fin_segmento, CPT.fecha_inicio_segmento, CPT.tipo, CPT.segmento "+
+        	"          FROM  "+
+        	"                conversacion C "+
+        	"          INNER JOIN conversaciones_por_tipo CPT ON C.id_conversacion = CPT.id_conversacion AND C.id_agente = CPT.id_agente "+                
+        	"         WHERE "+        	
+        	" 				(DATE(c.fecha_inicio_conversacion) BETWEEN '" + request.getFechaInicial() + "' AND '" + request.getFechaFinal() + "') "+        	
+        	" 				AND C.id_agente IN (" + generarClausulaIn(request.getListadoDeAgentesStr()) + ")";        	
+    	if (Objects.nonNull(request.getIdSearcheable()) && !request.getIdSearcheable().isEmpty()) {
+    		sentenciaSQLReporte += " AND ( upper(nombre_agente) like upper('%" + request.getIdSearcheable() + "%') )  ";
+    	}        	
+    	sentenciaSQLReporte +=
+        ") as TB00001   "+
+        "GROUP BY fecha, nombreAgente ";		
+    	//--
+		String sentenciaCountSQLReporte = 				
+		"SELECT COUNT(*) "+
+        "FROM  "+
+        	"( "+
+        		sentenciaSQLReporte +
+        "	)as TB00002"; 
+		//--
 		if (conteo) {
-			sentenciaSQL += "SELECT COUNT(*) FROM ( " + sentenciaSQLReporte;
+			sentenciaSQL = sentenciaCountSQLReporte;
 		} else {
-			sentenciaSQL += sentenciaSQLReporte;			
+			sentenciaSQL = sentenciaSQLReporte;			
 		}
-		
-		sentenciaSQL += " FROM conversacion c " ;
-		
-		sentenciaSQL += " WHERE (DATE(c.fecha_inicio_conversacion) BETWEEN '" + request.getFechaInicial() + "' AND '" + request.getFechaFinal() + "') ";
-		
-		if (Objects.nonNull(request.getIdSearcheable()) && !request.getIdSearcheable().isEmpty()) {
-			sentenciaSQL += " AND ( upper(nombre_agente) like upper('%" + request.getIdSearcheable() + "%') )  ";
-		}
-		
-		if (!Objects.isNull(request.getListadoDeAgentesStr()) && !request.getListadoDeAgentesStr().isEmpty()) {
-			sentenciaSQL += " AND id_agente IN (" + generarClausulaIn(request.getListadoDeAgentesStr()) + ")";
-		}
-						
-		sentenciaSQL += " GROUP BY fecha, nombreAgente ";				
-		sentenciaSQL += " ORDER BY fecha ";		
-		
-		if (conteo) {
-			sentenciaSQL += " ) AS conteo";
-		}
-		
-		ejecucionDelSQL(conteo, sentenciaSQL);
-						
+		//--
+		ejecucionDelSQL(conteo, sentenciaSQL);						
 		return query;
 	}
 	
@@ -176,15 +179,6 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 			sbAgentes.deleteCharAt(sbAgentes.length() - 1);						
 		}
 		return sbAgentes.toString();
-	}
-
-	private String configurarElOrdenamientoDelSQL(String sort) {
-		if("fecha".equals(sort)){
-			return "fecha_inicio_conversacion";
-		}else if("nombre".equals(sort)){
-			return "nombre_agente";
-		}
-		return "id";
 	}
 	
 	private void ejecucionDelSQL(boolean conteo, String sentenciaSQL) {

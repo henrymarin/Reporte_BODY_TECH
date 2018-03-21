@@ -61,7 +61,7 @@ public class GenerarReporteController {
 	@ResponseBody
 	public BSTReporteResponse generarReportePaginado(@RequestBody GenericBootStrapTableRequest request) {
 		BSTReporteResponse respuesta = new BSTReporteResponse(null,0);
-		if( Objects.isNull(request)){
+		if( Objects.isNull(request) || Objects.isNull(request.getFechaInicial()) || Objects.isNull(request.getFechaFinal()) || Objects.isNull(request.getLista()) ){
 			return respuesta;
 		}
 		return servicio.generarReportePaginado(request);

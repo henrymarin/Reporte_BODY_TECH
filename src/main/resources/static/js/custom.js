@@ -1,4 +1,9 @@
+$(document).ready(function(){
+	
 
+	
+	
+});
 
 	window.alert = function (message) {
 	  alertDGC(message);
@@ -166,7 +171,7 @@
 	
 	//BOTOn PRINCIPAL
 	function generarReporte(){
-		
+
 		//--Validando las fechas:
 			//--deben ser diligenciadas
 		if( $('#datepicker3').val().trim().length <= 0 ){
@@ -201,7 +206,58 @@
 		 if(listadoDeAgentesTmp == null || listadoDeAgentesTmp == "" || listadoDeAgentesTmp.length <= 1){
 			alert("Debe seleccionar, por lo menos, un Agente");
 			return false;
-		}
+		}	
+//--------------
+var url = '/generarReportePaginado';        	
+$('#tableXXXXX').bootstrapTable(
+	{ 
+	url:url,
+	options : {
+    	method : 'post',
+    	cache : true,
+    	pagination : true,
+    	sidePagination : 'server',
+    	clickToSelect : true,
+    	maintainSelected : true,
+    	pageListVAlinOnTop : true,
+    	search : true,
+    	minimumCountColumns : 2,
+    	locale : "es-MX",
+	},
+	queryParams : function(params) {
+            var elRQ = {
+					limit: 				10,
+					offset: 			0,
+					order: 				'desc',
+					sort:				'fecha',
+					lista: 				listadoz.split(','),
+					fechaInicial:		convertirFechaExportarExcel($('#datepicker3').val()),
+					fechaFinal:			convertirFechaExportarExcel($('#datepicker4').val()),
+					listadoDeAgentesStr:listadoz
+            };                       
+            return elRQ;
+	},
+	search : true,
+	columns : [
+	             {
+	            	 field : 'fecha',
+	            	 title : 'fEcha',
+	            	 valign : 'middle',
+	            	 sortable : true
+	             },
+	             {
+                    field : 'nombreAgente',
+                    title : 'nombre De Agente',
+                    valign : 'middle',
+                    sortable : true
+	             }   
+	     ]
+});
+//------------------
+		 
+		 
+		 
+		 //--
 		 var rq = {
 					limit: 				10,
 					offset: 			0,
@@ -219,15 +275,20 @@
             type: 'POST',
             contentType: "application/json",
             data: JSON.stringify(rq),
-            success: function (data) {                
+            success: function (data) {
+            	$('#TBSReporte').bootstrapTable('removeAll');
                 $('#TBSReporte').bootstrapTable({data: data.rows});
                 $('#TBSReporte').bootstrapTable('load', data.rows);
                 //--
                 $("#report").show();
                 //--
-                $('#datepicker3').val("");
-                $('#datepicker4').val("");
-                document.getElementById('tiposDeServicios').value=0;
+                $('#TBSReporte').bootstrapTable("append", data.rows);
+                
+                
+                //--                
+/*$('#datepicker3').val("");
+$('#datepicker4').val("");
+document.getElementById('tiposDeServicios').value=0;*/
            }
         });
 		//--
