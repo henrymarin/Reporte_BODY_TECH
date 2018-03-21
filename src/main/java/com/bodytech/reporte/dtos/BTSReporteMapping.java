@@ -2,6 +2,7 @@ package com.bodytech.reporte.dtos;
 
 public class BTSReporteMapping {
 
+	private Long id;
 	private String fecha;	
 	private String nombreAgente;
 	private String horaIngresoCola;
@@ -19,19 +20,20 @@ public class BTSReporteMapping {
 	private String tiempoPromedioEmail;
 	private String horaCierreSesion;
 	private String tiempoProductivoAgente;
-	private String porcentajeProductividadAgente;
+	private String porcentajeProductividadAgente;	
 	
 	public BTSReporteMapping() {
 		super();
 	}
 
-	public BTSReporteMapping(String fecha, String nombreAgente, String horaIngresoCola,
+	public BTSReporteMapping(Long id, String fecha, String nombreAgente, String horaIngresoCola,
 			String numeroInteraccionesVoz, String numeroInteraccionesChat, String numeroInteraccionesEmail,
 			String tiempoIntervaloVoz, String tiempoIntervaloChat, String tiempoIntervaloEmail, String tiempoPausa,
 			String tiempoAlmuerzo, String tiempoBreak, String tiempoPromedioVoz, String tiempoPromedioChat,
 			String tiempoPromedioEmail, String horaCierreSesion, String tiempoProductivoAgente, String porcentajeProductividadAgente) {
 		super();
 		
+		this.id = id;
 		this.fecha = fecha;
 		this.nombreAgente = nombreAgente;
 		this.horaIngresoCola = horaIngresoCola;
@@ -49,9 +51,17 @@ public class BTSReporteMapping {
 		this.tiempoPromedioEmail = tiempoPromedioEmail;
 		this.horaCierreSesion = horaCierreSesion;
 		this.tiempoProductivoAgente = tiempoProductivoAgente;
-		this.porcentajeProductividadAgente = porcentajeProductividadAgente;
+		this.porcentajeProductividadAgente = porcentajeProductividadAgente;		
 	}
-		
+				
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getFecha() {
 		return fecha;
 	}
@@ -194,6 +204,5 @@ public class BTSReporteMapping {
 
 	public void setPorcentajeProductividadAgente(String porcentajeProductividadAgente) {
 		this.porcentajeProductividadAgente = porcentajeProductividadAgente;
-	}
-			
+	}	
 }

@@ -16,6 +16,7 @@ import com.bodytech.reporte.dtos.BTSReporteMapping;
 @SqlResultSetMapping(name = "BTSReporteMapping", 
 classes = {
 	@ConstructorResult(targetClass = BTSReporteMapping.class, columns = {
+			@ColumnResult(name = "id", 								type = Long.class), 
 			@ColumnResult(name = "fecha", 							type = String.class),
 			@ColumnResult(name = "nombreAgente", 					type = String.class),
 			@ColumnResult(name = "horaIngresoCola", 				type = String.class),
@@ -33,7 +34,7 @@ classes = {
 			@ColumnResult(name = "tiempoPromedioEmail", 			type = String.class),
 			@ColumnResult(name = "horaCierreSesion", 				type = String.class),
 			@ColumnResult(name = "tiempoProductivoAgente", 			type = String.class),
-			@ColumnResult(name = "porcentajeProductividadAgente",	type = String.class)
+			@ColumnResult(name = "porcentajeProductividadAgente",	type = String.class)					
 		})
 	
 })

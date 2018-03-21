@@ -233,7 +233,7 @@
 																			<th data-halign="center" data-valign="middle"  data-field="tiempoPromedioEmail" data-align="left">Tiempo Promedio Email (segundos)</th>
 																			<th data-halign="center" data-valign="middle"  data-field="horaCierreSesion" data-align="left">Hora Cierre Sesion</th>
 																			<th data-halign="center" data-valign="middle"  data-field="tiempoProductivoAgente" data-align="left">Tiempo Productivo Agente</th>		
-																			<th data-halign="center" data-valign="middle"  data-field="porcentajeProductividadAgente" data-align="left">Porcentaje Productividad Agente</th>
+																			<th data-halign="center" data-valign="middle"  data-field="porcentajeProductividadAgente" data-align="left">Porcentaje Productividad Agente</th>																			
 																	   </tr>
 																	</thead>
 																	<tbody> 
