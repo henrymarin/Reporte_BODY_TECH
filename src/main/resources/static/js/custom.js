@@ -1,9 +1,8 @@
-$(document).ready(function(){
-	
+	$(document).ready(function(){
+		
 
-	
-	
-});
+		
+	});
 
 	window.alert = function (message) {
 	  alertDGC(message);
@@ -254,7 +253,7 @@ $(document).ready(function(){
 							    title : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nombre Agente&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
 							    valign : 'middle',
 							    sortable : false,
-								 align: 'center'
+								 align: 'left'
 							 },
 							 {
 							        field : 'horaIngresoCola',
@@ -375,43 +374,6 @@ $(document).ready(function(){
 			$("#report").show();			
 			$('#tableXXXXX').bootstrapTable('refresh', {url:url});
 		 
-		 
-		 
-		 //--
-		 var rq = {
-					limit: 				10,
-					offset: 			0,
-					order: 				'desc',
-					sort:				'fecha',
-					lista: 				listadoz.split(','),
-					fechaInicial:		convertirFechaExportarExcel($('#datepicker3').val()),
-					fechaFinal:			convertirFechaExportarExcel($('#datepicker4').val()),
-					listadoDeAgentesStr:listadoz
-			 };
-		 
-		//--
-		$.ajax({
-            url: '/generarReportePaginado',
-            type: 'POST',
-            contentType: "application/json",
-            data: JSON.stringify(rq),
-            success: function (data) {
-            	
-                $('#TBSReporte').bootstrapTable({data: data.rows});
-                $('#TBSReporte').bootstrapTable('load', data.rows);
-                //--
-                
-                //--
-                $('#TBSReporte').bootstrapTable("append", data.rows);
-                
-                
-                //--                
-/*$('#datepicker3').val("");
-$('#datepicker4').val("");
-document.getElementById('tiposDeServicios').value=0;*/
-           }
-        });
-		//--
 		
 	}
 	
