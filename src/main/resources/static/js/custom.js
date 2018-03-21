@@ -222,12 +222,15 @@
             success: function (data) {                
                 $('#TBSReporte').bootstrapTable({data: data.rows});
                 $('#TBSReporte').bootstrapTable('load', data.rows);
-                $("#report").show(); 
-                sessionStorage.removeItem("listadoX");
-                sessionStorage.removeItem("listadoZ");
-                sessionStorage.removeItem("arregloX");                
+                //--
+                $("#report").show();
+                //--
+                $('#datepicker3').val("");
+                $('#datepicker4').val("");
+                document.getElementById('tiposDeServicios').value=0;
            }
         });
+		//--
 		
 	}
 	
@@ -304,71 +307,75 @@
 	}
 	
 	
-	function openCity(evt, cityName) {
-	    // Declare all variables
-	    var i, tabcontent, tablinks;
+function openTab(evt, cityName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
 
-	    // Get all elements with class="tabcontent" and hide them
-	    tabcontent = document.getElementsByClassName("tabcontent");
-	    for (i = 0; i < tabcontent.length; i++) {
-	        tabcontent[i].style.display = "none";
-	    }
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
 
-	    // Get all elements with class="tablinks" and remove the class "active"
-	    tablinks = document.getElementsByClassName("tablinks");
-	    for (i = 0; i < tablinks.length; i++) {
-	        tablinks[i].className = tablinks[i].className.replace(" active", "");
-	    }
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
 
-	    // Show the current tab, and add an "active" class to the button that opened the tab
-	    document.getElementById(cityName).style.display = "block";
-	    evt.currentTarget.className += " active";
-	}
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
 	
 	
-	function reporteXLSPOST(){
-		if(window.location.hash) {
-			var rq = {        
-				"entradaUno": 	'token',
-        		"fechaUno": 	'2001-01-01',
-        		"fechaDos":		'2001-02-02'
-        	};
-			//--			
-			var request = new XMLHttpRequest();
-			request.open('POST', 'http://localhost:8080/crearXLS', true);
-			request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-			request.responseType = 'blob';
+function reporteXLSPOST(){
+	if(window.location.hash) {
+		var listadoz = sessionStorage.getItem("listadoZ");
+		var rq = {        
+			"entradaUno": 	'token',
+			"fechaUno": 	convertirFechaExportarExcel($('#datepicker3').val()),
+			"fechaDos":		convertirFechaExportarExcel($('#datepicker4').val()),
+			"lista":		listadoz.split(','),
+		};
+		//--			
+		var request = new XMLHttpRequest();
+		request.open('POST', 'http://localhost:8080/crearXLS', true);
+		request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+		request.responseType = 'blob';
 
-			request.onload = function(e) {
-				var fileName = "xxxxx.xls";
-			    if (this.status === 200) {
-			        var blob = this.response;
-			        if(window.navigator.msSaveOrOpenBlob) {
-			            window.navigator.msSaveBlob(blob, fileName);
-			        }
-			        else{
-			            var downloadLink = window.document.createElement('a');
-			            var contentTypeHeader = request.getResponseHeader("Content-Type");
-			            downloadLink.href = window.URL.createObjectURL(new Blob([blob], { type: contentTypeHeader }));
-			            downloadLink.download = fileName;
-			            document.body.appendChild(downloadLink);
-			            downloadLink.click();
-			            document.body.removeChild(downloadLink);
-			           }
-			       }
-			   };
-			   request.send(JSON.stringify(rq));
-			
-		}
+		request.onload = function(e) {
+			var fileName = "ReporteExportadoEnFormatoEXCEL.xls";
+		    if (this.status === 200) {
+		        var blob = this.response;
+		        if(window.navigator.msSaveOrOpenBlob) {
+		            window.navigator.msSaveBlob(blob, fileName);
+		        }
+		        else{
+		            var downloadLink = window.document.createElement('a');
+		            var contentTypeHeader = request.getResponseHeader("Content-Type");
+		            downloadLink.href = window.URL.createObjectURL(new Blob([blob], { type: contentTypeHeader }));
+		            downloadLink.download = fileName;
+		            document.body.appendChild(downloadLink);
+		            downloadLink.click();
+		            document.body.removeChild(downloadLink);
+		           }
+		       }
+		   };
+		   request.send(JSON.stringify(rq));
+		
 	}
+}
 	
 	
 function reportePDFPOST(){
 	if(window.location.hash) {
+		var listadoz = sessionStorage.getItem("listadoZ");
 		var rq = {        
 			"entradaUno": 	'token',
-			"fechaUno": 	'2001-01-01',
-			"fechaDos":		'2001-02-02'
+			"fechaUno": 	convertirFechaExportarExcel($('#datepicker3').val()),
+			"fechaDos":		convertirFechaExportarExcel($('#datepicker4').val()),
+			"lista":		listadoz.split(','),
 		};
 		//--			
 		var request = new XMLHttpRequest();
@@ -377,7 +384,7 @@ function reportePDFPOST(){
 		request.responseType = 'blob';
 		//--
 		request.onload = function(e) {
-			var fileName = "zzzzzzz.pdf";
+			var fileName = "ReporteExportadoEnFormatoPDF.pdf";
 			if (this.status === 200) {
 				var blob = this.response;
 				if(window.navigator.msSaveOrOpenBlob) {

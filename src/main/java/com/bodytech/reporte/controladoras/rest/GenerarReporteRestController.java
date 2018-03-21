@@ -5,11 +5,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jxls.template.SimpleExporter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -20,10 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bodytech.reporte.dtos.BTSReporteMapping;
 import com.bodytech.reporte.dtos.ConsultarTiposDeServicioResponse;
+import com.bodytech.reporte.dtos.GenericBootStrapTableRequest;
 import com.bodytech.reporte.dtos.ListaValores;
-import com.bodytech.reporte.entidades.User;
-import com.bodytech.reporte.repositorios.UserRepository;
 import com.bodytech.reporte.servicios.impl.GenerarReporteServiceImpl;
 import com.javainuse.DtoEntrada;
 
@@ -35,8 +38,8 @@ import net.sf.jasperreports.engine.JasperRunManager;
 public class GenerarReporteRestController {
 	
 	@Autowired private GenerarReporteServiceImpl servicio;
-	@Autowired private UserRepository userRepository;
 	private static final String APPLICATION_JSON = "application/json";
+	private static final Logger logger = LoggerFactory.getLogger(GenerarReporteRestController.class);
 	
 	
 	@CrossOrigin
@@ -60,22 +63,42 @@ public class GenerarReporteRestController {
 	@CrossOrigin(origins = "*")
 	public JSONObject crearXLS(@RequestBody(required = true) DtoEntrada dto,HttpServletResponse response) {
 		JSONObject jsonResponse = new JSONObject();
-		List<User> persons = (List<User>) userRepository.findAll();
-		List<String> headers = Arrays.asList("First Name", "Last Name");		        
-		try {
-			ServletOutputStream servletOutputStream = response.getOutputStream();
-			servletOutputStream.flush();
+		
+		if(Objects.nonNull(dto) && Objects.nonNull(dto.getFechaUno()) && Objects.nonNull(dto.getFechaDos()) && Objects.nonNull(dto.getLista()) ){
+			GenericBootStrapTableRequest request =  new GenericBootStrapTableRequest();
+			request.setFechaInicial(dto.getFechaUno());
+			request.setFechaFinal(dto.getFechaDos());
+			request.setLista(dto.getLista());
+			List<BTSReporteMapping> lista = servicio.generarReporteSinPaginado(request);
 			//--
-			response.addHeader("Content-disposition", "attachment; filename=People.xls");
-			response.setContentType("application/vnd.ms-excel");
-			new SimpleExporter().gridExport(headers, persons, "idAgente, idConversacion, ", servletOutputStream);
-			//--			
-	        servletOutputStream.flush();
-	        servletOutputStream.close();	
-			response.flushBuffer();
-		} catch (IOException e) {
-
+			List<String> headers = Arrays.asList(
+					"Item", "Nombre del Agente", "Hora de ingreso a la Cola", "Número de Interacciones por Voz", "Número de Interacciones por Chat", 
+					"Número de Interacciones por Email", "Tiempo de Intervalo por Voz", "Tiempo de Intervalo por Chat", "Tiempo de Intervalo por Email", 
+					"Tiempo de Pausa", "Tiempo de Almuerzo", "Tiempo de Break", "Tiempo Promedio por Voz", "Tiempo Promedio por Chat",
+					"Tiempo Promedio por Email", "Hora de Cierre de Sesion", "Tiempo de Productivo del Agente");
+			
+			try {
+				ServletOutputStream servletOutputStream = response.getOutputStream();
+				servletOutputStream.flush();
+				//--
+				response.addHeader("Content-disposition", "attachment; filename=People.xls");
+				response.setContentType("application/vnd.ms-excel");
+				new SimpleExporter().gridExport(
+						headers, lista, 
+						"item, nombreAgente, horaIngresoCola, numeroInteraccionesVoz, numeroInteraccionesChat,"+ 
+								"numeroInteraccionesEmail, tiempoIntervaloVoz, tiempoIntervaloChat, tiempoIntervaloEmail,"+ 
+								"tiempoPausa, tiempoAlmuerzo, tiempoBreak, tiempoPromedioVoz, tiempoPromedioChat,"+
+								"tiempoPromedioEmail, horaCierreSesion, tiempoProductivoAgente,",
+						response.getOutputStream());
+				//--			
+		        servletOutputStream.flush();
+		        servletOutputStream.close();	
+				response.flushBuffer();
+			} catch (IOException e) {
+				logger.error("erro exporting....", e);
+			}	
 		}
+		
 		return jsonResponse;
 	}
 	
@@ -86,25 +109,32 @@ public class GenerarReporteRestController {
 			consumes ="application/json",
 			produces ="application/pdf")
 	@CrossOrigin(origins = "*")
-	public void crearPDF(@RequestBody(required = true) DtoEntrada dto,HttpServletResponse response) {	
+	public void crearPDF(@RequestBody(required = true) DtoEntrada dto,HttpServletResponse response) {
 
-		//--
-		try {
-			ServletOutputStream servletOutputStream = response.getOutputStream();
-	        servletOutputStream.flush();
-	        //--
-			Resource plantillaCompilada = new ClassPathResource("/reportes/jasper/reporte000001.jasper");
-			//--
-			Map<String, Object> parametrosZ = new HashMap<>();		
-			parametrosZ.put("DEVELOPER", "Valor a remplazar en el PARAM: DEVELOPER");
-			//--
-			JasperRunManager.runReportToPdfStream(plantillaCompilada.getInputStream(), servletOutputStream, parametrosZ, new JREmptyDataSource());
-			//--
-	        servletOutputStream.flush();
-	        servletOutputStream.close();	
-			response.flushBuffer();
-		} catch (Exception e) {
+		if(Objects.nonNull(dto) && Objects.nonNull(dto.getFechaUno()) && Objects.nonNull(dto.getFechaDos()) && Objects.nonNull(dto.getLista()) ){
+			GenericBootStrapTableRequest request =  new GenericBootStrapTableRequest();
+			request.setFechaInicial(dto.getFechaUno());
+			request.setFechaFinal(dto.getFechaDos());
+			request.setLista(dto.getLista());
 			
-		} 
+			//--
+			try {
+				ServletOutputStream servletOutputStream = response.getOutputStream();
+		        servletOutputStream.flush();
+		        //--
+				Resource plantillaCompilada = new ClassPathResource("/reportes/jasper/reporte000001.jasper");
+				//--
+				Map<String, Object> parametrosZ = new HashMap<>();		
+				parametrosZ.put("DEVELOPER", "Valor a remplazar en el PARAM: DEVELOPER");
+				//--
+				JasperRunManager.runReportToPdfStream(plantillaCompilada.getInputStream(), servletOutputStream, parametrosZ, new JREmptyDataSource());
+				//--
+		        servletOutputStream.flush();
+		        servletOutputStream.close();	
+				response.flushBuffer();
+			} catch (Exception e) {
+				logger.error("erro exporting....", e);
+			} 
+		}
 	}
 }
