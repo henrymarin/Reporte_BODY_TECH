@@ -207,53 +207,173 @@ $(document).ready(function(){
 			alert("Debe seleccionar, por lo menos, un Agente");
 			return false;
 		}	
-//--------------
-var url = '/generarReportePaginado';        	
-$('#tableXXXXX').bootstrapTable(
-	{ 
-	url:url,
-	options : {
-    	method : 'post',
-    	cache : true,
-    	pagination : true,
-    	sidePagination : 'server',
-    	clickToSelect : true,
-    	maintainSelected : true,
-    	pageListVAlinOnTop : true,
-    	search : true,
-    	minimumCountColumns : 2,
-    	locale : "es-MX",
-	},
-	queryParams : function(params) {
-            var elRQ = {
-					limit: 				10,
-					offset: 			0,
-					order: 				'desc',
-					sort:				'fecha',
-					lista: 				listadoz.split(','),
-					fechaInicial:		convertirFechaExportarExcel($('#datepicker3').val()),
-					fechaFinal:			convertirFechaExportarExcel($('#datepicker4').val()),
-					listadoDeAgentesStr:listadoz
-            };                       
-            return elRQ;
-	},
-	search : true,
-	columns : [
-	             {
-	            	 field : 'fecha',
-	            	 title : 'fEcha',
-	            	 valign : 'middle',
-	            	 sortable : true
-	             },
-	             {
-                    field : 'nombreAgente',
-                    title : 'nombre De Agente',
-                    valign : 'middle',
-                    sortable : true
-	             }   
-	     ]
-});
-//------------------
+
+		 
+			//--------------
+		 	$('#tableXXXXX').bootstrapTable('removeAll');
+			var url = '/generarReportePaginado';        	
+			$('#tableXXXXX').bootstrapTable(
+				{ 
+				url:url,
+				options : {
+			    	method : 'post',
+			    	cache : true,
+			    	pagination : true,
+			    	sidePagination : 'server',
+			    	clickToSelect : true,
+			    	maintainSelected : true,
+			    	pageListVAlinOnTop : true,
+			    	search : true,
+			    	minimumCountColumns : 2,
+			    	locale : "es-MX",
+				},
+				queryParams : function(params) {
+			            var elRQ = {
+								limit: 				10,
+								offset: 			0,
+								order: 				'desc',
+								sort:				'fecha',
+								lista: 				sessionStorage.getItem("listadoZ").split(','),
+								fechaInicial:		convertirFechaExportarExcel($('#datepicker3').val()),
+								fechaFinal:			convertirFechaExportarExcel($('#datepicker4').val()),
+								listadoDeAgentesStr:sessionStorage.getItem("listadoZ")
+			            };                       
+			            return elRQ;
+				},
+				search : true,
+				columns : [
+							 {
+								 field : 'fecha',
+								 title : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
+								 valign : 'middle',
+								 sortable : false,
+								 align: 'center'
+							 },
+							 {
+							    field : 'nombreAgente',
+							    title : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nombre Agente&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
+							    valign : 'middle',
+							    sortable : false,
+								 align: 'center'
+							 },
+							 {
+							        field : 'horaIngresoCola',
+							        title : 'Hora Ingreso Cola',
+							        valign : 'middle',
+							        sortable : false,
+									 align: 'center'
+							},
+							{
+							    field : 'numeroInteraccionesVoz',
+							    title : 'N\u00famero Interacciones <br/>Voz',
+							    valign : 'middle',
+							    sortable : false,
+								 align: 'center'
+							},
+							{
+							        field : 'numeroInteraccionesChat',
+							        title : 'N\u00famero Interacciones <br/>Chat',
+							        valign : 'middle',
+							        sortable : false,
+									 align: 'center'
+							},
+							 {
+							    field : 'numeroInteraccionesEmail',
+							    title : 'N\u00famero Interacciones <br/>Email',
+							    valign : 'middle',
+							    sortable : false,
+								 align: 'center'
+							 },
+							 {
+							    field : 'tiempoIntervaloVoz',
+							    title : 'Tiempo Intervalo <br/>Voz (segundos)',
+							    valign : 'middle',
+							    sortable : false,
+								 align: 'center'
+							 },
+							 {
+							    field : 'tiempoIntervaloChat',
+							    title : 'Tiempo Intervalo <br/>Chat (segundos)',
+							    valign : 'middle',
+							    sortable : false,
+								 align: 'center'
+							 },
+							 {
+							    field : 'tiempoIntervaloEmail',
+							    title : 'Tiempo Intervalo <br/>Email (segundos)',
+							    valign : 'middle',
+							    sortable : false,
+								 align: 'center'
+							 },
+							 {
+							    field : 'tiempoPausa',
+								title : 'Tiempo Pausa',
+								valign : 'middle',
+								sortable : false,
+								 align: 'center'
+							 },
+							 {
+							    field : 'tiempoAlmuerzo',
+							    title : 'Tiempo Almuerzo',
+							    valign : 'middle',
+							    sortable : false,
+								 align: 'center'
+							 },
+							 {
+							    field : 'tiempoBreak',
+							    title : 'Tiempo Break',
+							    valign : 'middle',
+							    sortable : false,
+								 align: 'center'
+							 },
+							 {
+							    field : 'tiempoPromedioVoz',
+							    title : 'Tiempo Promedio <br/>Voz (segundos)',
+							    valign : 'middle',
+							    sortable : false,
+								 align: 'center'
+							 },
+							 {
+							    field : 'tiempoPromedioChat',
+							    title : 'Tiempo Promedio <br/>Chat (segundos)',
+							    valign : 'middle',
+							    sortable : false,
+								 align: 'center'
+							 },
+							 {
+							    field : 'tiempoPromedioEmail',
+							    title : 'Tiempo Promedio <br/>Email (segundos)',
+							    valign : 'middle',
+							    sortable : false,
+								 align: 'center'
+							 },
+							 {
+							    field : 'horaCierreSesion',
+							    title : 'Hora Cierre Sesion',
+							    valign : 'middle',
+							    sortable : false,
+								 align: 'center'
+							 },
+							 {
+							    field : 'tiempoProductivoAgente',
+							    title : 'Tiempo Productivo <br/>Agente',
+							    valign : 'middle',
+							    sortable : false,
+								 align: 'center'
+							 },
+							 {
+							    field : 'porcentajeProductividadAgente',
+							    title : 'Porcentaje Productividad <br/>Agente',
+							    valign : 'middle',
+							    sortable : false,
+								 align: 'center'
+							 }												             
+				             
+				     ]
+			});
+			//------------------
+			$("#report").show();			
+			$('#tableXXXXX').bootstrapTable('refresh', {url:url});
 		 
 		 
 		 
@@ -276,11 +396,11 @@ $('#tableXXXXX').bootstrapTable(
             contentType: "application/json",
             data: JSON.stringify(rq),
             success: function (data) {
-            	$('#TBSReporte').bootstrapTable('removeAll');
+            	
                 $('#TBSReporte').bootstrapTable({data: data.rows});
                 $('#TBSReporte').bootstrapTable('load', data.rows);
                 //--
-                $("#report").show();
+                
                 //--
                 $('#TBSReporte').bootstrapTable("append", data.rows);
                 

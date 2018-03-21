@@ -45,6 +45,7 @@ import com.mypurecloud.sdk.v2.model.AnalyticsUserPresenceRecord;
 import com.mypurecloud.sdk.v2.model.ConversationQuery;
 import com.mypurecloud.sdk.v2.model.PagingSpec;
 import com.mypurecloud.sdk.v2.model.User;
+import com.mypurecloud.sdk.v2.model.User.StateEnum;
 import com.mypurecloud.sdk.v2.model.UserDetailsQuery;
 import com.mypurecloud.sdk.v2.model.UserEntityListing;
 
@@ -629,19 +630,21 @@ if(conversacion.getIdAgente().equalsIgnoreCase("0d5fc836-390d-4976-b06e-89b8d2f9
 									if(Objects.nonNull(entidadConUsuarios) && Objects.nonNull(entidadConUsuarios.getEntities()) && !entidadConUsuarios.getEntities().isEmpty()){
 									    List<User> usuarios = entidadConUsuarios.getEntities();
 									    for (User user : usuarios) {
-											Agente agente = new Agente();
-											agente.setIdAgente(user.getId());
-											agente.setNombreAgente(NO_NAME);
-											agente.setTipoAgente(NO_TYPE);
-											if(Objects.nonNull(user.getName())){
-												agente.setNombreAgente(user.getName());
-												if(user.getName().toUpperCase().contains(DE_AYUDA)){
-													agente.setTipoAgente(MDA);
-												}else{
-													agente.setTipoAgente(SAC);
+									    	if(user.getState().toString().equals(StateEnum.ACTIVE)){
+												Agente agente = new Agente();
+												agente.setIdAgente(user.getId());
+												agente.setNombreAgente(NO_NAME);
+												agente.setTipoAgente(NO_TYPE);
+												if(Objects.nonNull(user.getName())){
+													agente.setNombreAgente(user.getName());
+													if(user.getName().toUpperCase().contains(DE_AYUDA)){
+														agente.setTipoAgente(MDA);
+													}else{
+														agente.setTipoAgente(SAC);
+													}
 												}
-											}
-											agenteRepository.save(agente);
+												agenteRepository.save(agente);									    		
+									    	}
 										}
 									}else{
 										getUsersQueryObtuvoResultados = false;
