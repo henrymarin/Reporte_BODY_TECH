@@ -700,7 +700,7 @@ if(conversacion.getIdAgente().equalsIgnoreCase("0d5fc836-390d-4976-b06e-89b8d2f9
 				private void guardarDatosProcesoPrincipalConfigurarParticipantesEstadosPorAgenteProcesoPrincipal(String conversacionId, String agenteId,AnalyticsUserDetail userDetail) {					
 					EstadosPorAgente estadosPorAgente = new EstadosPorAgente(); 
 					//--routingStatus -->>
-					if(Objects.nonNull(userDetail.getRoutingStatus()) && !userDetail.getRoutingStatus().isEmpty()){
+					if(Objects.nonNull(userDetail.getRoutingStatus()) && !userDetail.getRoutingStatus().isEmpty() && (Objects.nonNull(agenteId) || !agenteId.isEmpty()) ){
 						List<AnalyticsRoutingStatusRecord> routingStatus = userDetail.getRoutingStatus();
 						for (AnalyticsRoutingStatusRecord routingSt : routingStatus) {
 							estadosPorAgente = new EstadosPorAgente();
@@ -714,7 +714,7 @@ if(conversacion.getIdAgente().equalsIgnoreCase("0d5fc836-390d-4976-b06e-89b8d2f9
 					}
 					
 					//--primaryPresences -->>
-					if(Objects.nonNull(userDetail.getPrimaryPresence()) && !userDetail.getPrimaryPresence().isEmpty()){
+					if(Objects.nonNull(userDetail.getPrimaryPresence()) && !userDetail.getPrimaryPresence().isEmpty() && (Objects.nonNull(agenteId) || !agenteId.isEmpty())){
 						List<AnalyticsUserPresenceRecord> primaryPresences = userDetail.getPrimaryPresence();
 						for (AnalyticsUserPresenceRecord presencia : primaryPresences) {
 								//---		columnas [K, L, C, P, Q]

@@ -105,8 +105,8 @@
 							
 																<!-- D E F N I C I O N      GLOBAL DE LOS TABS -->							
 								<div class="tab">
-								  <button class="tablinks" onclick="openCity(event, 'London')">Precarga de Información</button>
-								  <button class="tablinks" onclick="openCity(event, 'Paris')">Generación del Reporte</button>
+								  <button class="tablinks" onclick="openTab(event, 'London')">Precarga de Información</button>
+								  <button class="tablinks" onclick="openTab(event, 'Paris')">Generación del Reporte</button>
 								</div>
 <!-- T A B 		P A R A    E L    P R O C E S O    D E       L A     P R E C A R G A -->								
 								<div id="London" class="tabcontent">
@@ -244,16 +244,14 @@
 														</div>
 													</div>
 												</div>
-												
-												
 
-
-<div align="center">
-	<div>
-		<button style=" border:1px solid; text-transform: uppercase;  width: 20%;  padding: 10px;" onclick="generarReportePdf();">Exportar a PDF</button>
-		<button style=" border:1px solid; text-transform: uppercase;  width: 20%;  padding: 10px;" onclick="generarReporteExcel();">Exportar a EXCEL</button>
-	</div>
-</div>
+												<!-- B O T O N E S     PARA    E X P O R T A R -->
+												<div align="center">
+													<div>
+														<button style=" border:1px solid; text-transform: uppercase;  width: 20%;  padding: 10px;" onclick="generarReportePdf();">Exportar a PDF</button>
+														<button style=" border:1px solid; text-transform: uppercase;  width: 20%;  padding: 10px;" onclick="generarReporteExcel();">Exportar a EXCEL</button>
+													</div>
+												</div>
 												
 												
 												

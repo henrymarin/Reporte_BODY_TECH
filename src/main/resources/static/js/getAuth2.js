@@ -7,7 +7,9 @@
 	        redirect_uri : "http://localhost:8080/welcome2.html"
 	    }
 	    //--
-	    sessionStorage.removeItem("listadoX");
+        sessionStorage.removeItem("listadoX");
+        sessionStorage.removeItem("listadoZ");
+        sessionStorage.removeItem("arregloX");
 	    //--
 	    window.location.replace("https://login.mypurecloud.com/oauth/authorize?" + jQuery.param(queryStringData));
 	 }

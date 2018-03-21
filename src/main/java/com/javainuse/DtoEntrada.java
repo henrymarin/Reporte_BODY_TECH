@@ -1,5 +1,7 @@
 package com.javainuse;
 
+import java.util.List;
+
 public class DtoEntrada {
 
 	private String entradaUno;
@@ -8,6 +10,7 @@ public class DtoEntrada {
 	private String fechaUno;
 	private String fechaDos;
 	private String fechaTres;
+	private List<String> lista;
 	
 
 	public String getEntradaUno() {
@@ -56,6 +59,14 @@ public class DtoEntrada {
 
 	public void setFechaTres(String fechaTres) {
 		this.fechaTres = fechaTres;
+	}
+
+	public List<String> getLista() {
+		return lista;
+	}
+
+	public void setLista(List<String> lista) {
+		this.lista = lista;
 	}
 	
 	
