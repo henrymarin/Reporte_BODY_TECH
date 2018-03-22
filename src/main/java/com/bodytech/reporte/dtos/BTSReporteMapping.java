@@ -20,7 +20,9 @@ public class BTSReporteMapping {
 	private String tiempoPromedioEmail;
 	private String horaCierreSesion;
 	private String tiempoProductivoAgente;
-	private String porcentajeProductividadAgente;	
+	private String porcentajeProductividadAgente;
+	private String idAgente;
+	private String tiempoProductivoAgenteUno;
 	
 	public BTSReporteMapping() {
 		super();
@@ -30,7 +32,8 @@ public class BTSReporteMapping {
 			String numeroInteraccionesVoz, String numeroInteraccionesChat, String numeroInteraccionesEmail,
 			String tiempoIntervaloVoz, String tiempoIntervaloChat, String tiempoIntervaloEmail, String tiempoPausa,
 			String tiempoAlmuerzo, String tiempoBreak, String tiempoPromedioVoz, String tiempoPromedioChat,
-			String tiempoPromedioEmail, String horaCierreSesion, String tiempoProductivoAgente, String porcentajeProductividadAgente) {
+			String tiempoPromedioEmail, String horaCierreSesion, String tiempoProductivoAgente, 
+			String porcentajeProductividadAgente, String idAgente, String tiempoProductivoAgenteUno) {
 		super();
 		
 		this.fecha = fecha;
@@ -50,7 +53,9 @@ public class BTSReporteMapping {
 		this.tiempoPromedioEmail = tiempoPromedioEmail;
 		this.horaCierreSesion = horaCierreSesion;
 		this.tiempoProductivoAgente = tiempoProductivoAgente;
-		this.porcentajeProductividadAgente = porcentajeProductividadAgente;		
+		this.porcentajeProductividadAgente = porcentajeProductividadAgente;
+		this.idAgente = idAgente;
+		this.tiempoProductivoAgenteUno = tiempoProductivoAgenteUno;
 	}
 				
 	public String getFecha() {
@@ -195,5 +200,24 @@ public class BTSReporteMapping {
 
 	public void setPorcentajeProductividadAgente(String porcentajeProductividadAgente) {
 		this.porcentajeProductividadAgente = porcentajeProductividadAgente;
-	}	
+	}
+
+	public String getIdAgente() {
+		return idAgente;
+	}
+
+	public void setIdAgente(String idAgente) {
+		this.idAgente = idAgente;
+	}
+
+	public String getTiempoProductivoAgenteUno() {
+		return tiempoProductivoAgenteUno;
+	}
+
+	public void setTiempoProductivoAgenteUno(String tiempoProductivoAgenteUno) {
+		this.tiempoProductivoAgenteUno = tiempoProductivoAgenteUno;
+	}
+	
+	
+	
 }

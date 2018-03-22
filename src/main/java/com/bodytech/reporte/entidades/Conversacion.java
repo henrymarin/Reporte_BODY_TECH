@@ -33,7 +33,10 @@ classes = {
 			@ColumnResult(name = "tiempoPromedioEmail", 			type = String.class),
 			@ColumnResult(name = "horaCierreSesion", 				type = String.class),
 			@ColumnResult(name = "tiempoProductivoAgente", 			type = String.class),
-			@ColumnResult(name = "porcentajeProductividadAgente",	type = String.class)					
+			@ColumnResult(name = "porcentajeProductividadAgente",	type = String.class),
+			@ColumnResult(name = "idAgente",						type = String.class),
+			@ColumnResult(name = "tiempoProductivoAgenteUno",		type = String.class)
+			
 		})
 	
 })

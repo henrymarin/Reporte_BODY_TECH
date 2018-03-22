@@ -6,4 +6,6 @@ import com.bodytech.reporte.entidades.EstadosPorAgente;
 
 public interface EstadosPorAgenteRepository extends CrudRepository<EstadosPorAgente, Long> {
 
+
+    
 }
