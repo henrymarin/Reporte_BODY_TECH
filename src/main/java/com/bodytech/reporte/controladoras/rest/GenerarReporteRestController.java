@@ -32,7 +32,10 @@ import com.javainuse.DtoEntrada;
 
 import net.minidev.json.JSONObject;
 import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @RestController()
 public class GenerarReporteRestController {
@@ -116,22 +119,26 @@ public class GenerarReporteRestController {
 			request.setFechaInicial(dto.getFechaUno());
 			request.setFechaFinal(dto.getFechaDos());
 			request.setLista(dto.getLista());
-			
-			//--
+			request.setListadoDeAgentesStr(String.join(",", dto.getLista()));
+						
 			try {
-				ServletOutputStream servletOutputStream = response.getOutputStream();
+				List<BTSReporteMapping> lista = servicio.generarReporteSinPaginado(request);
+								
+	            JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(lista);
+	            
+	            Map<String, Object> parameters = new HashMap<String, Object>();
+	            parameters.put("ItemDataSource", itemsJRBean);
+	            
+	            Resource plantillaCompilada = new ClassPathResource("/reportes/jasper/reportePdf.jasper");
+	            
+	            ServletOutputStream servletOutputStream = response.getOutputStream();
 		        servletOutputStream.flush();
-		        //--
-				Resource plantillaCompilada = new ClassPathResource("/reportes/jasper/reporte000001.jasper");
-				//--
-				Map<String, Object> parametrosZ = new HashMap<>();		
-				parametrosZ.put("DEVELOPER", "Valor a remplazar en el PARAM: DEVELOPER");
-				//--
-				JasperRunManager.runReportToPdfStream(plantillaCompilada.getInputStream(), servletOutputStream, parametrosZ, new JREmptyDataSource());
-				//--
+	            
+		        JasperRunManager.runReportToPdfStream(plantillaCompilada.getInputStream(), servletOutputStream, parameters, new JREmptyDataSource());
+				
 		        servletOutputStream.flush();
 		        servletOutputStream.close();	
-				response.flushBuffer();
+				response.flushBuffer();		        	            
 			} catch (Exception e) {
 				logger.error("erro exporting....", e);
 			} 
