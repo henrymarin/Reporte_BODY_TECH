@@ -32,8 +32,6 @@ import com.javainuse.DtoEntrada;
 
 import net.minidev.json.JSONObject;
 import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
@@ -72,13 +70,14 @@ public class GenerarReporteRestController {
 			request.setFechaInicial(dto.getFechaUno());
 			request.setFechaFinal(dto.getFechaDos());
 			request.setLista(dto.getLista());
+			request.setListadoDeAgentesStr(dto.getListadoDeAgentesStr());
 			List<BTSReporteMapping> lista = servicio.generarReporteSinPaginado(request);
 			//--
 			List<String> headers = Arrays.asList(
-					"Nombre del Agente", "Hora de ingreso a la Cola", "Número de Interacciones por Voz", "Número de Interacciones por Chat", 
+					"Fecha","Nombre del Agente", "Hora de ingreso a la Cola", "Número de Interacciones por Voz", "Número de Interacciones por Chat", 
 					"Número de Interacciones por Email", "Tiempo de Intervalo por Voz", "Tiempo de Intervalo por Chat", "Tiempo de Intervalo por Email", 
 					"Tiempo de Pausa", "Tiempo de Almuerzo", "Tiempo de Break", "Tiempo Promedio por Voz", "Tiempo Promedio por Chat",
-					"Tiempo Promedio por Email", "Hora de Cierre de Sesion", "Tiempo de Productivo del Agente");
+					"Tiempo Promedio por Email", "Hora de Cierre de Sesion", "Tiempo Productivo del Agente", "Porcentaje de Productividad del Agente");
 			
 			try {
 				ServletOutputStream servletOutputStream = response.getOutputStream();
@@ -88,10 +87,10 @@ public class GenerarReporteRestController {
 				response.setContentType("application/vnd.ms-excel");
 				new SimpleExporter().gridExport(
 						headers, lista, 
-								"nombreAgente, horaIngresoCola, numeroInteraccionesVoz, numeroInteraccionesChat,"+ 
+								"fecha, nombreAgente, horaIngresoCola, numeroInteraccionesVoz, numeroInteraccionesChat,"+ 
 								"numeroInteraccionesEmail, tiempoIntervaloVoz, tiempoIntervaloChat, tiempoIntervaloEmail,"+ 
 								"tiempoPausa, tiempoAlmuerzo, tiempoBreak, tiempoPromedioVoz, tiempoPromedioChat,"+
-								"tiempoPromedioEmail, horaCierreSesion, tiempoProductivoAgente",
+								"tiempoPromedioEmail, horaCierreSesion, tiempoProductivoAgente, porcentajeProductividadAgente",
 						response.getOutputStream());
 				//--			
 		        servletOutputStream.flush();

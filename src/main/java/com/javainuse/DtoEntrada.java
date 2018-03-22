@@ -11,6 +11,7 @@ public class DtoEntrada {
 	private String fechaDos;
 	private String fechaTres;
 	private List<String> lista;
+	private String listadoDeAgentesStr;
 	
 
 	public String getEntradaUno() {
@@ -68,6 +69,15 @@ public class DtoEntrada {
 	public void setLista(List<String> lista) {
 		this.lista = lista;
 	}
+
+	public String getListadoDeAgentesStr() {
+		return listadoDeAgentesStr;
+	}
+
+	public void setListadoDeAgentesStr(String listadoDeAgentesStr) {
+		this.listadoDeAgentesStr = listadoDeAgentesStr;
+	}
+
 	
 	
 	

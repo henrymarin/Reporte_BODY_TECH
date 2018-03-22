@@ -227,12 +227,15 @@
 			    	minimumCountColumns : 2,
 			    	locale : "es-MX",
 				},
+				onLoadSuccess: function (data) {
+			        
+			    },
 				queryParams : function(params) {
 			            var elRQ = {
-								limit: 				10,
-								offset: 			0,
-								order: 				'desc',
-								sort:				'fecha',
+			            		limit 			: params.limit,
+	                            offset 			: params.offset,
+	                            order 			: params.order,
+	                            sort 			: params.sort,
 								lista: 				sessionStorage.getItem("listadoZ").split(','),
 								fechaInicial:		convertirFechaExportarExcel($('#datepicker3').val()),
 								fechaFinal:			convertirFechaExportarExcel($('#datepicker4').val()),
@@ -370,7 +373,8 @@
 							 }												             
 				             
 				     ]
-			});
+			}
+				);
 			//------------------
 			$("#report").show();			
 			$('#tableXXXXX').bootstrapTable('refresh', {url:url});

@@ -174,7 +174,7 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 	@SuppressWarnings("unchecked")
 	private List<BTSReporteMapping> obtenerLosRegistrosDelReporteSinPaginacion(GenericBootStrapTableRequest request) {
 		query = configurarElSQL(false, request);
-		return  query.getResultList();
+		return realizarCalculosReporte(query.getResultList());
 	}
 
 	@Override
