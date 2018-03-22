@@ -1,7 +1,5 @@
 	$(document).ready(function(){
-
-		
-		
+		document.getElementById("defaultOpen").click();
 	});
 	
 
@@ -172,7 +170,9 @@
 	
 	//BOTOn PRINCIPAL
 	function generarReporte(){
-
+		
+		window.location.hash = 'irArribaDeLReporte';
+		window.location.href = '#irArribaDeLReporte';
 	
 		//--Validando las fechas:
 			//--deben ser diligenciadas
@@ -221,14 +221,11 @@
 		    $('.dgcAlert').css('height',$(document).height());
 		    $('.dgcVentana').css('top',((alNav-alVentana)/2+supNav-100)+'px');
 		    $('.dgcAlert').css('display','block');
-		    $('.dgcAlert').animate({opacity:1},dgcTiempo);		    
-		 	//-------------
-		 	window.location.hash = 'example2';
-		 	window.location.href = '#example2';
+		    $('.dgcAlert').animate({opacity:1},dgcTiempo);
 		    //---
-		 	$('#tableXXXXX').bootstrapTable('removeAll');
+		 	$('#tablePaginada').bootstrapTable('removeAll');
 			var url = '/generarReportePaginado';        	
-			$('#tableXXXXX').bootstrapTable(
+			$('#tablePaginada').bootstrapTable(
 				{ 
 				url:url,
 				options : {
@@ -250,8 +247,8 @@
 					$('.dgcAlert').animate({opacity:0},dgcTiempo);
 				    setTimeout("$('.dgcAlert').remove()",500);
 				    //--
-					window.location.hash = 'example2';
-					window.location.href = '#example2';
+					window.location.hash = 'irAlPieDeLReporte';
+					window.location.href = '#irAlPieDeLReporte';
 			    },
 				queryParams : function(params) {
 			            var elRQ = {
@@ -317,7 +314,7 @@
 							    title : 'Tiempo Intervalo <br/>Voz (segundos)',
 							    valign : 'middle',
 							    sortable : false,
-								 align: 'center'
+								 lign: 'center'
 							 },
 							 {
 							    field : 'tiempoIntervaloChat',
@@ -401,10 +398,22 @@
 			}
 				);
 			//------------------
-			$('#tableXXXXX').bootstrapTable('refresh', {url:url});
-		 
+			$('#tablePaginada').bootstrapTable('refresh', {url:url});	 
 		
 	}
+	
+    function formatearSegundos(value, row, index) {
+    	 d = Number(value);
+
+    	    var h = Math.floor(d / 3600);
+    	    var m = Math.floor(d % 3600 / 60);
+    	    var s = Math.floor(d % 3600 % 60);
+
+    	    var retorno = ('0' + h).slice(-2) + ":" + ('0' + m).slice(-2) + ":" + ('0' + s).slice(-2);
+    	
+    	
+    	return [retorno].join('');
+    }
 	
 	function generarReporteExcel(){
 		if(window.location.hash) {
@@ -537,6 +546,20 @@ function reporteXLSPOST(){
 			alert("Debe seleccionar un Tipo de Servicio");
 			return false;
 		 }
+		 
+			//--------------
+		 	var dgcTiempo=500
+		    var ventanaCS='<div class="dgcAlert"><div class="dgcVentana"><div class="dgcMensaje">Generaci\u00f3n del reporte en curso.<br></div></div></div>';
+		    $('body').append(ventanaCS);
+		    var alVentana=$('.dgcVentana').height();
+		    var alNav=$(window).height();
+		    var supNav=$(window).scrollTop();
+		    $('.dgcAlert').css('height',$(document).height());
+		    $('.dgcVentana').css('top',((alNav-alVentana)/2+supNav-100)+'px');
+		    $('.dgcAlert').css('display','block');
+		    $('.dgcAlert').animate({opacity:1},dgcTiempo);
+		    //---		 
+		 
 		 var listadoz = sessionStorage.getItem("listadoZ");
 		 var listadoDeAgentesTmp = sessionStorage.getItem("listadoX");
 		 if(listadoDeAgentesTmp == null || listadoDeAgentesTmp == "" || listadoDeAgentesTmp.length <= 1){
@@ -572,6 +595,9 @@ function reporteXLSPOST(){
 		            document.body.appendChild(downloadLink);
 		            downloadLink.click();
 		            document.body.removeChild(downloadLink);
+					//--
+					$('.dgcAlert').animate({opacity:0},dgcTiempo);
+				    setTimeout("$('.dgcAlert').remove()",500);
 		           }
 		       }
 		   };
@@ -621,6 +647,18 @@ function reportePDFPOST(){
 			return false;
 		}
 		
+			//--------------
+		 	var dgcTiempo=500
+		    var ventanaCS='<div class="dgcAlert"><div class="dgcVentana"><div class="dgcMensaje">Generaci\u00f3n del reporte en curso.<br></div></div></div>';
+		    $('body').append(ventanaCS);
+		    var alVentana=$('.dgcVentana').height();
+		    var alNav=$(window).height();
+		    var supNav=$(window).scrollTop();
+		    $('.dgcAlert').css('height',$(document).height());
+		    $('.dgcVentana').css('top',((alNav-alVentana)/2+supNav-100)+'px');
+		    $('.dgcAlert').css('display','block');
+		    $('.dgcAlert').animate({opacity:1},dgcTiempo);
+		    //---
 		
 		var listadoz = sessionStorage.getItem("listadoZ");
 		var rq = {
@@ -649,6 +687,9 @@ function reportePDFPOST(){
 			        document.body.appendChild(downloadLink);
 			        downloadLink.click();
 			        document.body.removeChild(downloadLink);
+					//--
+					$('.dgcAlert').animate({opacity:0},dgcTiempo);
+				    setTimeout("$('.dgcAlert').remove()",500);
 				 }
 			  }
 		};

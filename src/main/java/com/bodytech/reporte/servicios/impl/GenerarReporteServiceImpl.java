@@ -30,6 +30,7 @@ import com.javainuse.DtoEntrada;
 @Service
 public class GenerarReporteServiceImpl implements GenerarReporteService {
 
+	private static final String CERO = "0";
 	private Query query;
 	@PersistenceContext	private EntityManager entityManager;
 	private static final Logger logger = LoggerFactory.getLogger(GenerarReporteServiceImpl.class);
@@ -201,6 +202,9 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 				int numeroInteracciones = 0;
 				
 				
+				
+
+				
 				//obtener hora de ingreso a la cola				
 				String sql = "SELECT min(TIME_FORMAT(fecha_inicio_estado, '%H : %i : %s') ) as hora  FROM estados_por_agente m WHERE UPPER(estado) = 'ON_QUEUE'  AND DATE(m.fecha_inicio_estado) = :fechaBase AND m.id_agente = :idAgente";
 				Query q = entityManager.createNativeQuery(sql);
@@ -232,7 +236,7 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 				q.setParameter("fechaBase", fechaBase+" 00:00:00");
 				q.setParameter("idAgente", btsReporteMapping.getIdAgente());
 				BigDecimal tiempoDeAlmuerzo =  (BigDecimal) q.getSingleResult();
-				btsReporteMapping.setTiempoAlmuerzo("0");
+				btsReporteMapping.setTiempoAlmuerzo(CERO);
 				if(Objects.nonNull(tiempoDeAlmuerzo)){
 					btsReporteMapping.setTiempoAlmuerzo(tiempoDeAlmuerzo.toString());
 				}
@@ -243,7 +247,7 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 				q.setParameter("fechaBase", fechaBase+" 00:00:00");
 				q.setParameter("idAgente", btsReporteMapping.getIdAgente());
 				BigDecimal tiempoDeDescanso =  (BigDecimal) q.getSingleResult();
-				btsReporteMapping.setTiempoBreak("0");				
+				btsReporteMapping.setTiempoBreak(CERO);				
 				if(Objects.nonNull(tiempoDeDescanso)){
 					btsReporteMapping.setTiempoBreak(tiempoDeDescanso.toString());
 				}
@@ -251,7 +255,7 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 				//obtener Tiempo productivo
 				
 				//obtener Tiempo no productivo
-				btsReporteMapping.setTiempoProductivoAgente("0");
+				btsReporteMapping.setTiempoProductivoAgente(CERO);
 				btsReporteMapping.setPorcentajeProductividadAgente("0 %");
 				sql = "SELECT IFNULL(SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_estado, fecha_fin_estado)),0)  as hora  FROM estados_por_agente m WHERE UPPER(estado) = 'IDLE'  AND DATE(m.fecha_inicio_estado) = :fechaBase AND m.id_agente = :idAgente";
 				q = entityManager.createNativeQuery(sql);								
@@ -267,38 +271,38 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 	
 				
 				// Calcular tiempo promedio voz
-				btsReporteMapping.setTiempoPromedioVoz("0");
-				if (!Objects.isNull(btsReporteMapping.getTiempoIntervaloVoz())  && !btsReporteMapping.getTiempoIntervaloVoz().equals("0") ) {
+				btsReporteMapping.setTiempoPromedioVoz(CERO);
+				if (!Objects.isNull(btsReporteMapping.getTiempoIntervaloVoz())  && !CERO.equals(btsReporteMapping.getTiempoIntervaloVoz()) ) {
 					tiempoIntervaloVoz = Double.parseDouble(btsReporteMapping.getTiempoIntervaloVoz());
 					numeroInteracciones = Integer.parseInt(btsReporteMapping.getNumeroInteraccionesVoz());
 					if(numeroInteracciones>0){
-						btsReporteMapping.setTiempoPromedioVoz(String.valueOf(tiempoIntervaloVoz / numeroInteracciones));	
+						btsReporteMapping.setTiempoPromedioVoz(String.valueOf(decimalFormat.format(tiempoIntervaloVoz / numeroInteracciones)));	
 					}
 					
 				}				
 				
 				// Calcular tiempo promedio chat
-				btsReporteMapping.setTiempoPromedioChat("0");
-				if (!Objects.isNull(btsReporteMapping.getTiempoIntervaloChat()) && !btsReporteMapping.getTiempoIntervaloChat().equals("0") ) {
+				btsReporteMapping.setTiempoPromedioChat(CERO);
+				if (!Objects.isNull(btsReporteMapping.getTiempoIntervaloChat()) && !CERO.equals(btsReporteMapping.getTiempoIntervaloChat()) ) {
 					tiempoIntervaloChat = Double.parseDouble(btsReporteMapping.getTiempoIntervaloChat());
 					numeroInteracciones = Integer.parseInt(btsReporteMapping.getNumeroInteraccionesChat());
 					if(numeroInteracciones>0){
-						btsReporteMapping.setTiempoPromedioChat(String.valueOf(tiempoIntervaloChat / numeroInteracciones));
+						btsReporteMapping.setTiempoPromedioChat(String.valueOf(decimalFormat.format(tiempoIntervaloChat / numeroInteracciones)));
 					}
 				}	
 				
 				// Calcular tiempo promedio mail
-				btsReporteMapping.setTiempoPromedioEmail("0");
-				if (!Objects.isNull(btsReporteMapping.getTiempoIntervaloEmail()) && !btsReporteMapping.getTiempoIntervaloEmail().equals("0") ) {
+				btsReporteMapping.setTiempoPromedioEmail(CERO);
+				if (!Objects.isNull(btsReporteMapping.getTiempoIntervaloEmail()) && !CERO.equals(btsReporteMapping.getTiempoIntervaloVoz()) ) {
 					tiempoIntervaloMail = Double.parseDouble(btsReporteMapping.getTiempoIntervaloEmail());
 					numeroInteracciones = Integer.parseInt(btsReporteMapping.getNumeroInteraccionesEmail());
 					if(numeroInteracciones>0){
-						btsReporteMapping.setTiempoPromedioEmail(String.valueOf(tiempoIntervaloMail / numeroInteracciones));
+						btsReporteMapping.setTiempoPromedioEmail(String.valueOf(decimalFormat.format(tiempoIntervaloMail / numeroInteracciones)));
 					}
 				}
 				
 				// Calcular porcentaje productividad agente			
-				btsReporteMapping.setPorcentajeProductividadAgente("0");
+				btsReporteMapping.setPorcentajeProductividadAgente(CERO);
 				if (!Objects.isNull(btsReporteMapping.getTiempoProductivoAgente()) && Double.parseDouble(btsReporteMapping.getTiempoProductivoAgente()) > 0) {
 					double totalProductivoNoProductivo = Double.parseDouble(btsReporteMapping.getTiempoProductivoAgente());
 					double totalProductivo = tiempoIntervaloVoz + tiempoIntervaloChat + tiempoIntervaloMail; 
@@ -306,11 +310,42 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 					double porcentajeProductividadAgente = (totalProductivo / totalProductivoNoProductivo) * 100;
 					btsReporteMapping.setPorcentajeProductividadAgente(decimalFormat.format(porcentajeProductividadAgente) + "%");
 				}
+				
+				btsReporteMapping.setTiempoIntervaloVoz(formatearSegundos(btsReporteMapping.getTiempoIntervaloVoz()));
+				btsReporteMapping.setTiempoIntervaloChat(formatearSegundos(btsReporteMapping.getTiempoIntervaloChat()));
+				btsReporteMapping.setTiempoIntervaloEmail(formatearSegundos(btsReporteMapping.getTiempoIntervaloEmail()));
+				
+				btsReporteMapping.setTiempoAlmuerzo(formatearSegundos(btsReporteMapping.getTiempoAlmuerzo()));
+				btsReporteMapping.setTiempoBreak(formatearSegundos(btsReporteMapping.getTiempoBreak()));
+				btsReporteMapping.setTiempoPausa(formatearSegundos(btsReporteMapping.getTiempoPausa()));
+				
+				btsReporteMapping.setTiempoProductivoAgente(formatearSegundos(btsReporteMapping.getTiempoProductivoAgente()));
 							
 			}
 		}
 		
 		return resultList;
+	}
+
+	private String formatearSegundos(String valor) {
+		try{ 
+			if(Objects.nonNull(valor)){
+				Double valorD = Double.parseDouble(valor);
+				int d = valorD.intValue();
+				int hr = d / 3600;
+				int rem = d % 3600;
+				int mn = rem / 60;
+				int sec = rem % 60;
+				String hrStr = (hr < 10 ? CERO : "") + hr;
+				String mnStr = (mn < 10 ? CERO : "") + mn;
+				String secStr = (sec < 10 ? CERO : "") + sec;
+				return hrStr + ":" + mnStr + ":" + secStr;	
+			} 
+			return "00:00:00";			
+		}catch (Exception e) {
+			logger.error("erro en formatearSegundos.", e);
+			return "00:00:00";
+		}
 	}
 	
 }							

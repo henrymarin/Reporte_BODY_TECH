@@ -107,7 +107,7 @@
 							<div class="col-md-12">				
 																<!-- D E F N I C I O N      GLOBAL DE LOS TABS -->							
 								<div class="tab">
-								  <button class="tablinks" onclick="openTab(event, 'London')">Precarga de Información</button>
+								  <button class="tablinks" onclick="openTab(event, 'London')" id="defaultOpen">Precarga de Información</button>
 								  <button class="tablinks" onclick="openTab(event, 'Paris')">Generación del Reporte</button>
 								</div>
 <!-- T A B 		P A R A    E L    P R O C E S O    D E       L A     P R E C A R G A -->								
@@ -180,11 +180,15 @@
 													</div>
 												</div>						
 												
+												<a name="irArribaDeLReporte"></a>
+												<div align="center">														
+													<div>															
+														
+													</div>
+												</div>													
 												<div align="center">
 													<div>
 														<button style=" border:1px solid; text-transform: uppercase;  width: 25%;  padding: 10px;" onclick="obtenerAgentes();generarReporte();">GENERAR REPORTE</button>
-<!-- 														<button style=" border:1px solid; text-transform: uppercase;  width: 25%;  padding: 10px;" onclick="xxxxx();">XXXXX</button> -->
-<!-- 														<button style=" border:1px solid; text-transform: uppercase;  width: 25%;  padding: 10px;" onclick="zzzzz();">ZZZZZ</button> -->
 													</div>
 												</div>
 					
@@ -200,7 +204,7 @@
 														<div class="col-md-12">														
 															<div class="table-responsive" style="width:  1085px;">
 															 <table 
-															     id="tableXXXXX" 
+															     id="tablePaginada" 
 															     data-pagination="true"  
 															     data-show-toggle="true"
 															     data-method="post"  
@@ -237,7 +241,7 @@
 							</div>
 						</div>
 					</div>
-					<a name="example2"></a>
+					<a name="irAlPieDeLReporte"></a>
 					<div align="center">														
 						<div>															
 							
