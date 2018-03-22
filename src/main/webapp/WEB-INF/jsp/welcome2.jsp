@@ -174,7 +174,7 @@
 													
 													<div class="col-md-3">
 														Agentes:
-														<select id="showSubCats" multiple onclick="seleccionaTodosLosAgentes(this);" style="width:  240px;height:  200px;">
+														<select id="showSubCats" multiple onclick="seleccionaTodosLosAgentes(this);" style="width:  240px;height:  100px;">
 															<option value="0">Todos</option>
 														</select>	
 													</div>
@@ -188,7 +188,10 @@
 												</div>													
 												<div align="center">
 													<div>
-														<button style=" border:1px solid; text-transform: uppercase;  width: 25%;  padding: 10px;" onclick="obtenerAgentes();generarReporte();">GENERAR REPORTE</button>
+														<br/><br/>
+														<button style=" border:1px solid; text-transform: uppercase;  width: 25%;  padding: 10px;" onclick="obtenerAgentes();generarReporte();">VISUALIZAR REPORTE</button>
+														<button style=" border:1px solid; text-transform: uppercase;  width: 20%;  padding: 10px;" onclick="generarReportePdf();">Exportar a PDF</button>
+														<button style=" border:1px solid; text-transform: uppercase;  width: 20%;  padding: 10px;" onclick="generarReporteExcel();">Exportar a EXCEL</button>
 													</div>
 												</div>
 					
@@ -226,8 +229,7 @@
 												<!-- B O T O N E S     PARA    E X P O R T A R -->
 													<div align="center">
 														<div>
-															<button style=" border:1px solid; text-transform: uppercase;  width: 20%;  padding: 10px;" onclick="generarReportePdf();">Exportar a PDF</button>
-															<button style=" border:1px solid; text-transform: uppercase;  width: 20%;  padding: 10px;" onclick="generarReporteExcel();">Exportar a EXCEL</button>
+															
 														</div>
 													</div>											
 												
