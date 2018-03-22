@@ -52,8 +52,9 @@
 			 } );	    
 			 </script>			 
 			<script src="js/bootstrap-table.js"></script> 
+	
 	</head>
-	<body>
+	<body>	
 	<div class="wrapper">
 			<div class="container-fluid">
 				<section>
@@ -103,9 +104,7 @@
 				<section id="formularioDePrecarga">
 					<div class="container">
 						<div class="row">
-							<div class="col-md-12">
-							
-							
+							<div class="col-md-12">				
 																<!-- D E F N I C I O N      GLOBAL DE LOS TABS -->							
 								<div class="tab">
 								  <button class="tablinks" onclick="openTab(event, 'London')">Precarga de Información</button>
@@ -198,7 +197,7 @@
 														</div>
 													</div>
 													<div class="row" >
-														<div class="col-md-12">
+														<div class="col-md-12">														
 															<div class="table-responsive" style="width:  1085px;">
 															 <table 
 															     id="tableXXXXX" 
@@ -221,24 +220,29 @@
 												</div>
 
 												<!-- B O T O N E S     PARA    E X P O R T A R -->
-												<div align="center">
-													<div>
-														<button style=" border:1px solid; text-transform: uppercase;  width: 20%;  padding: 10px;" onclick="generarReportePdf();">Exportar a PDF</button>
-														<button style=" border:1px solid; text-transform: uppercase;  width: 20%;  padding: 10px;" onclick="generarReporteExcel();">Exportar a EXCEL</button>
-													</div>
-												</div>
-												
-												
+													<div align="center">
+														<div>
+															<button style=" border:1px solid; text-transform: uppercase;  width: 20%;  padding: 10px;" onclick="generarReportePdf();">Exportar a PDF</button>
+															<button style=" border:1px solid; text-transform: uppercase;  width: 20%;  padding: 10px;" onclick="generarReporteExcel();">Exportar a EXCEL</button>
+														</div>
+													</div>											
 												
 											</div>
 										</div>
 										</div>
 									</section>
+																						
 								  <p></p> 
 								</div>
 							</div>
 						</div>
 					</div>
+					<a name="example2"></a>
+					<div align="center">														
+						<div>															
+							
+						</div>
+					</div>						
 				</section>				
 				
 			</div>

@@ -1,9 +1,10 @@
 	$(document).ready(function(){
 
 		
-
 		
 	});
+	
+
 
 	window.alert = function (message) {
 	  alertDGC(message);
@@ -172,6 +173,7 @@
 	//BOTOn PRINCIPAL
 	function generarReporte(){
 
+	
 		//--Validando las fechas:
 			//--deben ser diligenciadas
 		if( $('#datepicker3').val().trim().length <= 0 ){
@@ -206,10 +208,24 @@
 		 if(listadoDeAgentesTmp == null || listadoDeAgentesTmp == "" || listadoDeAgentesTmp.length <= 1){
 			alert("Debe seleccionar, por lo menos, un Agente");
 			return false;
-		}	
+		}
+		 	
 
-		 
 			//--------------
+		 	var dgcTiempo=500
+		    var ventanaCS='<div class="dgcAlert"><div class="dgcVentana"><div class="dgcMensaje">Generaci\u00f3n del reporte en curso.<br></div></div></div>';
+		    $('body').append(ventanaCS);
+		    var alVentana=$('.dgcVentana').height();
+		    var alNav=$(window).height();
+		    var supNav=$(window).scrollTop();
+		    $('.dgcAlert').css('height',$(document).height());
+		    $('.dgcVentana').css('top',((alNav-alVentana)/2+supNav-100)+'px');
+		    $('.dgcAlert').css('display','block');
+		    $('.dgcAlert').animate({opacity:1},dgcTiempo);		    
+		 	//-------------
+		 	window.location.hash = 'example2';
+		 	window.location.href = '#example2';
+		    //---
 		 	$('#tableXXXXX').bootstrapTable('removeAll');
 			var url = '/generarReportePaginado';        	
 			$('#tableXXXXX').bootstrapTable(
@@ -228,7 +244,14 @@
 			    	locale : "es-MX",
 				},
 				onLoadSuccess: function (data) {
-			        
+					//--
+					$("#report").show();
+					//--
+					$('.dgcAlert').animate({opacity:0},dgcTiempo);
+				    setTimeout("$('.dgcAlert').remove()",500);
+				    //--
+					window.location.hash = 'example2';
+					window.location.href = '#example2';
 			    },
 				queryParams : function(params) {
 			            var elRQ = {
@@ -236,6 +259,8 @@
 	                            offset 			: params.offset,
 	                            order 			: params.order,
 	                            sort 			: params.sort,
+	                            searchField		: params.searchField,
+	                            idSearcheable	: params.search,
 								lista: 				sessionStorage.getItem("listadoZ").split(','),
 								fechaInicial:		convertirFechaExportarExcel($('#datepicker3').val()),
 								fechaFinal:			convertirFechaExportarExcel($('#datepicker4').val()),
@@ -376,7 +401,6 @@
 			}
 				);
 			//------------------
-			$("#report").show();			
 			$('#tableXXXXX').bootstrapTable('refresh', {url:url});
 		 
 		
@@ -456,6 +480,9 @@
 	
 	
 function openTab(evt, cityName) {
+	if(cityName == 'Paris'){
+		//$("#report").show();
+	}
     // Declare all variables
     var i, tabcontent, tablinks;
 
@@ -479,6 +506,44 @@ function openTab(evt, cityName) {
 	
 function reporteXLSPOST(){
 	if(window.location.hash) {
+		
+		
+		//--Validando las fechas:
+			//--deben ser diligenciadas
+		if( $('#datepicker3').val().trim().length <= 0 ){
+			alert("Debe diligenciar un valor para la Fecha Inicial.");
+			return false;
+		}	
+		if( $('#datepicker4').val().trim().length <= 0 ){
+			alert("Debe diligenciar un valor para la Fecha Final.");
+			return false;
+		}			
+			//--la fecha inicial debe ser menor a la fecha final
+		if(validarFechaHastaSuperOIgualeALaFechaDesde($('#datepicker3').val(),$('#datepicker4').val()) == 0){
+			alert("La Fecha Inicial debe ser menor a la Fecha Final.");
+			return false;
+		}
+			//la fecha inicial NO puede ser mayor q hoy
+		if( laFechaDesdeSupereLaFechaDeHoy($('#datepicker3').val()) ){
+			//la fecha desde debe ser menor a la actual
+			alert("La Fecha Inicial NO puede ser mayor a Hoy.");
+			return false;
+		}
+		//--
+		//VALIDANDO EL SERVICIO y los AGentes
+		 var elTipoDeServicio = $("#tiposDeServicios").val();
+		 var elOLosAgentes = $("#showSubCats").val();
+		 if(elTipoDeServicio == "" || elTipoDeServicio == "0" || elTipoDeServicio.length <= 1){
+			alert("Debe seleccionar un Tipo de Servicio");
+			return false;
+		 }
+		 var listadoz = sessionStorage.getItem("listadoZ");
+		 var listadoDeAgentesTmp = sessionStorage.getItem("listadoX");
+		 if(listadoDeAgentesTmp == null || listadoDeAgentesTmp == "" || listadoDeAgentesTmp.length <= 1){
+			alert("Debe seleccionar, por lo menos, un Agente");
+			return false;
+		}
+		
 		var listadoz = sessionStorage.getItem("listadoZ");
 		var rq = {        
 			"fechaUno": 	convertirFechaExportarExcel($('#datepicker3').val()),
@@ -518,6 +583,45 @@ function reporteXLSPOST(){
 	
 function reportePDFPOST(){
 	if(window.location.hash) {
+		
+		
+		//--Validando las fechas:
+			//--deben ser diligenciadas
+		if( $('#datepicker3').val().trim().length <= 0 ){
+			alert("Debe diligenciar un valor para la Fecha Inicial.");
+			return false;
+		}	
+		if( $('#datepicker4').val().trim().length <= 0 ){
+			alert("Debe diligenciar un valor para la Fecha Final.");
+			return false;
+		}			
+			//--la fecha inicial debe ser menor a la fecha final
+		if(validarFechaHastaSuperOIgualeALaFechaDesde($('#datepicker3').val(),$('#datepicker4').val()) == 0){
+			alert("La Fecha Inicial debe ser menor a la Fecha Final.");
+			return false;
+		}
+			//la fecha inicial NO puede ser mayor q hoy
+		if( laFechaDesdeSupereLaFechaDeHoy($('#datepicker3').val()) ){
+			//la fecha desde debe ser menor a la actual
+			alert("La Fecha Inicial NO puede ser mayor a Hoy.");
+			return false;
+		}
+		//--
+		//VALIDANDO EL SERVICIO y los AGentes
+		 var elTipoDeServicio = $("#tiposDeServicios").val();
+		 var elOLosAgentes = $("#showSubCats").val();
+		 if(elTipoDeServicio == "" || elTipoDeServicio == "0" || elTipoDeServicio.length <= 1){
+			alert("Debe seleccionar un Tipo de Servicio");
+			return false;
+		 }
+		 var listadoz = sessionStorage.getItem("listadoZ");
+		 var listadoDeAgentesTmp = sessionStorage.getItem("listadoX");
+		 if(listadoDeAgentesTmp == null || listadoDeAgentesTmp == "" || listadoDeAgentesTmp.length <= 1){
+			alert("Debe seleccionar, por lo menos, un Agente");
+			return false;
+		}
+		
+		
 		var listadoz = sessionStorage.getItem("listadoZ");
 		var rq = {
 			"fechaUno": 			convertirFechaExportarExcel($('#datepicker3').val()),
