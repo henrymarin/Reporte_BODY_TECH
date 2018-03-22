@@ -207,7 +207,7 @@
 															     data-method="post"  
 															     class="table table-hover cursor-pointer" 
 															     data-side-pagination="server" 
-															     data-page-list="[20, 50, 100, 150, 200]" 
+															     data-page-list="[15, 20, 25, 30, 35, 40, 45, 50, ALL]" 
 															     data-buttons-class="btn btn-info btn-block" 
 															     data-locale="es-MX" 
 															     data-query-params="queryParams">

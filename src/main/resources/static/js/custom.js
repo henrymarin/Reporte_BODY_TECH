@@ -477,10 +477,10 @@ function reporteXLSPOST(){
 	if(window.location.hash) {
 		var listadoz = sessionStorage.getItem("listadoZ");
 		var rq = {        
-			"entradaUno": 	'token',
 			"fechaUno": 	convertirFechaExportarExcel($('#datepicker3').val()),
 			"fechaDos":		convertirFechaExportarExcel($('#datepicker4').val()),
 			"lista":		listadoz.split(','),
+			"listadoDeAgentesStr":	sessionStorage.getItem("listadoZ")
 		};
 		//--			
 		var request = new XMLHttpRequest();
@@ -515,11 +515,11 @@ function reporteXLSPOST(){
 function reportePDFPOST(){
 	if(window.location.hash) {
 		var listadoz = sessionStorage.getItem("listadoZ");
-		var rq = {        
-			"entradaUno": 	'token',
-			"fechaUno": 	convertirFechaExportarExcel($('#datepicker3').val()),
-			"fechaDos":		convertirFechaExportarExcel($('#datepicker4').val()),
-			"lista":		listadoz.split(','),
+		var rq = {
+			"fechaUno": 			convertirFechaExportarExcel($('#datepicker3').val()),
+			"fechaDos":				convertirFechaExportarExcel($('#datepicker4').val()),
+			"lista":				listadoz.split(','),
+			"listadoDeAgentesStr":	sessionStorage.getItem("listadoZ")
 		};
 		//--			
 		var request = new XMLHttpRequest();

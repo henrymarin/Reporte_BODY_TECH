@@ -72,7 +72,7 @@ public class GenerarReporteRestController {
 			List<BTSReporteMapping> lista = servicio.generarReporteSinPaginado(request);
 			//--
 			List<String> headers = Arrays.asList(
-					"Item", "Nombre del Agente", "Hora de ingreso a la Cola", "Número de Interacciones por Voz", "Número de Interacciones por Chat", 
+					"Nombre del Agente", "Hora de ingreso a la Cola", "Número de Interacciones por Voz", "Número de Interacciones por Chat", 
 					"Número de Interacciones por Email", "Tiempo de Intervalo por Voz", "Tiempo de Intervalo por Chat", "Tiempo de Intervalo por Email", 
 					"Tiempo de Pausa", "Tiempo de Almuerzo", "Tiempo de Break", "Tiempo Promedio por Voz", "Tiempo Promedio por Chat",
 					"Tiempo Promedio por Email", "Hora de Cierre de Sesion", "Tiempo de Productivo del Agente");
@@ -85,10 +85,10 @@ public class GenerarReporteRestController {
 				response.setContentType("application/vnd.ms-excel");
 				new SimpleExporter().gridExport(
 						headers, lista, 
-						"item, nombreAgente, horaIngresoCola, numeroInteraccionesVoz, numeroInteraccionesChat,"+ 
+								"nombreAgente, horaIngresoCola, numeroInteraccionesVoz, numeroInteraccionesChat,"+ 
 								"numeroInteraccionesEmail, tiempoIntervaloVoz, tiempoIntervaloChat, tiempoIntervaloEmail,"+ 
 								"tiempoPausa, tiempoAlmuerzo, tiempoBreak, tiempoPromedioVoz, tiempoPromedioChat,"+
-								"tiempoPromedioEmail, horaCierreSesion, tiempoProductivoAgente,",
+								"tiempoPromedioEmail, horaCierreSesion, tiempoProductivoAgente",
 						response.getOutputStream());
 				//--			
 		        servletOutputStream.flush();

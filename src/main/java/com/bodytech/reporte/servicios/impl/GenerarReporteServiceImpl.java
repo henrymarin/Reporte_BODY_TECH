@@ -65,16 +65,16 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 		String sentenciaSQLReporte =
 		"SELECT "+ 
             "    idAgente, "+
-            "    sum(case when tipo = 'voice' then 1 else 0 end) as numeroInteraccionesVoz, "+
-            "    sum(case when tipo = 'callback' then 1 else 0 end) as numeroInteraccionesChat, "+
-            "    sum(case when tipo = 'email' then 1 else 0 end) as numeroInteraccionesEmail, "+
-            "    SUM(CASE WHEN tipo = 'voice' THEN TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento) ELSE 0 END) AS tiempoIntervaloVoz, "+
-            "    SUM(CASE WHEN tipo = 'callback' THEN TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento) ELSE 0 END) AS tiempoIntervaloChat, "+
-            "    SUM(CASE WHEN tipo = 'email' THEN TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento) ELSE 0 END) AS tiempoIntervaloEmail, "+
-            "    SUM(CASE WHEN segmento = 'hold' THEN TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento) ELSE 0 END) AS tiempoPausa, "+
-            "   (SUM(CASE WHEN tipo = 'voice' THEN TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento) ELSE 0 END) + "+
-            "    SUM(CASE WHEN tipo = 'callback' THEN TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento) ELSE 0 END) + "+
-            "    SUM(CASE WHEN tipo = 'email' THEN TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento) ELSE 0 END)  ) as tiempoProductivoAgenteUno, "+
+            "    sum(case when UPPER(tipo) = 'VOICE' then 1 else 0 end) as numeroInteraccionesVoz, "+
+            "    sum(case when UPPER(tipo) = 'CHAT' then 1 else 0 end) as numeroInteraccionesChat, "+
+            "    sum(case when UPPER(tipo) = 'EMAIL' then 1 else 0 end) as numeroInteraccionesEmail, "+
+            "    SUM(CASE WHEN UPPER(tipo) = 'VOICE' THEN TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento) ELSE 0 END) AS tiempoIntervaloVoz, "+
+            "    SUM(CASE WHEN UPPER(tipo) = 'CHAT' THEN TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento) ELSE 0 END) AS tiempoIntervaloChat, "+
+            "    SUM(CASE WHEN UPPER(tipo) = 'EMAIL' THEN TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento) ELSE 0 END) AS tiempoIntervaloEmail, "+
+            "    SUM(CASE WHEN UPPER(segmento) = 'HOLD' THEN TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento) ELSE 0 END) AS tiempoPausa, "+
+            "   (SUM(CASE WHEN UPPER(tipo) = 'VOICE' THEN TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento) ELSE 0 END) + "+
+            "    SUM(CASE WHEN UPPER(tipo) = 'CHAT' THEN TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento) ELSE 0 END) + "+
+            "    SUM(CASE WHEN UPPER(tipo) = 'EMAIL' THEN TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento) ELSE 0 END)  ) as tiempoProductivoAgenteUno, "+
             "    fecha," +
             "	 nombreAgente, " +
             "    segmento," +
