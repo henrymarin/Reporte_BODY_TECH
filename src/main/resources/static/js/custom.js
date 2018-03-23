@@ -32,6 +32,18 @@
 				alert("La Fecha Inicial NO puede ser mayor a Hoy.");
 				return false;
 			}
+			//la carga solo es posible para dos meses
+			
+			var fecha1 = moment(convertirFechaExportarExcel($('#datepicker').val()));
+			var fecha2 = moment(convertirFechaExportarExcel($('#datepicker2').val()));
+			var diasDeCarga = fecha2.diff(fecha1, 'days');
+			console.log(diasDeCarga, ' dias de diferencia');
+			if(diasDeCarga>60){
+				alert("El proceso de carga est\u00e1 configurado para un total de 60 d\u00edas. Por favor revise las fechas.");
+				return false;
+			}
+			
+			
 			//--
 			$("#mensajePrecarga").show();
 			//--
@@ -353,21 +365,21 @@
 							 },
 							 {
 							    field : 'tiempoPromedioVoz',
-							    title : 'Tiempo Promedio <br/>Voz (segundos)',
+							    title : 'Tiempo Promedio <br/>Voz',
 							    valign : 'middle',
 							    sortable : false,
 								 align: 'center'
 							 },
 							 {
 							    field : 'tiempoPromedioChat',
-							    title : 'Tiempo Promedio <br/>Chat (segundos)',
+							    title : 'Tiempo Promedio <br/>Chat',
 							    valign : 'middle',
 							    sortable : false,
 								 align: 'center'
 							 },
 							 {
 							    field : 'tiempoPromedioEmail',
-							    title : 'Tiempo Promedio <br/>Email (segundos)',
+							    title : 'Tiempo Promedio <br/>Email',
 							    valign : 'middle',
 							    sortable : false,
 								 align: 'center'
