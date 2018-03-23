@@ -72,8 +72,8 @@ order by fecha;
 SELECT fecha_inicio_estado
 FROM estados_por_agente
 WHERE estado = 'ON_QUEUE'
-AND DATE(fecha_inicio_estado) = '2018-02-10'
-AND id_agente = '345c6e29-28c0-4960-8cb1-6c4501918b14' -- Luis
+AND DATE(fecha_inicio_estado) = '2018-03-12'
+AND id_agente = 'c4a291b1-153d-4150-a4e3-8dad40c48f42' 
 ORDER BY fecha_inicio_estado
 LIMIT 1; -- 2018-02-10 14:46:41
 
@@ -124,7 +124,6 @@ AND id_agente = 'c417dd32-58fd-4c5f-a5ed-86d311d66000'
 AND UPPER(estado) = 'IDLE'
 ;
 
-
 -- Tiempo productivo agente por dia
 SELECT 
 (SELECT SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_segmento, fecha_fin_segmento)) AS SUM_VOICE
@@ -139,3 +138,14 @@ WHERE DATE(fecha_inicio_estado) = '2018-02-10'
 AND id_agente = '345c6e29-28c0-4960-8cb1-6c4501918b14'
 AND UPPER(estado) = 'IDLE')
 AS TIEMPO_PRODUCTIVO_AGENTE;
+
+-- Indices
+
+ALTER TABLE conversacion ADD INDEX(id); 
+ALTER TABLE conversacion ADD INDEX(id_agente, id_conversacion); 
+
+ALTER TABLE conversaciones_por_tipo ADD INDEX(id);
+ALTER TABLE conversaciones_por_tipo ADD INDEX(id_agente, id_conversacion);
+
+ALTER TABLE estados_por_agente ADD INDEX(id);
+ALTER TABLE estados_por_agente ADD INDEX(id_agente, id_comversacion);
