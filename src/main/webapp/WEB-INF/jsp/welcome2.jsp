@@ -64,7 +64,7 @@
 						<header>
 							<div class="row">
 								<div class="col-md-4">
-									<a href="welcome2.html">
+									<a href="welcome.html">
 										<img src="images/bdt-logo.png">
 									</a>
 								</div>

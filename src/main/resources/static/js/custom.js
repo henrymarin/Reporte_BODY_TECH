@@ -43,9 +43,9 @@
 				return false;
 			}
 			
-			
 			//--
 			$("#mensajePrecarga").show();
+			
 			//--
 		    var token = obtenerElToken('access_token'); 
 		    //--llamado interno a restController 0002
@@ -365,21 +365,21 @@
 							 },
 							 {
 							    field : 'tiempoPromedioVoz',
-							    title : 'Tiempo Promedio <br/>Voz',
+							    title : 'Tiempo Promedio <br/>Voz (segundos)',
 							    valign : 'middle',
 							    sortable : false,
 								 align: 'center'
 							 },
 							 {
 							    field : 'tiempoPromedioChat',
-							    title : 'Tiempo Promedio <br/>Chat',
+							    title : 'Tiempo Promedio <br/>Chat (segundos)',
 							    valign : 'middle',
 							    sortable : false,
 								 align: 'center'
 							 },
 							 {
 							    field : 'tiempoPromedioEmail',
-							    title : 'Tiempo Promedio <br/>Email',
+							    title : 'Tiempo Promedio <br/>Email (segundos)',
 							    valign : 'middle',
 							    sortable : false,
 								 align: 'center'
