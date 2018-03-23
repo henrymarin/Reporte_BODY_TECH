@@ -82,23 +82,18 @@
 						<div id="">
 							<div class="row">
 								<div class="col-md-3">
-									<b>Proceso de Precarga Existente:</b>
+									<h5>PROCESO PRECARGA EXISTENTE</h5>
 								</div>
 							</div>
+							<p/>
 							<div class="row">
-								<div class="col-md-4" align="center">
-									Fecha Inicial: ${msg1}
-								</div>									
+								<div class="col-md-4">Fecha inicial: <strong>${msg1}</strong></div>									
 							</div>
 							<div class="row">
-								<div class="col-md-4" align="center">
-									Fecha Final: ${msg2}
-								</div>						
+								<div class="col-md-4">Fecha final: <strong>${msg2}</strong></div>						
 							</div>						
 						</div>
-						
-						
-						
+				
 					</div>
 				</section><br><br>
 				<section id="formularioDePrecarga">

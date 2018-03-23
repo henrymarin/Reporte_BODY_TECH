@@ -127,6 +127,8 @@ public class GenerarReporteRestController {
 	            
 	            Map<String, Object> parameters = new HashMap<String, Object>();
 	            parameters.put("ItemDataSource", itemsJRBean);
+	            parameters.put("fechaInicial", request.getFechaInicial());
+	            parameters.put("fechaFinal", request.getFechaFinal());
 	            
 	            Resource plantillaCompilada = new ClassPathResource("/reportes/jasper/reportePdf.jasper");
 	            

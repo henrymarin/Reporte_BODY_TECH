@@ -311,21 +311,21 @@
 							 },
 							 {
 							    field : 'tiempoIntervaloVoz',
-							    title : 'Tiempo Intervalo <br/>Voz (segundos)',
+							    title : 'Tiempo Intervalo <br/>Voz',
 							    valign : 'middle',
 							    sortable : false,
 								 lign: 'center'
 							 },
 							 {
 							    field : 'tiempoIntervaloChat',
-							    title : 'Tiempo Intervalo <br/>Chat (segundos)',
+							    title : 'Tiempo Intervalo <br/>Chat',
 							    valign : 'middle',
 							    sortable : false,
 								 align: 'center'
 							 },
 							 {
 							    field : 'tiempoIntervaloEmail',
-							    title : 'Tiempo Intervalo <br/>Email (segundos)',
+							    title : 'Tiempo Intervalo <br/>Email',
 							    valign : 'middle',
 							    sortable : false,
 								 align: 'center'
