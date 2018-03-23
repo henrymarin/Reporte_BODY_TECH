@@ -38,8 +38,8 @@
 			var fecha2 = moment(convertirFechaExportarExcel($('#datepicker2').val()));
 			var diasDeCarga = fecha2.diff(fecha1, 'days');
 			console.log(diasDeCarga, ' dias de diferencia');
-			if(diasDeCarga>60){
-				alert("El proceso de carga est\u00e1 configurado para un total de 60 d\u00edas. Por favor revise las fechas.");
+			if(diasDeCarga>31){
+				alert("El proceso de carga est\u00e1 configurado para un total de 31 d\u00edas. Por favor revise las fechas.");
 				return false;
 			}
 			

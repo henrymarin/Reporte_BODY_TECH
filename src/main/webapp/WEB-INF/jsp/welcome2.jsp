@@ -64,7 +64,9 @@
 						<header>
 							<div class="row">
 								<div class="col-md-4">
-									<img src="images/bdt-logo.png">
+									<a href="welcome2.html">
+										<img src="images/bdt-logo.png">
+									</a>
 								</div>
 							</div>
 						</header>
@@ -84,7 +86,7 @@
 						<div id="">
 							<div class="row">
 								<div class="col-md-3">
-									<h5>PROCESO PRECARGA EXISTENTE</h5>
+									<h5>PROCESO DE PRECARGA EXISTENTE</h5>
 								</div>
 							</div>
 							<p/>
@@ -93,7 +95,10 @@
 							</div>
 							<div class="row">
 								<div class="col-md-4">Fecha final: <strong>${msg2}</strong></div>						
-							</div>						
+							</div>
+							<div class="row">
+								<div class="col-md-4">Estado: <strong>${msg3}</strong></div>						
+							</div>
 						</div>
 				
 					</div>

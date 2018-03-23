@@ -45,13 +45,13 @@ import com.mypurecloud.sdk.v2.model.AnalyticsUserPresenceRecord;
 import com.mypurecloud.sdk.v2.model.ConversationQuery;
 import com.mypurecloud.sdk.v2.model.PagingSpec;
 import com.mypurecloud.sdk.v2.model.User;
-import com.mypurecloud.sdk.v2.model.User.StateEnum;
 import com.mypurecloud.sdk.v2.model.UserDetailsQuery;
 import com.mypurecloud.sdk.v2.model.UserEntityListing;
 
 @Service
 public class GuardarDatosServiceImpl implements GuardarDatosService{
 
+	private static final String ACTIVE = "active";
 	private static final String DE_AYUDA = "DE AYUDA";
 	private static final String SAC = "SAC";
 	private static final String MDA = "MDA";
@@ -304,7 +304,7 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 	            	Precarga precarga = new Precarga();
 	            	precarga.setFechaInicio(dto.getFechaUno());
 	            	precarga.setFechaFin(dto.getFechaDos());
-					precarga.setEstado("Completa");
+					precarga.setEstado("En proceso");
 					precargaRepository.save(precarga);
 	            	//--
 	            	System.out.println("<<<<----guardarDatosDepurado--->>>> INICIA LA PRIMERA CARGA!!!");
@@ -571,7 +571,7 @@ if(conversacion.getIdAgente().equalsIgnoreCase("0d5fc836-390d-4976-b06e-89b8d2f9
 	            	Precarga precarga = new Precarga();
 	            	precarga.setFechaInicio(dto.getFechaUno());
 	            	precarga.setFechaFin(dto.getFechaDos());
-					precarga.setEstado("Completa");
+					precarga.setEstado("En Proceso");
 					precargaRepository.save(precarga);
 	            	//--
 					System.out.println("        		<<<<----PROCESO DE LA CARGA DE CONVERSACIONES--->>>>");
@@ -630,7 +630,7 @@ if(conversacion.getIdAgente().equalsIgnoreCase("0d5fc836-390d-4976-b06e-89b8d2f9
 									if(Objects.nonNull(entidadConUsuarios) && Objects.nonNull(entidadConUsuarios.getEntities()) && !entidadConUsuarios.getEntities().isEmpty()){
 									    List<User> usuarios = entidadConUsuarios.getEntities();
 									    for (User user : usuarios) {
-									    	if(user.getState().toString().equals(StateEnum.ACTIVE)){
+									    	if(user.getState().toString().equals(ACTIVE)){
 												Agente agente = new Agente();
 												agente.setIdAgente(user.getId());
 												agente.setNombreAgente(NO_NAME);
@@ -698,6 +698,14 @@ if(conversacion.getIdAgente().equalsIgnoreCase("0d5fc836-390d-4976-b06e-89b8d2f9
 			        });
 					System.out.println("   같같같Elapsed time in minutes: " + ( (System.currentTimeMillis() - startTotal) * (0.0000167) ) );
 					System.out.println("같같같같같FIN DE LAX CARGAX");
+					//--
+					List<Precarga> listadoDePrecargas = (List<Precarga>) precargaRepository.findAll();
+					if(Objects.nonNull(listadoDePrecargas) && !listadoDePrecargas.isEmpty()){
+						Precarga precargaDB = listadoDePrecargas.get(0);
+						precargaDB.setEstado("Completada");
+						precargaRepository.save(precargaDB);
+					}
+					//--
 	            }
 
 				private void guardarDatosProcesoPrincipalConfigurarParticipantesEstadosPorAgenteProcesoPrincipal(String conversacionId, String agenteId,AnalyticsUserDetail userDetail) {					
