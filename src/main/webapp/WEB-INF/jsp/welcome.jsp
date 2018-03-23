@@ -38,12 +38,25 @@
 					<div class="container">
 						<div class="row">
 								<div class="col-md-12">
-									<a onclick="main();"><h2 style="text-align:center;">Reporte de Productividad</h2></a>
+									<h2 style="text-align:center;">Reporte de Productividad</h2>
 								</div>							
 						</div>
 					</div>
-				</section>				
-			</div>			
+				</section>
+
+			<section>
+				<div class="container">
+					<div id="controles">
+						<div class="row">
+							<div class="container--buttons">
+								<a onclick="main();"><button>INICIAR REPORTE</button></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+		</div>			
 		</div>
 	</body>	
 </html>
