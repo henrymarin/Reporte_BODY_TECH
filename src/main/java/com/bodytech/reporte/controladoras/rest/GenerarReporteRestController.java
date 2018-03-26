@@ -27,7 +27,9 @@ import com.bodytech.reporte.dtos.BTSReporteMapping;
 import com.bodytech.reporte.dtos.ConsultarTiposDeServicioResponse;
 import com.bodytech.reporte.dtos.GenericBootStrapTableRequest;
 import com.bodytech.reporte.dtos.ListaValores;
+import com.bodytech.reporte.dtos.PrecargaResponse;
 import com.bodytech.reporte.servicios.impl.GenerarReporteServiceImpl;
+import com.bodytech.reporte.servicios.impl.GuardarDatosServiceImpl;
 import com.javainuse.DtoEntrada;
 
 import net.minidev.json.JSONObject;
@@ -39,6 +41,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 public class GenerarReporteRestController {
 	
 	@Autowired private GenerarReporteServiceImpl servicio;
+	@Autowired private GuardarDatosServiceImpl servicioGuardarDatos;
 	private static final String APPLICATION_JSON = "application/json";
 	private static final Logger logger = LoggerFactory.getLogger(GenerarReporteRestController.class);
 	
@@ -144,5 +147,23 @@ public class GenerarReporteRestController {
 				logger.error("erro exporting....", e);
 			} 
 		}
+	}
+	
+	
+	@RequestMapping(
+			value = "/guardarDatos", 
+			method = RequestMethod.POST, 
+			consumes ="application/json")
+	@CrossOrigin(origins = "*")
+	public PrecargaResponse guardarDatos(@RequestBody(required = true) DtoEntrada dto) {
+
+		PrecargaResponse precarga = new PrecargaResponse();
+		precarga.setEstado("En Proceso");
+		precarga.setFechaInicio(dto.getFechaUno());
+		precarga.setFechaFin(dto.getFechaDos());
+		//--
+		servicioGuardarDatos.guardarDatosDepuradoConCargaDeAgentes(dto);
+		
+		return precarga;
 	}
 }

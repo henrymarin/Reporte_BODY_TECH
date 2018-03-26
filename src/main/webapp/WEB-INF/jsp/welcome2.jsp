@@ -64,7 +64,7 @@
 						<header>
 							<div class="row">
 								<div class="col-md-4">
-									<a href="welcome2.html">
+									<a href="welcome.html">
 										<img src="images/bdt-logo.png">
 									</a>
 								</div>
@@ -85,19 +85,22 @@
 					<div class="container">
 						<div id="">
 							<div class="row">
-								<div class="col-md-3">
-									<h5>PROCESO DE PRECARGA EXISTENTE</h5>
+								<div class="col-md-4">
+									<h5  style="text-align:  center;"><strong>PROCESO DE PRECARGA EXISTENTE</strong></h5>
 								</div>
 							</div>
 							<p/>
 							<div class="row">
-								<div class="col-md-4">Fecha inicial: <strong>${msg1}</strong></div>									
+								<div class="col-md-2">Fecha inicial:</div>
+								<div class="col-md-2"><strong><input type="text" id="msg1" value=${msg1} readonly="readonly" style="border-bottom: 0px;" ></strong></div>																
 							</div>
 							<div class="row">
-								<div class="col-md-4">Fecha final: <strong>${msg2}</strong></div>						
+								<div class="col-md-2">Fecha final:</div>
+								<div class="col-md-2"><strong><input type="text" id="msg2"  value=${msg2} readonly="readonly" style="border-bottom: 0px;" ></strong></div>
 							</div>
 							<div class="row">
-								<div class="col-md-4">Estado: <strong>${msg3}</strong></div>						
+								<div class="col-md-2">Estado:</div>
+								<div class="col-md-2"><strong><input type="text" id="msg3"  value=${msg3} readonly="readonly"  style="border-bottom: 0px;" ></strong></div>
 							</div>
 						</div>
 				

@@ -61,8 +61,10 @@
 		        		"fechaDos":		convertirFechaDos($('#datepicker').val(),$('#datepicker2').val())
 		        	}
 		        ),
-		        success: function(data) {			
-		            console.log(data);
+		        success: function(data) {
+		            $('#msg1').val(data.fechaInicio);
+		            $('#msg2').val(data.fechaFin);
+		            $('#msg3').val(data.estado);
 		        }
 		    });
 		    
