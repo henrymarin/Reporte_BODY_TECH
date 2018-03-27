@@ -9,7 +9,6 @@ import java.util.Objects;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject;
 import org.jxls.template.SimpleExporter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +28,6 @@ import com.bodytech.reporte.dtos.BSTReporteResponse;
 import com.bodytech.reporte.dtos.BTSReporteMapping;
 import com.bodytech.reporte.dtos.GenericBootStrapTableRequest;
 import com.bodytech.reporte.servicios.impl.GenerarReporteServiceImpl;
-import com.javainuse.DtoEntrada;
 
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JasperRunManager;
@@ -42,15 +40,6 @@ public class GenerarReporteController {
 	private static final Logger logger = LoggerFactory.getLogger(GenerarReporteController.class);
 	
 	
-	@RequestMapping(
-			value = "/generarReporte", 
-			method = RequestMethod.POST, 
-			consumes ="application/json")
-	@CrossOrigin(origins = "*")
-	public JSONObject generarReporte(@RequestBody(required = true) DtoEntrada dto) {		
-		return servicio.generarReporte(dto);
-	}
-	
 	
 	@CrossOrigin
 	@RequestMapping(
@@ -61,7 +50,7 @@ public class GenerarReporteController {
 	@ResponseBody
 	public BSTReporteResponse generarReportePaginado(@RequestBody GenericBootStrapTableRequest request) {
 		BSTReporteResponse respuesta = new BSTReporteResponse(null,0);
-		if( Objects.isNull(request) || Objects.isNull(request.getFechaInicial()) || Objects.isNull(request.getFechaFinal()) || Objects.isNull(request.getLista()) ){
+		if( Objects.isNull(request) || Objects.isNull(request.getFechaInicial()) || Objects.isNull(request.getFechaFinal()) || Objects.isNull(request.getListadoDeAgentesStr()) || request.getListadoDeAgentesStr().isEmpty()){
 			return respuesta;
 		}
 		return servicio.generarReportePaginado(request);
@@ -87,8 +76,8 @@ public class GenerarReporteController {
 		List<BTSReporteMapping> lista = servicio.generarReporteSinPaginado(request);		
 		//--
 		List<String> headers = Arrays.asList(
-				"Item", "Nombre del Agente", "Hora de ingreso a la Cola", "Número de Interacciones por Voz", "Número de Interacciones por Chat", 
-				"Número de Interacciones por Email", "Tiempo de Intervalo por Voz", "Tiempo de Intervalo por Chat", "Tiempo de Intervalo por Email", 
+				"Item", "Nombre del Agente", "Hora de ingreso a la Cola", "N\u00famero de Interacciones por Voz", "N\u00famero de Interacciones por Chat", 
+				"N\u00famero de Interacciones por Email", "Tiempo de Intervalo por Voz", "Tiempo de Intervalo por Chat", "Tiempo de Intervalo por Email", 
 				"Tiempo de Pausa", "Tiempo de Almuerzo", "Tiempo de Break", "Tiempo Promedio por Voz", "Tiempo Promedio por Chat",
 				"Tiempo Promedio por Email", "Hora de Cierre de Sesion", "Tiempo de Productivo del Agente");
 		try {

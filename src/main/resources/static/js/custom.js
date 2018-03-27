@@ -217,6 +217,10 @@
 			alert("Debe seleccionar un Tipo de Servicio");
 			return false;
 		 }
+		 if(elOLosAgentes == null  || elOLosAgentes == "0"){
+				alert("Debe seleccionar un Agente.");
+				return false;
+		 }
 		 var listadoz = sessionStorage.getItem("listadoZ");
 		 var listadoDeAgentesTmp = sessionStorage.getItem("listadoX");
 		 if(listadoDeAgentesTmp == null || listadoDeAgentesTmp == "" || listadoDeAgentesTmp.length <= 1){
@@ -560,7 +564,10 @@ function reporteXLSPOST(){
 			alert("Debe seleccionar un Tipo de Servicio");
 			return false;
 		 }
-		 
+		 if(elOLosAgentes == null  || elOLosAgentes == "0"){
+				alert("Debe seleccionar un Agente.");
+				return false;
+		 }		 
 			//--------------
 		 	var dgcTiempo=500
 		    var ventanaCS='<div class="dgcAlert"><div class="dgcVentana"><div class="dgcMensaje">Generaci\u00f3n del reporte en curso.<br></div></div></div>';
@@ -654,6 +661,10 @@ function reportePDFPOST(){
 			alert("Debe seleccionar un Tipo de Servicio");
 			return false;
 		 }
+		 if(elOLosAgentes == null  || elOLosAgentes == "0"){
+				alert("Debe seleccionar un Agente.");
+				return false;
+		 }		 
 		 var listadoz = sessionStorage.getItem("listadoZ");
 		 var listadoDeAgentesTmp = sessionStorage.getItem("listadoX");
 		 if(listadoDeAgentesTmp == null || listadoDeAgentesTmp == "" || listadoDeAgentesTmp.length <= 1){

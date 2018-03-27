@@ -2,13 +2,10 @@ package com.bodytech.reporte.servicios;
 
 import java.util.List;
 
-import org.json.JSONObject;
-
 import com.bodytech.reporte.dtos.BSTReporteResponse;
 import com.bodytech.reporte.dtos.BTSReporteMapping;
 import com.bodytech.reporte.dtos.GenericBootStrapTableRequest;
 import com.bodytech.reporte.dtos.ListaValores;
-import com.javainuse.DtoEntrada;
 
 /**
  * 
@@ -17,12 +14,6 @@ import com.javainuse.DtoEntrada;
  */
 public interface GenerarReporteService {
 	
-	/**
-	 * generar Reporte
-	 * @param dto
-	 * @return
-	 */
-	JSONObject generarReporte(DtoEntrada dto);
 
 	/**
 	 * generar Reporte Paginado

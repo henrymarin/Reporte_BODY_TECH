@@ -32,7 +32,6 @@ import com.bodytech.reporte.servicios.impl.GenerarReporteServiceImpl;
 import com.bodytech.reporte.servicios.impl.GuardarDatosServiceImpl;
 import com.javainuse.DtoEntrada;
 
-import net.minidev.json.JSONObject;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -65,10 +64,11 @@ public class GenerarReporteRestController {
 			method = RequestMethod.POST, 
 			consumes ="application/json")
 	@CrossOrigin(origins = "*")
-	public JSONObject crearXLS(@RequestBody(required = true) DtoEntrada dto,HttpServletResponse response) {
-		JSONObject jsonResponse = new JSONObject();
+	public void crearXLS(@RequestBody(required = true) DtoEntrada dto,HttpServletResponse response) {
 		
-		if(Objects.nonNull(dto) && Objects.nonNull(dto.getFechaUno()) && Objects.nonNull(dto.getFechaDos()) && Objects.nonNull(dto.getLista()) ){
+		if( Objects.isNull(dto) || Objects.isNull(dto.getFechaUno()) || Objects.isNull(dto.getFechaDos()) || Objects.isNull(dto.getListadoDeAgentesStr()) || dto.getListadoDeAgentesStr().isEmpty()){
+			logger.error("erro exporting....");
+		}else{	
 			GenericBootStrapTableRequest request =  new GenericBootStrapTableRequest();
 			request.setFechaInicial(dto.getFechaUno());
 			request.setFechaFinal(dto.getFechaDos());
@@ -77,8 +77,8 @@ public class GenerarReporteRestController {
 			List<BTSReporteMapping> lista = servicio.generarReporteSinPaginado(request);
 			//--
 			List<String> headers = Arrays.asList(
-					"Fecha","Nombre del Agente", "Hora de ingreso a la Cola", "Número de Interacciones por Voz", "Número de Interacciones por Chat", 
-					"Número de Interacciones por Email", "Tiempo de Intervalo por Voz", "Tiempo de Intervalo por Chat", "Tiempo de Intervalo por Email", 
+					"Fecha","Nombre del Agente", "Hora de ingreso a la Cola", "N\u00famero de Interacciones por Voz", "N\u00famero de Interacciones por Chat", 
+					"N\u00famero de Interacciones por Email", "Tiempo de Intervalo por Voz", "Tiempo de Intervalo por Chat", "Tiempo de Intervalo por Email", 
 					"Tiempo de Pausa", "Tiempo de Almuerzo", "Tiempo de Break", "Tiempo Promedio por Voz", "Tiempo Promedio por Chat",
 					"Tiempo Promedio por Email", "Hora de Cierre de Sesion", "Tiempo Productivo del Agente", "Porcentaje de Productividad del Agente");
 			
@@ -103,8 +103,7 @@ public class GenerarReporteRestController {
 				logger.error("erro exporting....", e);
 			}	
 		}
-		
-		return jsonResponse;
+
 	}
 	
 	
@@ -116,7 +115,9 @@ public class GenerarReporteRestController {
 	@CrossOrigin(origins = "*")
 	public void crearPDF(@RequestBody(required = true) DtoEntrada dto,HttpServletResponse response) {
 
-		if(Objects.nonNull(dto) && Objects.nonNull(dto.getFechaUno()) && Objects.nonNull(dto.getFechaDos()) && Objects.nonNull(dto.getLista()) ){
+		if( Objects.isNull(dto) || Objects.isNull(dto.getFechaUno()) || Objects.isNull(dto.getFechaDos()) || Objects.isNull(dto.getListadoDeAgentesStr()) || dto.getListadoDeAgentesStr().isEmpty()){
+			logger.error("erro exporting....");
+		}else{
 			GenericBootStrapTableRequest request =  new GenericBootStrapTableRequest();
 			request.setFechaInicial(dto.getFechaUno());
 			request.setFechaFinal(dto.getFechaDos());

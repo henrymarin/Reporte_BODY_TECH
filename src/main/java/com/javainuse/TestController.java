@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.bodytech.reporte.entidades.User;
 import com.mypurecloud.sdk.v2.ApiClient;
@@ -41,7 +40,7 @@ import com.mypurecloud.sdk.v2.model.PagingSpec;
 import com.mypurecloud.sdk.v2.model.UserDetailsQuery;
 import com.mypurecloud.sdk.v2.model.UserMe;
 
-import net.minidev.json.JSONObject;
+
 
 @Controller
 public class TestController {
@@ -52,8 +51,7 @@ public class TestController {
 			method = RequestMethod.POST, 
 			consumes ="application/json")
 	@CrossOrigin(origins = "*")
-	public JSONObject main(@RequestBody(required = true) DtoEntrada dto) {
-		JSONObject jsonResponse = new JSONObject();
+	public void main(@RequestBody(required = true) DtoEntrada dto) {
         try {
             // Configure SDK settings
             String accessToken = dto.getEntradaUno();
@@ -74,7 +72,6 @@ public class TestController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return jsonResponse;
     }
 	
 		@RequestMapping(
@@ -82,8 +79,7 @@ public class TestController {
 			method = RequestMethod.POST, 
 			consumes ="application/json")
 		@CrossOrigin(origins = "*")
-		public JSONObject iniciarProcesoDePrecarga(@RequestBody(required = true) DtoEntrada dto) {
-			JSONObject jsonResponse = new JSONObject();
+		public void iniciarProcesoDePrecarga(@RequestBody(required = true) DtoEntrada dto) {
 			try {
 			    // Configure SDK settings
 			    String accessToken = dto.getEntradaUno();
@@ -203,7 +199,6 @@ public class TestController {
 			} catch (Exception e) {
 			    e.printStackTrace();
 			}
-			return jsonResponse;
 		}
 		
 		@GetMapping(path="/add") // Map ONLY GET Requests
@@ -219,8 +214,7 @@ public class TestController {
 				method = RequestMethod.POST, 
 				consumes ="application/json")
 			@CrossOrigin(origins = "*")
-			public JSONObject iniciarProcesoDePrecarga2(@RequestBody(required = true) DtoEntrada dto) {
-				JSONObject jsonResponse = new JSONObject();
+			public void iniciarProcesoDePrecarga2(@RequestBody(required = true) DtoEntrada dto) {
 				try {
 				    // Configure SDK settings
 				    String accessToken = dto.getEntradaUno();
@@ -388,7 +382,6 @@ public class TestController {
 				} catch (Exception e) {
 				    e.printStackTrace();
 				}
-				return jsonResponse;
 			}
 	
 	

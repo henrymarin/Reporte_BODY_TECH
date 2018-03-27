@@ -10,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,6 @@ import com.bodytech.reporte.dtos.ListaValores;
 import com.bodytech.reporte.entidades.Agente;
 import com.bodytech.reporte.repositorios.AgenteRepository;
 import com.bodytech.reporte.servicios.GenerarReporteService;
-import com.javainuse.DtoEntrada;
 
 @Service
 public class GenerarReporteServiceImpl implements GenerarReporteService {
@@ -37,14 +35,6 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 	@Autowired private AgenteRepository agenteRepository;
 
 	private static DecimalFormat decimalFormat = new DecimalFormat(".#");
-	
-	@Override
-	public JSONObject generarReporte(DtoEntrada dto) {
-		
-		String testData = "{\"tiempoIntervaloChat\":\"00: 48: 15\",\"item\":\"Voice\",\"tiempoIntervaloEmail\":\"00: 00: 56\",\"horaIngresoCola\":\"2018-03-01 08:25:16\",\"tiempoPromedioChat\":\"05: 10: 45\",\"tiempoPromedioEmail\":\"03: 30: 12\",\"horaCierreSesion\":\"19:20:15\",\"numeroInteraccionesChat\":\"35\",\"tiempoIntervaloVoz\":\"01: 36: 12\",\"tiempoPausa\":\"00: 45: 00\",\"tiempoPromedioVoz\":\"04: 25: 12\",\"numeroInteraccionesVoz\":\"50\",\"tiempoBreak\":\"00: 43: 00\",\"tiempoProductivoAgente\":\"06: 30: 00\",\"numeroInteraccionesEmail\":\"24\",\"tiempoAlmuerzo\":\"01: 15: 13\",\"nombreAgente\":\"Alejandra Velasquez\"}";
-							
-		return new JSONObject(testData);
-	}
 
 	@Override
 	public BSTReporteResponse generarReportePaginado(GenericBootStrapTableRequest request) {

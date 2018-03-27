@@ -86,21 +86,21 @@
 						<div id="">
 							<div class="row">
 								<div class="col-md-4">
-									<h5  style="text-align:  center;"><strong>PROCESO DE PRECARGA EXISTENTE</strong></h5>
+									<h5  style="text-align:  center;"><strong>INFORMACIÓN DE LA PRECARGA EXISTENTE</strong></h5>
 								</div>
 							</div>
 							<p/>
 							<div class="row">
 								<div class="col-md-2">Fecha inicial:</div>
-								<div class="col-md-2"><strong><input type="text" id="msg1" value=${msg1} readonly="readonly" style="border-bottom: 0px;" ></strong></div>																
+								<div class="col-md-2"><strong><input type="text" readonly="readonly" style="border-bottom: 0px;" id="msg1" value=${msg1}></strong></div>																
 							</div>
 							<div class="row">
 								<div class="col-md-2">Fecha final:</div>
-								<div class="col-md-2"><strong><input type="text" id="msg2"  value=${msg2} readonly="readonly" style="border-bottom: 0px;" ></strong></div>
+								<div class="col-md-2"><strong><input type="text" readonly="readonly" style="border-bottom: 0px;" id="msg2"  value=${msg2}></strong></div>
 							</div>
 							<div class="row">
 								<div class="col-md-2">Estado:</div>
-								<div class="col-md-2"><strong><input type="text" id="msg3"  value=${msg3} readonly="readonly"  style="border-bottom: 0px;" ></strong></div>
+								<div class="col-md-2"><strong><input type="text" readonly="readonly" style="border-bottom: 0px;" id="msg3"  value='${msg3}'></strong></div>
 							</div>
 						</div>
 				
