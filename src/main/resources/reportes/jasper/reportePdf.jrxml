@@ -67,10 +67,6 @@
 	</background>
 	<title>
 		<band height="88" splitType="Stretch">
-			<image>
-				<reportElement x="0" y="30" width="200" height="20" uuid="9ad86011-a359-4c35-b921-f32456b86dea"/>
-				<imageExpression><![CDATA["src/main/resources/static/images/bdt-logo.png"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement x="215" y="30" width="440" height="30" uuid="34b552fe-f831-40c6-a067-a28cdca4cd78"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -78,6 +74,10 @@
 				</textElement>
 				<text><![CDATA[REPORTE DE PRODUCTIVIDAD]]></text>
 			</staticText>
+			<image>
+				<reportElement x="3" y="36" width="177" height="30" uuid="b4e157b0-7836-4c34-a848-b9afeb40de10"/>
+				<imageExpression><![CDATA["https://www.bodytech.com.co/media/bdt-logo.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
