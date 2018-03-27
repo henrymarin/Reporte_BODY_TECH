@@ -26,3 +26,4 @@ bin/static/
 .project
 .settings/
 bin/
+build/
