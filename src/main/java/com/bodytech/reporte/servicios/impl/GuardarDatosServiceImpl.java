@@ -223,19 +223,19 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 							    // Print results, including elapsed time
 								System.out.println("   Elapsed time in minutes: " + ( (System.currentTimeMillis() - startEstadosAgentes) * (0.0000167) ) );
 								System.out.println("	FIN DE LA CARGA DE ESTADOS POR AGENTE");
+								//--
+								List<Precarga> listadoDePrecargas = (List<Precarga>) precargaRepository.findAll();
+								if(Objects.nonNull(listadoDePrecargas) && !listadoDePrecargas.isEmpty()){
+									Precarga precargaDB = listadoDePrecargas.get(0);
+									precargaDB.setEstado("Completada");
+									precargaRepository.save(precargaDB);
+								}
+								//--
 			            	}						
 			            }
 			        });
 					System.out.println("   Elapsed time in minutes: " + ( (System.currentTimeMillis() - startTotal) * (0.0000167) ) );
 					System.out.println("	FIN DE LAX CARGAX");
-					//--
-					List<Precarga> listadoDePrecargas = (List<Precarga>) precargaRepository.findAll();
-					if(Objects.nonNull(listadoDePrecargas) && !listadoDePrecargas.isEmpty()){
-						Precarga precargaDB = listadoDePrecargas.get(0);
-						precargaDB.setEstado("Completada");
-						precargaRepository.save(precargaDB);
-					}
-					//--
 	            }
 
 				private void guardarDatosProcesoPrincipalConfigurarParticipantesEstadosPorAgenteProcesoPrincipal(String conversacionId, String agenteId,AnalyticsUserDetail userDetail) {					
