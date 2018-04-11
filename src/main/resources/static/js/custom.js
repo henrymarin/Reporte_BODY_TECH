@@ -50,7 +50,7 @@
 		    var token = obtenerElToken('access_token'); 
 		    //--llamado interno a restController 0002
 		    $.ajax({
-		        url: "http://localhost:8080/guardarDatos",
+		        url: "/guardarDatos",
 		        type: "POST",
 		        dataType: "json",
 		        contentType: "application/json",       
@@ -590,7 +590,7 @@ function reporteXLSPOST(){
 		};
 		//--			
 		var request = new XMLHttpRequest();
-		request.open('POST', 'http://localhost:8080/crearXLS', true);
+		request.open('POST', '/crearXLS', true);
 		request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 		request.responseType = 'blob';
 
@@ -683,7 +683,7 @@ function reportePDFPOST(){
 		};
 		//--			
 		var request = new XMLHttpRequest();
-		request.open('POST', 'http://localhost:8080/crearPDF', true);
+		request.open('POST', '/crearPDF', true);
 		request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 		request.responseType = 'blob';
 		//--

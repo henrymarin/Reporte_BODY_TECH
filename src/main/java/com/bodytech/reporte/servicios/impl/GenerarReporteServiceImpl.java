@@ -301,7 +301,7 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 		String sql;
 		Query q;
 		btsReporteMapping.setTiempoProductivoAgente(CERO);				
-		sql = "SELECT IFNULL(SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_estado, fecha_fin_estado)),0) as hora FROM estados_por_agente m WHERE UPPER(estado) IN ('ON_QUEUE', 'BUSY', 'MEETING', 'TRAINING') AND DATE(m.fecha_inicio_estado) = :fechaBase AND m.id_agente = :idAgente";
+		sql = "SELECT IFNULL(SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_estado, fecha_fin_estado)),0) as hora FROM estados_por_agente m WHERE UPPER(estado) IN ('IDLE', 'BUSY', 'MEETING', 'TRAINING') AND DATE(m.fecha_inicio_estado) = :fechaBase AND m.id_agente = :idAgente";
 		q = entityManager.createNativeQuery(sql);								
 		q.setParameter("fechaBase", fechaBase+" 00:00:00");
 		q.setParameter("idAgente", btsReporteMapping.getIdAgente());		
