@@ -113,11 +113,16 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
         	System.out.println("<                                                                                       >");
         	System.out.println("<                                                                                       >");
         	System.out.println("<                                                                                       >");
-        	System.out.println("<                                                                                       >");
+        	System.out.println("<                                        XXXXXXXX                                       >");
         	System.out.println("<                                                                                       >");
         	System.out.println("<                                                                                       >");
         	System.out.println("<<<<<<<-------------------------------------OO------------------------------------>>>>>>");
         	System.out.println("        INICIO DEL PROCESO DE LA CARGA---------->>>>>>");
+        	System.out.println("                                                                                       ");
+        	System.out.println("                                                                                       ");
+        	System.out.println("Intervalo de Fechas---->>  " + dto.getFechaUno()+"/"+dto.getFechaDos());
+        	System.out.println("                                                                                       ");
+        	System.out.println("                                                                                       ");
         	//--I N I C I O		Proceso de eliminacion de registros existente
         	conversacionRepository.deleteAll();
         	conversacionesPorTipoRepository.deleteAll();
@@ -131,7 +136,6 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 			precargaRepository.save(precarga);
         	//--
 			System.out.println("        		PROCESO DE LA CARGA DE CONVERSACIONES Y DE SUS TIPOS");
-        	System.out.println("Intervalo de Fechas---->>  " + dto.getFechaUno()+"/"+dto.getFechaDos());
         	// Start the clock
         	long start = System.currentTimeMillis();
 			// Configure SDK settings
@@ -144,6 +148,7 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 			Integer paginaConversationQuery = 1;
 			boolean conversationQueryObtuvoResultados = true;
 			int totalConversacionesInsertadas = 0;
+			int totalConversacionesInsertadasTmp = 0;
 			int maximosRegistrosAInsertar = 250;
 	        do {
 	        	//--
@@ -156,22 +161,26 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 							List<AnalyticsConversation> conversations = result.getConversations();
 							for (AnalyticsConversation conversacionPC : conversations) {
 								guardarDatosProcesoPrincipal(conversacionPC, dto);
+								//--
+								totalConversacionesInsertadas+=1;
+								totalConversacionesInsertadasTmp+=1;
+								if( totalConversacionesInsertadasTmp==301 ){
+									System.out.println("------------------------------------------------------------------    A L E L U Y A     !!");
+								}
+								if( totalConversacionesInsertadas==maximosRegistrosAInsertar ){
+									try {
+										//cada n saves espera 30 segundos (30000 ==  a 1 minuto y medio; 60000 == a un minuto)
+										//cada n saves espera 30 segundos (30000 ==  a 30 segundos; 60000 == a 60 segundos, 15000 == a 15 segundos)
+										totalConversacionesInsertadas = 0;
+										System.out.println("---------------------------------------------------------------------INICIANDO ESPERA 0001");
+										Thread.sleep(10000);
+									} catch (InterruptedException e) {
+										logger.error("erro.", e);
+									}
+								}
+								//--								
 							}
 							paginaConversationQuery+=1;
-							//--
-							totalConversacionesInsertadas = totalConversacionesInsertadas + 1;
-							if( totalConversacionesInsertadas==maximosRegistrosAInsertar ){
-								try {
-									//cada n saves espera 30 segundos (30000 ==  a 1 minuto y medio; 60000 == a un minuto)
-									//cada n saves espera 30 segundos (30000 ==  a 30 segundos; 60000 == a 60 segundos, 15000 == a 25 segundos)
-									totalConversacionesInsertadas = 0;
-									System.out.println("----------------------------------------------------------INICIANDO ESPERA 0001");
-									Thread.sleep(15000);
-								} catch (InterruptedException e) {
-									logger.error("erro.", e);
-								}
-							}
-							//--
 						}else{
 							conversationQueryObtuvoResultados = false;
 						}
@@ -201,8 +210,8 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 				try {
 					//cada n saves espera 30 segundos (30000 ==  a 1 minuto y medio; 60000 == a un minuto)
 					//cada n saves espera 30 segundos (30000 ==  a 30 segundos; 60000 == a 60 segundos, 15000 == a 25 segundos)
-					System.out.println("----------------------------------------------------------INICIANDO ESPERA 0002");
-					Thread.sleep(15000);
+					System.out.println("---------------------------------------------------------------------INICIANDO ESPERA 0002");
+					Thread.sleep(10000);
 				} catch (InterruptedException e) {
 					logger.error("erro.", e);
 				}
