@@ -50,7 +50,9 @@
 		    var token = obtenerElToken('access_token'); 
 		    //--llamado interno a restController 0002
 		    $.ajax({
-		        url: "/guardarDatos",
+                async:true,    
+                cache:false,  
+		    	url: "/guardarDatos",
 		        type: "POST",
 		        dataType: "json",
 		        contentType: "application/json",       
@@ -67,6 +69,15 @@
 		            $('#msg3').val(data.estado);
 		        }
 		    });
+		    
+		    $.ajax({
+ 
+                success:  function(respuesta){  
+                    div.html(respuesta);
+                },
+                beforeSend:function(){},
+                error:function(objXMLHttpRequest){}
+              });
 		    
 		}
 	}

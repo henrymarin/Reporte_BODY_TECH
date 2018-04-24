@@ -20,7 +20,7 @@ jar {
 	version = '0.0.1-SNAPSHOT'
 }
 
-war.baseName = 'REPORTE_BODYTECH-'
+war.baseName = 'REPORTE_BODYTECH-00001'
 
 sourceCompatibility = 1.8
 
