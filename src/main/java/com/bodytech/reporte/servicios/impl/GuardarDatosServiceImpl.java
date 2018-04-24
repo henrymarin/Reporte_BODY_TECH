@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +40,6 @@ import com.mypurecloud.sdk.v2.model.AnalyticsQueryPredicate;
 import com.mypurecloud.sdk.v2.model.AnalyticsRoutingStatusRecord;
 import com.mypurecloud.sdk.v2.model.AnalyticsSession;
 import com.mypurecloud.sdk.v2.model.AnalyticsUserDetail;
-import com.mypurecloud.sdk.v2.model.AnalyticsUserDetailsQueryResponse;
 import com.mypurecloud.sdk.v2.model.AnalyticsUserPresenceRecord;
 import com.mypurecloud.sdk.v2.model.ConversationQuery;
 import com.mypurecloud.sdk.v2.model.PagingSpec;
@@ -81,13 +82,34 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 	}
 	
 	
+	public  void guardarDatosDepuradoConCargaDeAgentesXXXXXX(DtoEntrada dto) {
+		
+		Timer timer;
+		timer = new Timer();
+		TimerTask task = new TimerTask() {
+	        int tic=0;
+	        @Override
+	        public void run(){
+	            if (tic%2==0)
+	            	System.out.println("TIC");
+				else
+					System.out.println("TOC");
+				tic++;
+			}
+		};
+		// Empezamos dentro de 10ms y luego lanzamos la tarea cada 60000ms es decir un minuto
+		timer.schedule(task, 1, 30000);
+	}
+	
 
 	@Override
 	public  void guardarDatosDepuradoConCargaDeAgentes(DtoEntrada dto) {
 		
+		
 			//--1
 
         	long startTotal = System.currentTimeMillis();
+        	System.out.println("<<<<<<<-------------------------------------OO------------------------------------>>>>>>");
         	System.out.println("<                                                                                       >");
         	System.out.println("<                                                                                       >");
         	System.out.println("<                                                                                       >");
@@ -121,8 +143,10 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 			//--
 			Integer paginaConversationQuery = 1;
 			boolean conversationQueryObtuvoResultados = true;
+			int totalConversacionesInsertadas = 0;
+			int maximosRegistrosAInsertar = 250;
 	        do {
-	            //--
+	        	//--
 				ConversationQuery body = new ConversationQuery(); // ConversationQuery | query
 				guardarDatosCrearFiltroConversationQuery(body, dto, paginaConversationQuery);
 				    try {
@@ -134,6 +158,20 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 								guardarDatosProcesoPrincipal(conversacionPC, dto);
 							}
 							paginaConversationQuery+=1;
+							//--
+							totalConversacionesInsertadas = totalConversacionesInsertadas + 1;
+							if( totalConversacionesInsertadas==maximosRegistrosAInsertar ){
+								try {
+									//cada n saves espera 30 segundos (30000 ==  a 1 minuto y medio; 60000 == a un minuto)
+									//cada n saves espera 30 segundos (30000 ==  a 30 segundos; 60000 == a 60 segundos, 15000 == a 25 segundos)
+									totalConversacionesInsertadas = 0;
+									System.out.println("----------------------------------------------------------INICIANDO ESPERA 0001");
+									Thread.sleep(15000);
+								} catch (InterruptedException e) {
+									logger.error("erro.", e);
+								}
+							}
+							//--
 						}else{
 							conversationQueryObtuvoResultados = false;
 						}
@@ -160,6 +198,14 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 			try {
 				Integer paginaGetUsersQuery = 1;
 				boolean getUsersQueryObtuvoResultados = true;
+				try {
+					//cada n saves espera 30 segundos (30000 ==  a 1 minuto y medio; 60000 == a un minuto)
+					//cada n saves espera 30 segundos (30000 ==  a 30 segundos; 60000 == a 60 segundos, 15000 == a 25 segundos)
+					System.out.println("----------------------------------------------------------INICIANDO ESPERA 0002");
+					Thread.sleep(15000);
+				} catch (InterruptedException e) {
+					logger.error("erro.", e);
+				}
 		        do {
 					UserEntityListing entidadConUsuarios = UsersApiInstance .getUsers(pageSize, paginaGetUsersQuery, new ArrayList<>(), sortOrder, new ArrayList<>());
 					if(Objects.nonNull(entidadConUsuarios) && Objects.nonNull(entidadConUsuarios.getEntities()) && !entidadConUsuarios.getEntities().isEmpty()){
@@ -188,7 +234,7 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 		        }while (getUsersQueryObtuvoResultados);
 			    // Print results, including elapsed time
 				System.out.println("   Elapsed time in minutes: " + ( (System.currentTimeMillis() - startAgentes) * (0.0000167) ) );
-				System.out.println("	FIN DE LA CARGA DE LA CARGA DE AGENTES");
+				System.out.println("	FIN DE LA CARGA DE AGENTES");
 	        	System.out.println("<                                                                                       >");
 	        	System.out.println("<                                                                                       >");
 			} catch (ApiException | IOException e) {
@@ -197,50 +243,50 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 			//FIN poceso de carga de agentes
 
 			//inicio E S T A D  O S 		DE LOS AGENTES, columnas [K, L, C, P, Q]
-        	long startEstadosAgentes = System.currentTimeMillis();
-        	estadosPorAgenteRepository.deleteAll();	 
-        	System.out.println("        		PROCESO DE LA CARGA DE ESTADOS DE LOS AGENTES");
-        	List<Agente> listadoDeAgentes =  (List<Agente>) agenteRepository.findAll();
-        	if(Objects.nonNull(listadoDeAgentes) && !listadoDeAgentes.isEmpty()){
-            	for (Agente agente : listadoDeAgentes) {
-					// 			E S T A D  O S 		DE LOS AGENTES, columnas [K, L, C, P, Q]
-					Integer paginaUserDetailsQuery = 1;
-					boolean userDetailsQueryObtuvoResultados = true;
-			        do {										
-			        	UserDetailsQuery userBody = guardarDatosProcesoPrincipalConfigurarParticipantesCrearFiltroUserDetail(agente.getIdAgente(), dto, paginaUserDetailsQuery);
-						try {
-							UsersApi userApiInstance = new UsersApi();
-					    	//						<<<<--- R E S P O N S E 	postAnalyticsUsersDetailsQuery---->>>>>						
-						    AnalyticsUserDetailsQueryResponse userResult = userApiInstance.postAnalyticsUsersDetailsQuery(userBody);
-						    if(Objects.nonNull(userResult) && Objects.nonNull(userResult.getUserDetails()) && !userResult.getUserDetails().isEmpty()){
-							    List<AnalyticsUserDetail> userDetails = userResult.getUserDetails();											    
-							    for (AnalyticsUserDetail userDetail : userDetails) {
-							    	guardarDatosProcesoPrincipalConfigurarParticipantesEstadosPorAgenteProcesoPrincipal(agente.getId().toString(), agente.getIdAgente(), userDetail);
-								}
-							    paginaUserDetailsQuery += 1;
-						    }else{
-						    	userDetailsQueryObtuvoResultados = false;
-						    }
-						} catch (ApiException | IOException e) {
-							logger.error("E S T A D  O S 		DE LOS AGENTES, columnas [K, L, C, P, Q]" + e.getMessage(), e);
-						}								        	
-			        } while (userDetailsQueryObtuvoResultados);
-			        //fin estado de los agentes
-            	}
-			    // Print results, including elapsed time
-				System.out.println("   Elapsed time in minutes: " + ( (System.currentTimeMillis() - startEstadosAgentes) * (0.0000167) ) );
-				System.out.println("	FIN DE LA CARGA DE ESTADOS POR AGENTE");
-				//--
-	        	System.out.println("<                                                                                       >");
-	        	System.out.println("<                                                                                       >");
-				List<Precarga> listadoDePrecargas = (List<Precarga>) precargaRepository.findAll();
-				if(Objects.nonNull(listadoDePrecargas) && !listadoDePrecargas.isEmpty()){
-					Precarga precargaDB = listadoDePrecargas.get(0);
-					precargaDB.setEstado("Completada");
-					precargaRepository.save(precargaDB);
-				}
-				//--
-        	}
+//        	long startEstadosAgentes = System.currentTimeMillis();
+//        	estadosPorAgenteRepository.deleteAll();	 
+//        	System.out.println("        		PROCESO DE LA CARGA DE ESTADOS DE LOS AGENTES");
+//        	List<Agente> listadoDeAgentes =  (List<Agente>) agenteRepository.findAll();
+//        	if(Objects.nonNull(listadoDeAgentes) && !listadoDeAgentes.isEmpty()){
+//            	for (Agente agente : listadoDeAgentes) {
+//					// 			E S T A D  O S 		DE LOS AGENTES, columnas [K, L, C, P, Q]
+//					Integer paginaUserDetailsQuery = 1;
+//					boolean userDetailsQueryObtuvoResultados = true;
+//			        do {										
+//			        	UserDetailsQuery userBody = guardarDatosProcesoPrincipalConfigurarParticipantesCrearFiltroUserDetail(agente.getIdAgente(), dto, paginaUserDetailsQuery);
+//						try {
+//							UsersApi userApiInstance = new UsersApi();
+//					    	//						<<<<--- R E S P O N S E 	postAnalyticsUsersDetailsQuery---->>>>>						
+//						    AnalyticsUserDetailsQueryResponse userResult = userApiInstance.postAnalyticsUsersDetailsQuery(userBody);
+//						    if(Objects.nonNull(userResult) && Objects.nonNull(userResult.getUserDetails()) && !userResult.getUserDetails().isEmpty()){
+//							    List<AnalyticsUserDetail> userDetails = userResult.getUserDetails();											    
+//							    for (AnalyticsUserDetail userDetail : userDetails) {
+//							    	guardarDatosProcesoPrincipalConfigurarParticipantesEstadosPorAgenteProcesoPrincipal(agente.getId().toString(), agente.getIdAgente(), userDetail);
+//								}
+//							    paginaUserDetailsQuery += 1;
+//						    }else{
+//						    	userDetailsQueryObtuvoResultados = false;
+//						    }
+//						} catch (ApiException | IOException e) {
+//							logger.error("E S T A D  O S 		DE LOS AGENTES, columnas [K, L, C, P, Q]" + e.getMessage(), e);
+//						}								        	
+//			        } while (userDetailsQueryObtuvoResultados);
+//			        //fin estado de los agentes
+//            	}
+//			    // Print results, including elapsed time
+//				System.out.println("   Elapsed time in minutes: " + ( (System.currentTimeMillis() - startEstadosAgentes) * (0.0000167) ) );
+//				System.out.println("	FIN DE LA CARGA DE ESTADOS POR AGENTE");
+//				//--
+//	        	System.out.println("<                                                                                       >");
+//	        	System.out.println("<                                                                                       >");
+//				List<Precarga> listadoDePrecargas = (List<Precarga>) precargaRepository.findAll();
+//				if(Objects.nonNull(listadoDePrecargas) && !listadoDePrecargas.isEmpty()){
+//					Precarga precargaDB = listadoDePrecargas.get(0);
+//					precargaDB.setEstado("Completada");
+//					precargaRepository.save(precargaDB);
+//				}
+//				//--
+//        	}
 			System.out.println("   Elapsed time in minutes: " + ( (System.currentTimeMillis() - startTotal) * (0.0000167) ) );
 			System.out.println("	FIN DE LAX CARGAX");
 	}
