@@ -70,15 +70,6 @@
 		        }
 		    });
 		    
-		    $.ajax({
- 
-                success:  function(respuesta){  
-                    div.html(respuesta);
-                },
-                beforeSend:function(){},
-                error:function(objXMLHttpRequest){}
-              });
-		    
 		}
 	}
 
