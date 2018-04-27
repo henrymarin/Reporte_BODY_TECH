@@ -40,6 +40,7 @@ import com.mypurecloud.sdk.v2.model.AnalyticsQueryPredicate;
 import com.mypurecloud.sdk.v2.model.AnalyticsRoutingStatusRecord;
 import com.mypurecloud.sdk.v2.model.AnalyticsSession;
 import com.mypurecloud.sdk.v2.model.AnalyticsUserDetail;
+import com.mypurecloud.sdk.v2.model.AnalyticsUserDetailsQueryResponse;
 import com.mypurecloud.sdk.v2.model.AnalyticsUserPresenceRecord;
 import com.mypurecloud.sdk.v2.model.ConversationQuery;
 import com.mypurecloud.sdk.v2.model.PagingSpec;
@@ -252,50 +253,50 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
 			//FIN poceso de carga de agentes
 
 			//inicio E S T A D  O S 		DE LOS AGENTES, columnas [K, L, C, P, Q]
-//        	long startEstadosAgentes = System.currentTimeMillis();
-//        	estadosPorAgenteRepository.deleteAll();	 
-//        	System.out.println("        		PROCESO DE LA CARGA DE ESTADOS DE LOS AGENTES");
-//        	List<Agente> listadoDeAgentes =  (List<Agente>) agenteRepository.findAll();
-//        	if(Objects.nonNull(listadoDeAgentes) && !listadoDeAgentes.isEmpty()){
-//            	for (Agente agente : listadoDeAgentes) {
-//					// 			E S T A D  O S 		DE LOS AGENTES, columnas [K, L, C, P, Q]
-//					Integer paginaUserDetailsQuery = 1;
-//					boolean userDetailsQueryObtuvoResultados = true;
-//			        do {										
-//			        	UserDetailsQuery userBody = guardarDatosProcesoPrincipalConfigurarParticipantesCrearFiltroUserDetail(agente.getIdAgente(), dto, paginaUserDetailsQuery);
-//						try {
-//							UsersApi userApiInstance = new UsersApi();
-//					    	//						<<<<--- R E S P O N S E 	postAnalyticsUsersDetailsQuery---->>>>>						
-//						    AnalyticsUserDetailsQueryResponse userResult = userApiInstance.postAnalyticsUsersDetailsQuery(userBody);
-//						    if(Objects.nonNull(userResult) && Objects.nonNull(userResult.getUserDetails()) && !userResult.getUserDetails().isEmpty()){
-//							    List<AnalyticsUserDetail> userDetails = userResult.getUserDetails();											    
-//							    for (AnalyticsUserDetail userDetail : userDetails) {
-//							    	guardarDatosProcesoPrincipalConfigurarParticipantesEstadosPorAgenteProcesoPrincipal(agente.getId().toString(), agente.getIdAgente(), userDetail);
-//								}
-//							    paginaUserDetailsQuery += 1;
-//						    }else{
-//						    	userDetailsQueryObtuvoResultados = false;
-//						    }
-//						} catch (ApiException | IOException e) {
-//							logger.error("E S T A D  O S 		DE LOS AGENTES, columnas [K, L, C, P, Q]" + e.getMessage(), e);
-//						}								        	
-//			        } while (userDetailsQueryObtuvoResultados);
-//			        //fin estado de los agentes
-//            	}
-//			    // Print results, including elapsed time
-//				System.out.println("   Elapsed time in minutes: " + ( (System.currentTimeMillis() - startEstadosAgentes) * (0.0000167) ) );
-//				System.out.println("	FIN DE LA CARGA DE ESTADOS POR AGENTE");
-//				//--
-//	        	System.out.println("<                                                                                       >");
-//	        	System.out.println("<                                                                                       >");
-//				List<Precarga> listadoDePrecargas = (List<Precarga>) precargaRepository.findAll();
-//				if(Objects.nonNull(listadoDePrecargas) && !listadoDePrecargas.isEmpty()){
-//					Precarga precargaDB = listadoDePrecargas.get(0);
-//					precargaDB.setEstado("Completada");
-//					precargaRepository.save(precargaDB);
-//				}
-//				//--
-//        	}
+        	long startEstadosAgentes = System.currentTimeMillis();
+        	estadosPorAgenteRepository.deleteAll();	 
+        	System.out.println("        		PROCESO DE LA CARGA DE ESTADOS DE LOS AGENTES");
+        	List<Agente> listadoDeAgentes =  (List<Agente>) agenteRepository.findAll();
+        	if(Objects.nonNull(listadoDeAgentes) && !listadoDeAgentes.isEmpty()){
+            	for (Agente agente : listadoDeAgentes) {
+					// 			E S T A D  O S 		DE LOS AGENTES, columnas [K, L, C, P, Q]
+					Integer paginaUserDetailsQuery = 1;
+					boolean userDetailsQueryObtuvoResultados = true;
+			        do {										
+			        	UserDetailsQuery userBody = guardarDatosProcesoPrincipalConfigurarParticipantesCrearFiltroUserDetail(agente.getIdAgente(), dto, paginaUserDetailsQuery);
+						try {
+							UsersApi userApiInstance = new UsersApi();
+					    	//						<<<<--- R E S P O N S E 	postAnalyticsUsersDetailsQuery---->>>>>						
+						    AnalyticsUserDetailsQueryResponse userResult = userApiInstance.postAnalyticsUsersDetailsQuery(userBody);
+						    if(Objects.nonNull(userResult) && Objects.nonNull(userResult.getUserDetails()) && !userResult.getUserDetails().isEmpty()){
+							    List<AnalyticsUserDetail> userDetails = userResult.getUserDetails();											    
+							    for (AnalyticsUserDetail userDetail : userDetails) {
+							    	guardarDatosProcesoPrincipalConfigurarParticipantesEstadosPorAgenteProcesoPrincipal(agente.getId().toString(), agente.getIdAgente(), userDetail);
+								}
+							    paginaUserDetailsQuery += 1;
+						    }else{
+						    	userDetailsQueryObtuvoResultados = false;
+						    }
+						} catch (ApiException | IOException e) {
+							logger.error("E S T A D  O S 		DE LOS AGENTES, columnas [K, L, C, P, Q]" + e.getMessage(), e);
+						}								        	
+			        } while (userDetailsQueryObtuvoResultados);
+			        //fin estado de los agentes
+            	}
+			    // Print results, including elapsed time
+				System.out.println("   Elapsed time in minutes: " + ( (System.currentTimeMillis() - startEstadosAgentes) * (0.0000167) ) );
+				System.out.println("	FIN DE LA CARGA DE ESTADOS POR AGENTE");
+				//--
+	        	System.out.println("<                                                                                       >");
+	        	System.out.println("<                                                                                       >");
+				List<Precarga> listadoDePrecargas = (List<Precarga>) precargaRepository.findAll();
+				if(Objects.nonNull(listadoDePrecargas) && !listadoDePrecargas.isEmpty()){
+					Precarga precargaDB = listadoDePrecargas.get(0);
+					precargaDB.setEstado("Completada");
+					precargaRepository.save(precargaDB);
+				}
+				//--
+        	}
 			System.out.println("   Elapsed time in minutes: " + ( (System.currentTimeMillis() - startTotal) * (0.0000167) ) );
 			System.out.println("	FIN DE LAX CARGAX");
 	}
