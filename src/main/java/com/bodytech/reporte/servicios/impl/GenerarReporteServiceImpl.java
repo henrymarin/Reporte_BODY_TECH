@@ -220,9 +220,13 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 				if (!Objects.isNull(btsReporteMapping.getTiempoIntervaloVoz())  && !CERO.equals(btsReporteMapping.getTiempoIntervaloVoz()) ) {
 					tiempoIntervaloVoz = Double.parseDouble(btsReporteMapping.getTiempoIntervaloVoz());
 					numeroInteracciones = Integer.parseInt(btsReporteMapping.getNumeroInteraccionesVoz());
-					if(numeroInteracciones>0){
-						btsReporteMapping.setTiempoPromedioVoz(String.valueOf(decimalFormat.format(tiempoIntervaloVoz / numeroInteracciones)));	
-					}					
+					
+					double tmo001 = tiempoIntervaloVoz / numeroInteracciones;
+					String tmpo002 = String.valueOf(decimalFormat.format(tmo001));
+					if(tmpo002.length()==2){
+						tmpo002 = "0" + String.valueOf(tmpo002);
+					}
+					btsReporteMapping.setTiempoPromedioVoz(tmpo002);	
 				}				
 				
 				// Calcular tiempo promedio chat
@@ -261,14 +265,18 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 					Date dateIn = null;
 					
 					try {
-						dateOff = formatter.parse(btsReporteMapping.getHoraCierreSesion().trim().replaceAll("\\s",""));
-					} catch (ParseException e) {						
+						if(!"00:00".equalsIgnoreCase(btsReporteMapping.getHoraCierreSesion().trim())){
+							dateOff = formatter.parse(btsReporteMapping.getHoraCierreSesion().trim().replaceAll("\\s",""));
+						}
+					} catch (ParseException|NumberFormatException e) {						
 						logger.error(GenerarReporteServiceImpl.class.toString() + " Error formateando hora logoff - Agente=" + btsReporteMapping.getIdAgente() + " - Fecha=" + btsReporteMapping.getFecha(), e);
 					}
 					
 					try {
-						dateIn = formatter.parse(btsReporteMapping.getHoraIngresoCola().trim().replaceAll("\\s",""));
-					} catch (ParseException e) {
+						if(!"00:00".equalsIgnoreCase(btsReporteMapping.getHoraIngresoCola().trim())){
+							dateIn = formatter.parse(btsReporteMapping.getHoraIngresoCola().trim().replaceAll("\\s",""));
+						}
+					} catch (ParseException|NumberFormatException e) {
 						logger.error(GenerarReporteServiceImpl.class.toString() + " Error formateando hora login - Agente=" + btsReporteMapping.getIdAgente() + " - Fecha=" + btsReporteMapping.getFecha(), e);
 					}
 					
