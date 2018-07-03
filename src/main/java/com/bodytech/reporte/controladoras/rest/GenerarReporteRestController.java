@@ -77,10 +77,11 @@ public class GenerarReporteRestController {
 			List<BTSReporteMapping> lista = servicio.generarReporteSinPaginado(request);
 			//--
 			List<String> headers = Arrays.asList(
-					"Fecha","Nombre del Agente", "Hora de ingreso a la Cola", "N\u00famero de Interacciones por Voz", "N\u00famero de Interacciones por Chat", 
-					"N\u00famero de Interacciones por Email", "Tiempo de Intervalo por Voz", "Tiempo de Intervalo por Chat", "Tiempo de Intervalo por Email", 
-					"Tiempo de Pausa", "Tiempo de Almuerzo", "Tiempo de Break", "Tiempo Promedio por Voz", "Tiempo Promedio por Chat",
-					"Tiempo Promedio por Email", "Hora de Cierre de Sesion", "Tiempo Productivo del Agente", "Porcentaje de Productividad del Agente");
+					"Fecha \n DD:MM:AA","Nombre Agente", "Hora ingreso Cola \n hh:mm:ss", "N\u00famero Interacciones Voz", "N\u00famero Interacciones Chat", 
+					"N\u00famero Interacciones Email", "Tiempo Intervalo Voz \n hh:mm:ss", "Tiempo Intervalo Chat \n hh:mm:ss", "Tiempo Intervalo Email \n hh:mm:ss", 
+					"Tiempo Promedio Voz (s)", "Tiempo Promedio Chat (s)", "Tiempo Promedio Email (s)",
+					"Tiempo Pausa \n hh:mm:ss", "Tiempo Disponible \n hh:mm:ss", "Tiempo Ocupado \n hh:mm:ss", "Tiempo Ausente \n hh:mm:ss", "Tiempo Descanso \n hh:mm:ss", "Tiempo Comida \n hh:mm:ss", "Tiempo en Reunión \n hh:mm:ss",
+					"Tiempo en Capacitación \n hh:mm:ss", "Tiempo En Cola \n hh:mm:ss", "Hora Inicio Sesión \n hh:mm:ss", "Hora Cierre de Sesión \n hh:mm:ss", "Tiempo Productivo Agente \n hh:mm:ss", "Porcentaje Productividad Agente");
 			
 			try {
 				ServletOutputStream servletOutputStream = response.getOutputStream();
@@ -92,8 +93,9 @@ public class GenerarReporteRestController {
 						headers, lista, 
 								"fecha, nombreAgente, horaIngresoCola, numeroInteraccionesVoz, numeroInteraccionesChat,"+ 
 								"numeroInteraccionesEmail, tiempoIntervaloVoz, tiempoIntervaloChat, tiempoIntervaloEmail,"+ 
-								"tiempoPausa, tiempoAlmuerzo, tiempoBreak, tiempoPromedioVoz, tiempoPromedioChat,"+
-								"tiempoPromedioEmail, horaCierreSesion, tiempoProductivoAgente, porcentajeProductividadAgente",
+								"tiempoPromedioVoz, tiempoPromedioChat,tiempoPromedioEmail, tiempoPausa, tiempoDisponible, "+		
+								"tiempoOcupado, tiempoAusente, tiempoBreak, tiempoAlmuerzo, tiempoEnReunion, tiempoEnCapacitacion, "
+								+ "tiempoEnCola, horaInicioSesion, horaCierreSesion, tiempoProductivoAgente, porcentajeProductividadAgente",
 						response.getOutputStream());
 				//--			
 		        servletOutputStream.flush();

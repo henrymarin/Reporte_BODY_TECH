@@ -19,10 +19,17 @@ public class BTSReporteMapping {
 	private String tiempoPromedioChat;
 	private String tiempoPromedioEmail;
 	private String horaCierreSesion;
+	private String horaInicioSesion;
 	private String tiempoProductivoAgente;
 	private String porcentajeProductividadAgente;
 	private String idAgente;
 	private String tiempoProductivoAgenteUno;
+	private String tiempoDisponible;
+	private String tiempoOcupado;
+	private String tiempoAusente;
+	private String tiempoEnReunion;
+	private String tiempoEnCapacitacion;
+	private String tiempoEnCola;
 	
 	public BTSReporteMapping() {
 		super();
@@ -217,7 +224,61 @@ public class BTSReporteMapping {
 	public void setTiempoProductivoAgenteUno(String tiempoProductivoAgenteUno) {
 		this.tiempoProductivoAgenteUno = tiempoProductivoAgenteUno;
 	}
-	
-	
-	
+
+	public String getTiempoDisponible() {
+		return tiempoDisponible;
+	}
+
+	public void setTiempoDisponible(String tiempoDisponible) {
+		this.tiempoDisponible = tiempoDisponible;
+	}
+
+	public String getTiempoOcupado() {
+		return tiempoOcupado;
+	}
+
+	public void setTiempoOcupado(String tiempoOcupado) {
+		this.tiempoOcupado = tiempoOcupado;
+	}
+
+	public String getTiempoAusente() {
+		return tiempoAusente;
+	}
+
+	public void setTiempoAusente(String tiempoAusente) {
+		this.tiempoAusente = tiempoAusente;
+	}
+
+	public String getTiempoEnReunion() {
+		return tiempoEnReunion;
+	}
+
+	public void setTiempoEnReunion(String tiempoEnReunion) {
+		this.tiempoEnReunion = tiempoEnReunion;
+	}
+
+	public String getTiempoEnCapacitacion() {
+		return tiempoEnCapacitacion;
+	}
+
+	public void setTiempoEnCapacitacion(String tiempoEnCapacitacion) {
+		this.tiempoEnCapacitacion = tiempoEnCapacitacion;
+	}
+
+	public String getTiempoEnCola() {
+		return tiempoEnCola;
+	}
+
+	public void setTiempoEnCola(String tiempoEnCola) {
+		this.tiempoEnCola = tiempoEnCola;
+	}
+
+	public String getHoraInicioSesion() {
+		return horaInicioSesion;
+	}
+
+	public void setHoraInicioSesion(String horaInicioSesion) {
+		this.horaInicioSesion = horaInicioSesion;
+	}
+		
 }

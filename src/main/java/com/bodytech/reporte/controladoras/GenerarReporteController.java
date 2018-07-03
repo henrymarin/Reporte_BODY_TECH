@@ -79,7 +79,7 @@ public class GenerarReporteController {
 				"Item", "Nombre del Agente", "Hora de ingreso a la Cola", "N\u00famero de Interacciones por Voz", "N\u00famero de Interacciones por Chat", 
 				"N\u00famero de Interacciones por Email", "Tiempo de Intervalo por Voz", "Tiempo de Intervalo por Chat", "Tiempo de Intervalo por Email", 
 				"Tiempo de Pausa", "Tiempo de Almuerzo", "Tiempo de Break", "Tiempo Promedio por Voz", "Tiempo Promedio por Chat",
-				"Tiempo Promedio por Email", "Hora de Cierre de Sesion", "Tiempo de Productivo del Agente");
+				"Tiempo Promedio por Email", "Hora de Cierre de Sesión", "Tiempo de Productivo del Agente");
 		try {
 			response.addHeader("Content-disposition", "attachment; filename=reporteExcel.xls");
 			response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);

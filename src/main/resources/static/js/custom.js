@@ -183,8 +183,8 @@
 	        setTimeout("$('.dgcAlert').remove()",dgcTiempo);
 	    });
 	}
-	
-	//BOTOn PRINCIPAL
+
+	//BOTOn PRINCIPALLLL
 	function generarReporte(){
 		
 		window.location.hash = 'irArribaDeLReporte';
@@ -285,7 +285,8 @@
 				columns : [
 							 {
 								 field : 'fecha',
-								 title : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
+								 title : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+									 '<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DD:MM:AA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
 								 valign : 'middle',
 								 sortable : false,
 								 align: 'center'
@@ -299,7 +300,7 @@
 							 },
 							 {
 							        field : 'horaIngresoCola',
-							        title : 'Hora Ingreso Cola',
+							        title : 'Hora Ingreso Cola <br/> hh:mm:ss',
 							        valign : 'middle',
 							        sortable : false,
 									 align: 'center'
@@ -327,77 +328,126 @@
 							 },
 							 {
 							    field : 'tiempoIntervaloVoz',
-							    title : 'Tiempo Intervalo <br/>Voz',
+							    title : 'Tiempo Intervalo <br/>Voz <br/> hh:mm:ss',
 							    valign : 'middle',
 							    sortable : false,
 								 lign: 'center'
 							 },
 							 {
 							    field : 'tiempoIntervaloChat',
-							    title : 'Tiempo Intervalo <br/>Chat',
+							    title : 'Tiempo Intervalo <br/>Chat <br/> hh:mm:ss',
 							    valign : 'middle',
 							    sortable : false,
 								 align: 'center'
 							 },
 							 {
 							    field : 'tiempoIntervaloEmail',
-							    title : 'Tiempo Intervalo <br/>Email',
-							    valign : 'middle',
-							    sortable : false,
-								 align: 'center'
-							 },
-							 {
-							    field : 'tiempoPausa',
-								title : 'Tiempo Pausa',
-								valign : 'middle',
-								sortable : false,
-								 align: 'center'
-							 },
-							 {
-							    field : 'tiempoAlmuerzo',
-							    title : 'Tiempo Almuerzo',
-							    valign : 'middle',
-							    sortable : false,
-								 align: 'center'
-							 },
-							 {
-							    field : 'tiempoBreak',
-							    title : 'Tiempo Break',
+							    title : 'Tiempo Intervalo <br/>Email <br/> hh:mm:ss',
 							    valign : 'middle',
 							    sortable : false,
 								 align: 'center'
 							 },
 							 {
 							    field : 'tiempoPromedioVoz',
-							    title : 'Tiempo Promedio <br/>Voz (segundos)',
+							    title : 'Tiempo Promedio <br/>Voz hh:mm:ss',
 							    valign : 'middle',
 							    sortable : false,
 								 align: 'center'
-							 },
-							 {
+							},
+							{
 							    field : 'tiempoPromedioChat',
-							    title : 'Tiempo Promedio <br/>Chat (segundos)',
+							    title : 'Tiempo Promedio <br/>Chat hh:mm:ss',
 							    valign : 'middle',
 							    sortable : false,
 								 align: 'center'
-							 },
-							 {
+							},
+							{
 							    field : 'tiempoPromedioEmail',
-							    title : 'Tiempo Promedio <br/>Email (segundos)',
+							    title : 'Tiempo Promedio <br/>Email (s)',
+							    valign : 'middle',
+							    sortable : false,
+								 align: 'center'
+							},
+							{
+							    field : 'tiempoPausa',
+								title : 'Tiempo Pausa <br/> hh:mm:ss',
+								valign : 'middle',
+								sortable : false,
+								 align: 'center'
+							 },
+							 {
+							    field : 'tiempoDisponible',
+								title : 'Tiempo Disponible <br/> hh:mm:ss',
+								valign : 'middle',
+								sortable : false,
+								 align: 'center'
+							},
+							{
+							    field : 'tiempoOcupado',
+							    title : 'Tiempo Ocupado <br/> hh:mm:ss',
+							    valign : 'middle',
+							    sortable : false,
+								align: 'center'
+							 },
+							 {
+							    field : 'tiempoAusente',
+							    title : 'Tiempo Ausente <br/> hh:mm:ss',
+							    valign : 'middle',
+							    sortable : false,
+								align: 'center'
+							},
+							{
+							    field : 'tiempoBreak',
+							    title : 'Tiempo Descanso <br/> hh:mm:ss',
 							    valign : 'middle',
 							    sortable : false,
 								 align: 'center'
 							 },
 							 {
+							    field : 'tiempoAlmuerzo',
+							    title : 'Tiempo Comida <br/> hh:mm:ss',
+							    valign : 'middle',
+							    sortable : false,
+								align: 'center'
+							 },
+							 {
+							    field : 'tiempoEnReunion',
+							    title : 'Tiempo En Reunion <br/> hh:mm:ss',
+							    valign : 'middle',
+							    sortable : false,
+								align: 'center'
+							 },
+							 {
+								 field : 'tiempoEnCapacitacion',
+								 title : 'Tiempo En Capacitacion <br/> hh:mm:ss',
+								 valign : 'middle',
+								 sortable : false,
+								 align: 'center'
+							 },
+							 {
+								 field : 'tiempoEnCola',
+								 title : 'Tiempo En Cola <br/> hh:mm:ss',
+								 valign : 'middle',
+								 sortable : false,
+								 align: 'center'
+							 },
+							 {
+							    field : 'horaInicioSesion',
+							    title : 'Hora Inicio Sesion <br/> hh:mm:ss',
+							    valign : 'middle',
+							    sortable : false,
+								 align: 'center'
+							},
+							{
 							    field : 'horaCierreSesion',
-							    title : 'Hora Cierre Sesion',
+							    title : 'Hora Cierre Sesion <br/> hh:mm:ss',
 							    valign : 'middle',
 							    sortable : false,
 								 align: 'center'
 							 },
 							 {
 							    field : 'tiempoProductivoAgente',
-							    title : 'Tiempo Productivo <br/>Agente',
+							    title : 'Tiempo Productivo <br/>Agente <br/> hh:mm:ss',
 							    valign : 'middle',
 							    sortable : false,
 								 align: 'center'

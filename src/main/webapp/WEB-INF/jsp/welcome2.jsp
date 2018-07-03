@@ -52,6 +52,7 @@
 			   $("#datepicker3").datepicker();
 			   $("#datepicker4").datepicker();
 			 } );	    
+			 
 			 </script>			 
 			<script src="js/bootstrap-table.js"></script> 
 	
