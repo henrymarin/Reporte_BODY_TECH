@@ -309,7 +309,7 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 						
 						btsReporteMapping.setPorcentajeProductividadAgente(String.valueOf(Double.valueOf(porcentajeProductividadAgente).intValue()) + "%");
 					}					
-				//Formatear campos
+				 //Formatear campos
 				realizarCalculosReporteFormatearFormatoSegundos(btsReporteMapping);							
 				formatearFechaReporte(btsReporteMapping);
 			}

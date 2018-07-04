@@ -92,7 +92,7 @@ public class GuardarDatosServiceImpl implements GuardarDatosService{
         	System.out.println("<                                        MAYO 25                                        >");
         	System.out.println("<                                                                                       >");
         	System.out.println("<<<<<<<-------------------------------------OO------------------------------------->>>>>>");
-        	System.out.println("        INICIO DEL PROCESO DE LA CARGA_00001002------------------------------------>>>>>>");
+        	System.out.println("         INICIO DEL PROCESO DE LA CARGA_00001002------------------------------------>>>>>>");
         	System.out.println("                                                                                       ");
         	System.out.println("                                                                                       ");
         	System.out.println("Intervalo de Fechas---->>  " + dto.getFechaUno()+"/"+dto.getFechaDos());

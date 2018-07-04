@@ -369,7 +369,7 @@
 							    title : 'Tiempo Break',
 							    valign : 'middle',
 							    sortable : false,
-								 align: 'center'
+								align: 'center'
 							 },
 							 {
 							    field : 'tiempoPromedioVoz',
