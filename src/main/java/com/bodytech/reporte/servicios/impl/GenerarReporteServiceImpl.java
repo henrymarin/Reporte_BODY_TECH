@@ -404,7 +404,7 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 		Query q;
 		sql = "SELECT SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_estado, fecha_fin_estado))  as hora  FROM estados_por_agente m WHERE UPPER(estado) = 'TRAINING'  AND DATE(m.fecha_inicio_estado) = :fechaBase AND m.id_agente = :idAgente";
 		q = entityManager.createNativeQuery(sql); 								
-		q.setParameter("fechaBase", fechaBase+" 00:00:00");
+		q.setParameter("fechaBase", fechaBase+" 00:00:00"); 
 		q.setParameter("idAgente", btsReporteMapping.getIdAgente());
 		BigDecimal tiempoEnCapacitacion =  (BigDecimal) q.getSingleResult();
 		btsReporteMapping.setTiempoEnCapacitacion(CERO);				
