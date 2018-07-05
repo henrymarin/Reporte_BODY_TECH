@@ -235,6 +235,9 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 				// Obtener Tiempo En Cola
 				realizarCalculosReporteTiempoON_QUEUE(btsReporteMapping, fechaBase);
 				
+				// Obtener Tiempo En Cola
+				realizarCalculosReporteTiempoHOLD(btsReporteMapping, fechaBase);
+				
 					
 				// Calcular tiempo promedio voz
 				btsReporteMapping.setTiempoPromedioVoz(CERO);
@@ -368,6 +371,21 @@ public class GenerarReporteServiceImpl implements GenerarReporteService {
 		btsReporteMapping.setTiempoOcupado(CERO);				
 		if(Objects.nonNull(tiempoOcupado)){
 			btsReporteMapping.setTiempoOcupado(tiempoOcupado.toString());
+		}
+	}
+	
+	private void realizarCalculosReporteTiempoHOLD(BTSReporteMapping btsReporteMapping, String fechaBase) {
+		String sql;
+		Query q;
+		sql = "SELECT SUM(TIMESTAMPDIFF(SECOND, fecha_inicio_estado, fecha_fin_estado))  as hora  FROM estados_por_agente m WHERE UPPER(estado) = 'HOLD'  AND DATE(m.fecha_inicio_estado) = :fechaBase AND m.id_agente = :idAgente";
+		q = entityManager.createNativeQuery(sql);								
+		q.setParameter("fechaBase", fechaBase+" 00:00:00");
+		q.setParameter("idAgente", btsReporteMapping.getIdAgente());
+		BigDecimal tiempoPausa =  (BigDecimal) q.getSingleResult();
+		System.out.println("Tiempo pausa ___ "+tiempoPausa);
+		btsReporteMapping.setTiempoPausa(CERO);				
+		if(Objects.nonNull(tiempoPausa)){
+			btsReporteMapping.setTiempoPausa(tiempoPausa.toString());
 		}
 	}
 	
